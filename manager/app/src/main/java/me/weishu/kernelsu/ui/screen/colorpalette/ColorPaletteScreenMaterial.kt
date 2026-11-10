@@ -89,7 +89,6 @@ import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.component.bottombar.useNavigationRail
-import me.weishu.kernelsu.ui.component.YuhengBeastIllustration
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
 import me.weishu.kernelsu.ui.component.material.ExpressiveToggleButton
 import me.weishu.kernelsu.ui.component.material.SegmentedColumn
@@ -191,9 +190,11 @@ fun ColorPaletteScreenMaterial(
                                     verticalArrangement = Arrangement.spacedBy(6.dp),
                                 ) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        YuhengBeastIllustration(
-                                            preset = preset,
+                                        Image(
+                                            painter = painterResource(id = preset.iconRes),
+                                            contentDescription = preset.creature,
                                             modifier = Modifier.size(76.dp),
+                                            contentScale = androidx.compose.ui.layout.ContentScale.Fit,
                                         )
                                         Spacer(Modifier.weight(1f))
                                         if (selected) {
