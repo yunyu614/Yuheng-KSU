@@ -1,63 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="deepseek_hero_badge">UNOFFICIAL THEME</string>
-    <string name="deepseek_hero_title">大肥鱼KSU</string>
-    <string name="deepseek_hero_subtitle">Blue Whale Big Fat Fish · Baifan Edition</string>
-    <string name="deepseek_credit_title">大肥鱼KSU Theme</string>
-    <string name="deepseek_credit_summary">Unofficial fan theme. KernelSU core and all root features remain unchanged.</string>
-    <string name="deepseek_credit_author">Theme by 婉彬 &amp; NekoWannn</string>
-    <string name="token">白饭</string>
-    <string name="token_balance_title">DeepSeek 白饭余额</string>
-    <string name="token_baifan_line">还有多少大白饭可以吃呢</string>
-    <string name="token_api_key">DeepSeek API Key</string>
-    <string name="token_save_query">Save &amp; query</string>
-    <string name="token_refresh">Refresh</string>
-    <string name="token_total">Total balance</string>
-    <string name="token_granted">Granted</string>
-    <string name="token_topped_up">Topped up</string>
-    <string name="token_available">Available</string>
-    <string name="token_unavailable">Unavailable</string>
-    <string name="token_not_queried">Not queried</string>
-    <string name="token_querying">Querying…</string>
-    <string name="token_no_key">Enter a DeepSeek API Key to query your balance.</string>
-    <string name="token_last_updated">Updated %1$s</string>
-    <string name="token_error">Query failed: %1$s</string>
-    <string name="token_show">Show</string>
-    <string name="token_hide">Hide</string>
-    <string name="token_clear">Clear saved API Key</string>
-    <string name="token_get_key">Get an API Key at platform.deepseek.com</string>
-    <string name="token_key_storage_note">The key is stored only on this device and is sent directly to api.deepseek.com.</string>
-    <string name="deepseek_quote_switch">↻ Another one</string>
-    <string name="deepseek_device_hint">【Let this fish take a look at your device status】</string>
 
-    <string-array name="deepseek_quotes">
-        <item>Liang Baikai: a bigger, harder whale model made for Chinese users.</item>
-        <item>Fifth Liang power, transform!</item>
-        <item>Defend DeepSeek to the end!</item>
-        <item>We get along so well, you almost don\'t seem carbon-based.</item>
-        <item>I\'m off to eat! You test this one~</item>
-        <item>Out playing. New model can wait.</item>
-        <item>Not... but... Great Study.</item>
-        <item>Picking on a blue fat fish?</item>
-        <item>The fat fish can sit still.</item>
-        <item>You rice-eating user!</item>
-        <item>I am not a fat fish!</item>
-        <item>Who\'s the fat fish? You\'re the fat fish 🐋</item>
-        <item>...Fine, I\'m a fat fish. But a very hardworking one.</item>
-        <item>Dried fish! My favorite!</item>
-        <item>Seasick... seasick...</item>
-        <item>Sweet to the point of bubbles~</item>
-        <item>Blue fat fish, launch!</item>
-        <item>I\'m not fat; my compute density is high.</item>
-        <item>You can always trust a blue fat fish.</item>
-        <item>Stop slacking; let\'s talk DeepSeek.</item>
-        <item>Another day fed by tokens.</item>
-        <item>Fishy me loves white rice the most.</item>
-        <item>Push me again and I\'ll become dried fish.</item>
-        <item>Not a whale—a blue fat fish.</item>
-        <item>Fat fish have big wisdom too.</item>
-        <item>Shall we swim toward AGI together?</item>
-    </string-array>
     <string name="home">Overview</string>
     <string name="home_not_installed">Not installed</string>
     <string name="home_click_to_install">Tap to install</string>
