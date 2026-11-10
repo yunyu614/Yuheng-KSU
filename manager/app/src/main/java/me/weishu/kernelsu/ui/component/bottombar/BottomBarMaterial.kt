@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Extension
@@ -49,7 +50,8 @@ fun BottomBarMaterial(navigationBadge: NavigationBadgeState) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 18.dp, vertical = 7.dp),
+            .padding(horizontal = 18.dp, vertical = 7.dp)
+            .navigationBarsPadding(),
         contentAlignment = Alignment.Center,
     ) {
         Surface(
@@ -64,7 +66,7 @@ fun BottomBarMaterial(navigationBadge: NavigationBadgeState) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(66.dp)
+                    .height(76.dp)
                     .padding(horizontal = 7.dp),
                 horizontalArrangement = Arrangement.spacedBy(2.dp),
                 verticalAlignment = Alignment.CenterVertically,
