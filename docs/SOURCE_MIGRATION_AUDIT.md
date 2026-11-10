@@ -41,11 +41,18 @@
 - 后续再统一授权管理、模块管理、设置页。
 - 每个阶段以独立提交记录变更，先保证编译，再做真机 Root 与模块功能回归。
 
-## 当前阻塞与下一步
+## 源码导入方式
 
-GitHub 目录清单可以确认文件结构，但当前连接的文本文件读取能力不能可靠地将 506 个文件、二进制 LKM、预编译 native libraries 和所有构建资产完整搬运到新仓库。
+已新增手动 GitHub Actions 工作流：`.github/workflows/import-baifan-source.yml`。
 
-因此，在导入前需要取得完整上游源码归档（建议上传从白饭仓库指定提交导出的 ZIP，或由维护者提供完整源码包及其签名 / 二进制材料）。收到归档后再做完整性核验、导入和构建；不得用缺失二进制文件的“半成品工程”冒充可编译版本。
+运行方式：
+1. 打开玉衡仓库的 **Actions**。
+2. 选择 **Import Baifan KernelSU source**。
+3. 选择分支 `develop`，点击 **Run workflow**。
+4. 上游 ref 默认是 `main`；如需固定到某个版本，可填入对应 tag 或 commit。
+5. 工作流会将上游完整源码导入 `develop`，保留玉衡根目录 README、现有品牌文档和 `.gitignore`，把上游 README 另存为 `docs/UPSTREAM_BAIFAN_README.md`，并记录实际上游 commit。
+
+为避免未经审查的上游 CI 自动执行，导入工作流刻意不复制上游 `.github/workflows`。导入后再单独审查并配置玉衡自己的构建工作流。
 
 ## 当前验证状态
 
@@ -53,7 +60,8 @@ GitHub 目录清单可以确认文件结构，但当前连接的文本文件读�
 - [x] 建立 `develop` 分支
 - [x] 完成白饭 Manager 目录递归清点
 - [x] 识别关键签名 / LKM 耦合风险
-- [ ] 完整 Android 工程导入
+- [x] 添加手动上游源码导入工作流
+- [ ] 运行工作流并完成完整 Android 工程导入
 - [ ] Gradle 构建通过
 - [ ] 真机 Root 授权与模块操作回归
 - [ ] Material / Miuix 双 UI 主题一致性验证
