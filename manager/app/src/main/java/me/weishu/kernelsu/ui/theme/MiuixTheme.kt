@@ -48,7 +48,7 @@ fun MiuixKernelSUTheme(
             if (darkTheme) dynamicDarkColorScheme(context).primary
             else dynamicLightColorScheme(context).primary
 
-        else -> DeepSeekBlue
+        else -> YuhengJade
     }
 
     val controller = ThemeController(
