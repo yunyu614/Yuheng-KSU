@@ -7,7 +7,7 @@
 
 ## 当前结论
 
-玉衡仓库已建立独立的 `develop` 开发分支。当前仓库仍以品牌与规划文档为主，尚未导入可编译的 Android 工程；本文件记录迁移前审查结果，避免在缺少完整源码和签名材料时进行不完整迁移。
+玉衡仓库已建立独立的 `develop` 开发分支，并已导入完整 Android Manager 工程。首轮 Debug APK 已由 GitHub Actions 成功编译并上传；真机 Root、模块及 LKM 回归仍待验证。本文件记录迁移边界、已完成工作与后续检查项。
 
 对白饭项目的 `manager/` 目录进行递归清点，当前上游树包含 506 个条目。它不是单一 UI 工程：除 Kotlin / Compose 页面外，还包含 Android Manifest、Gradle 配置、AIDL、JNI / C++、预编译 native libraries、内置 LKM、WebView 资源和其他构建文件。
 
@@ -72,10 +72,10 @@
 - [x] 首页 Hero 卡片替换为玉衡品牌文案与青瓷 / 墨玉视觉。
 - [x] 首页背景、信息卡片改为青瓷雾浅色与墨玉深色配色。
 - [x] Material 与 Miuix 首页移除白饭主题署名卡片。
-- [x] 主色从原 DeepSeek 蓝调整为玉衡黛青（兼容旧变量引用，避免一次性大范围改动）。
+- [x] 主色调整为玉衡黛青，并将首页主题组件文件与 API 统一命名为 Yuheng。
 - [x] 移除底部导航中的白饭余额入口，主导航调整为总览、授权、模块、设置四项。
 - [x] 默认应用显示名称改为「玉衡」，包名仍保留 `me.weishu.kernelsu`。
 - [x] 新增 Android Debug APK 自动构建工作流。
 - [x] 执行首轮 CI，Gradle Debug APK 构建及 artifact 上传成功。
-- [ ] 清理不再使用的旧主题图片、文案与余额 API 代码（待全量引用审查）。
-- [ ] 完成青瓷雾 / 墨玉主题预设选择、持久化与双 UI token 接入。
+- [x] 移除旧主题文案、Token 余额页、API 请求仓库与 Token 插画；少量历史图片资源仍待引用审查。
+- [x] 在 Material / Miuix 主题页加入青瓷雾、墨玉预设入口，复用设置仓库持久化主题模式与种子色；待本轮 CI 验证。
