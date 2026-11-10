@@ -1,0 +1,73 @@
+name: Import Baifan KernelSU source
+
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_ref:
+        description: "Baifan source branch, tag, or commit"
+        required: true
+        default: "main"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yuheng-source-import
+  cancel-in-progress: false
+
+jobs:
+  import-source:
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'develop'
+    steps:
+      - name: Check out Yuheng develop
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: Fetch upstream source
+        env:
+          UPSTREAM_REF: ${{ inputs.upstream_ref }}
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch "$UPSTREAM_REF" \
+            https://github.com/NekoWannn/baifan-ksu-lkm.git upstream
+          echo "UPSTREAM_SHA=$(git -C upstream rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Import source while preserving Yuheng project docs
+        run: |
+          set -euo pipefail
+          mkdir -p docs
+          cp upstream/README.md docs/UPSTREAM_BAIFAN_README.md
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.gitignore' \
+            --exclude='README.md' \
+            upstream/ ./
+          cp upstream/LICENSE ./LICENSE
+          cat > docs/UPSTREAM_BASELINE.md <<EOF
+          # Upstream source baseline
+
+          - Source: https://github.com/NekoWannn/baifan-ksu-lkm
+          - Requested ref: ${{ inputs.upstream_ref }}
+          - Resolved commit: ${UPSTREAM_SHA}
+          - Imported on: ${{ github.run_id }} (GitHub Actions run)
+
+          The root README and Yuheng-specific docs are retained. Upstream workflows are
+          intentionally not imported; review and add only the workflows required by Yuheng.
+          EOF
+
+      - name: Commit imported source
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No source changes to import."
+            exit 0
+          fi
+          git commit -m "chore: import Baifan KernelSU source baseline"
+          git push origin HEAD:develop
