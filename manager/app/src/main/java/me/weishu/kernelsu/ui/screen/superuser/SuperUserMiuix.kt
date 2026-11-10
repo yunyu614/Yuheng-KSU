@@ -66,7 +66,7 @@ import androidx.compose.ui.unit.sp
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.data.model.AppInfo
 import me.weishu.kernelsu.ui.component.AppIconImage
-import me.weishu.kernelsu.ui.component.deepSeekCardGradient
+import me.weishu.kernelsu.ui.component.yuhengCardGradient
 import me.weishu.kernelsu.ui.component.ListPopupDefaults
 import me.weishu.kernelsu.ui.component.ScrollToTopOnChange
 import me.weishu.kernelsu.ui.component.SearchStatus
@@ -521,7 +521,7 @@ private fun SimpleAppItem(
         Card(
             modifier = Modifier
                 .padding(start = 6.dp, end = 12.dp, bottom = 6.dp)
-                .deepSeekCardGradient(),
+                .yuhengCardGradient(),
             colors = CardDefaults.defaultColors(color = Color.Transparent),
         ) {
             BasicComponent(
@@ -569,7 +569,7 @@ private fun GroupItem(
         modifier = Modifier
             .padding(horizontal = 12.dp)
             .padding(bottom = 12.dp)
-            .deepSeekCardGradient(),
+            .yuhengCardGradient(),
         colors = CardDefaults.defaultColors(color = Color.Transparent),
         onClick = onClickPrimary,
         onLongPress = if (group.apps.size > 1) onToggleExpand else null,
