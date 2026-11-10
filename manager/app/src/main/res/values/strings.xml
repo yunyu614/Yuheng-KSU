@@ -2,6 +2,10 @@
 <resources>
 
     <string name="home">Overview</string>
+    <string name="nav_home">Overview</string>
+    <string name="nav_superuser">Authorization</string>
+    <string name="nav_module">Modules</string>
+    <string name="nav_settings">Settings</string>
     <string name="home_not_installed">Not installed</string>
     <string name="home_click_to_install">Tap to install</string>
     <string name="home_working">Working</string>
