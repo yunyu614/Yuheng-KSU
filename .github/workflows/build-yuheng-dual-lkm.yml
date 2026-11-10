@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: yuheng-lkm-build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build kernelsu.ko (android16-6.12)

@@ -233,7 +233,7 @@ fun ColorPaletteScreenMaterial(
                                     Text(
                                         text = preset.creature,
                                         style = MaterialTheme.typography.bodyMedium,
-                                        color = Color(preset.seedColor),
+                                        color = preset.accentText(isDark),
                                     )
                                     Text(
                                         text = preset.subtitle,

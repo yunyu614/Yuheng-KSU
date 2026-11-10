@@ -170,7 +170,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
     val preset = LocalYuhengThemePreset.current
     val title = preset.text(dark)
     val muted = preset.muted(dark)
-    val accent = preset.accent
+    val accent = preset.accentText(dark)
 
     Box(
         modifier = modifier
