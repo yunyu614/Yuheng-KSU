@@ -52,11 +52,11 @@ jobs:
         working-directory: manager
         run: |
           chmod +x ./gradlew
-          ./gradlew --no-daemon :app:assembleDebug -PKSU_NAME="玉衡"
+          ./gradlew --no-daemon :app:assembleDebug -PKSU_NAME="玉衡预览" -PKSU_PACKAGE_NAME="me.weishu.kernelsu.preview"
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: yuheng-debug-apk
+          name: yuheng-preview-debug-apk
           path: manager/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           retention-days: 14
