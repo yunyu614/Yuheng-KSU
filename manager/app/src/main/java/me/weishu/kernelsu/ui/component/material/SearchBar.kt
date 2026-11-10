@@ -59,7 +59,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-import me.weishu.kernelsu.ui.component.deepSeekHeroBrush
+import me.weishu.kernelsu.ui.component.yuhengHeroBrush
 import me.weishu.kernelsu.ui.theme.isInDarkTheme
 
 @Composable
@@ -209,7 +209,7 @@ fun SearchAppBar(
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 13.dp)
                     .clip(RoundedCornerShape(28.dp))
-                    .background(deepSeekHeroBrush()),
+                    .background(yuhengHeroBrush()),
 
                 state = searchBarState,
                 inputField = inputField,
