@@ -45,6 +45,22 @@ class YuhengPaletteTest {
                 "${preset.title} 夜间卡片文字对比度不足",
                 contrastRatio(preset.darkText, preset.darkSurface) >= 4.5,
             )
+            assertTrue(
+                "${preset.title} 日间辅助文字背景对比度不足",
+                contrastRatio(preset.lightMuted, preset.lightBackground) >= 4.5,
+            )
+            assertTrue(
+                "${preset.title} 日间辅助文字卡片对比度不足",
+                contrastRatio(preset.lightMuted, preset.lightSurface) >= 4.5,
+            )
+            assertTrue(
+                "${preset.title} 夜间辅助文字背景对比度不足",
+                contrastRatio(preset.darkMuted, preset.darkBackground) >= 4.5,
+            )
+            assertTrue(
+                "${preset.title} 夜间辅助文字卡片对比度不足",
+                contrastRatio(preset.darkMuted, preset.darkSurface) >= 4.5,
+            )
         }
     }
 
