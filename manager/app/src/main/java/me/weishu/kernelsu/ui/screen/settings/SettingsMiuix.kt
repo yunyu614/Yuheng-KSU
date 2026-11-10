@@ -1,5 +1,9 @@
 package me.weishu.kernelsu.ui.screen.settings
 
+import android.content.Context
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -39,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.weishu.kernelsu.R
@@ -83,6 +88,45 @@ fun SettingPagerMiuix(
     val loadingDialog = rememberLoadingDialog()
     val showUninstallDialog = rememberSaveable { mutableStateOf(false) }
     val showSendLogDialog = rememberSaveable { mutableStateOf(false) }
+    val context = LocalContext.current
+    val wallpaperPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+    val hasCustomWallpaper = rememberSaveable {
+        mutableStateOf(
+            wallpaperPreferences.getString("yuheng_wallpaper_uri", null) != null ||
+                wallpaperPreferences.getString("yuheng_wallpaper_file", null) != null
+        )
+    }
+    val wallpaperPicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument(),
+    ) { uri ->
+        if (uri != null) {
+            val persistedPermission = runCatching {
+                context.contentResolver.takePersistableUriPermission(
+                    uri,
+                    android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                )
+            }
+            if (persistedPermission.isFailure) {
+                Toast.makeText(context, "无法持久访问这张图片，请更换图片来源后重试", Toast.LENGTH_SHORT).show()
+                return@rememberLauncherForActivityResult
+            }
+
+            val previousUri = wallpaperPreferences.getString("yuheng_wallpaper_uri", null)
+            if (previousUri != null && previousUri != uri.toString()) {
+                runCatching {
+                    context.contentResolver.releasePersistableUriPermission(
+                        android.net.Uri.parse(previousUri),
+                        android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                    )
+                }
+            }
+            wallpaperPreferences.edit()
+                .remove("yuheng_wallpaper_file")
+                .putString("yuheng_wallpaper_uri", uri.toString())
+                .apply()
+            hasCustomWallpaper.value = true
+        }
+    }
 
     Scaffold(
         containerColor = Color.Transparent,
@@ -145,6 +189,48 @@ fun SettingPagerMiuix(
                             },
                             onClick = actions.onOpenTheme
                         )
+                        ArrowPreference(
+                            title = "自定义壁纸",
+                            summary = if (hasCustomWallpaper.value) "已设置个人壁纸 · 点击更换" else "从相册选择图片作为玉衡界面背景",
+                            startAction = {
+                                Icon(
+                                    Icons.Rounded.DisplaySettings,
+                                    modifier = Modifier.padding(end = 6.dp),
+                                    contentDescription = "自定义壁纸",
+                                    tint = colorScheme.onBackground
+                                )
+                            },
+                            onClick = { wallpaperPicker.launch(arrayOf("image/*")) }
+                        )
+                        if (hasCustomWallpaper.value) {
+                            ArrowPreference(
+                                title = "恢复默认背景",
+                                summary = "移除自定义壁纸，恢复当前神兽主题背景",
+                                startAction = {
+                                    Icon(
+                                        Icons.Rounded.Delete,
+                                        modifier = Modifier.padding(end = 6.dp),
+                                        contentDescription = "恢复默认背景",
+                                        tint = colorScheme.onBackground
+                                    )
+                                },
+                                onClick = {
+                                    wallpaperPreferences.getString("yuheng_wallpaper_uri", null)?.let { savedUri ->
+                                        runCatching {
+                                            context.contentResolver.releasePersistableUriPermission(
+                                                android.net.Uri.parse(savedUri),
+                                                android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                                            )
+                                        }
+                                    }
+                                    wallpaperPreferences.edit()
+                                        .remove("yuheng_wallpaper_uri")
+                                        .remove("yuheng_wallpaper_file")
+                                        .apply()
+                                    hasCustomWallpaper.value = false
+                                }
+                            )
+                        }
                     }
 
                     KsuIsValid {
