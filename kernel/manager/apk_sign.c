@@ -328,7 +328,11 @@ bool is_manager_apk(char *path)
     if (check_v2_signature(path, EXPECTED_SIZE, EXPECTED_HASH))
         return true;
 #ifdef EXPECTED_SIZE2
-    return check_v2_signature(path, EXPECTED_SIZE2, EXPECTED_HASH2);
+    if (check_v2_signature(path, EXPECTED_SIZE2, EXPECTED_HASH2))
+        return true;
+#endif
+#ifdef EXPECTED_SIZE3
+    return check_v2_signature(path, EXPECTED_SIZE3, EXPECTED_HASH3);
 #else
     return false;
 #endif
