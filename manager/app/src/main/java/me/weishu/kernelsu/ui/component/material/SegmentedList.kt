@@ -88,7 +88,7 @@ private val LocalSegmentedGradient = compositionLocalOf { false }
 @Composable
 private fun defaultSegmentedColors(): ListItemColors {
     val gradient = LocalSegmentedGradient.current
-    val container = if (gradient) Color.Transparent else colorScheme.surfaceBright
+    val container = if (gradient) Color.Transparent else colorScheme.surfaceBright.copy(alpha = 0.78f)
     return ListItemDefaults.segmentedColors(
         containerColor = container,
         disabledContainerColor = container,
@@ -294,7 +294,7 @@ fun SegmentedItemContainer(
     val shapes = LocalListItemShapes.current ?: ListItemDefaults.segmentedShapes(0, 1)
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = colorScheme.surfaceBright,
+        color = colorScheme.surfaceBright.copy(alpha = 0.78f),
         shape = shapes.shape,
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
