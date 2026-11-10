@@ -49,7 +49,6 @@ import androidx.compose.ui.unit.sp
 import me.weishu.kernelsu.KernelVersion
 import me.weishu.kernelsu.Natives
 import me.weishu.kernelsu.R
-import me.weishu.kernelsu.ui.component.DeepSeekCreditCard
 import me.weishu.kernelsu.ui.component.DeepSeekDeviceHintCard
 import me.weishu.kernelsu.ui.component.DeepSeekHeroCard
 import me.weishu.kernelsu.ui.component.deepSeekCardColor
@@ -158,7 +157,6 @@ fun HomePagerMiuix(
                             )
                             DeepSeekDeviceHintCard(deviceModel = state.systemInfo.deviceModel)
                             InfoCard(systemInfo = state.systemInfo)
-                            DeepSeekCreditCard()
                             DonateCard(onOpenUrl = actions.onOpenUrl)
                             LearnMoreCard(onOpenUrl = actions.onOpenUrl)
                         }
