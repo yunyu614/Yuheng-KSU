@@ -5,6 +5,12 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -360,22 +366,48 @@ fun SuperUserPagerMaterial(
             ) {
                 item(key = "yuheng_superuser_overview", contentType = "section_header") {
                     val appCount = uiState.groupedApps.sumOf { it.apps.size }
-                    Column(
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 2.dp, end = 2.dp, top = 8.dp, bottom = 10.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                            .padding(top = 8.dp, bottom = 10.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(colorScheme.surfaceVariant.copy(alpha = 0.42f))
+                            .padding(horizontal = 15.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
-                        Text(
-                            text = "授权管理",
-                            style = androidx.compose.material3.MaterialTheme.typography.titleLarge,
-                            fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
+                        Box(
+                            Modifier
+                                .width(3.dp)
+                                .height(42.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(colorScheme.primary)
                         )
-                        Text(
-                            text = "${uiState.groupedApps.size} 个应用分组 · ${appCount} 个应用",
-                            style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
-                            color = colorScheme.onSurfaceVariant,
-                        )
+                        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text(
+                                text = "授权管理",
+                                style = androidx.compose.material3.MaterialTheme.typography.titleLarge,
+                                fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
+                            )
+                            Text(
+                                text = "查看应用 Root 授权与用户配置",
+                                style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
+                                color = colorScheme.onSurfaceVariant,
+                            )
+                        }
+                        Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(1.dp)) {
+                            Text(
+                                text = appCount.toString(),
+                                style = androidx.compose.material3.MaterialTheme.typography.headlineSmall,
+                                color = colorScheme.primary,
+                                fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
+                            )
+                            Text(
+                                text = "APPS · ${uiState.groupedApps.size} 组",
+                                style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
+                                color = colorScheme.onSurfaceVariant,
+                            )
+                        }
                     }
                 }
                 itemsIndexed(uiState.groupedApps, key = { _, item -> item.uid }) { index, group ->
