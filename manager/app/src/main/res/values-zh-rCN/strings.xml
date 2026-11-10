@@ -58,7 +58,7 @@
         <item>大肥鱼也有大智慧。</item>
         <item>要一起游向 AGI 吗？</item>
     </string-array>
-    <string name="home">主页</string>
+    <string name="home">总览</string>
     <string name="home_not_installed">未安装</string>
     <string name="home_click_to_install">点击安装</string>
     <string name="home_working">工作中</string>
