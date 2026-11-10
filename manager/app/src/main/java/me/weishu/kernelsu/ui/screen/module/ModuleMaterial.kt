@@ -542,6 +542,10 @@ private fun ModuleList(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
+                YuhengBeastIllustration(
+                    preset = LocalYuhengThemePreset.current,
+                    modifier = Modifier.size(42.dp),
+                )
             }
         }
         items(displayModules, key = { it.id }, contentType = { "module" }) { module ->
