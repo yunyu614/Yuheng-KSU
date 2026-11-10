@@ -51,7 +51,7 @@ import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.dp\nimport androidx.compose.ui.unit.sp
 import me.weishu.kernelsu.KernelVersion
 import me.weishu.kernelsu.Natives
 import me.weishu.kernelsu.R
@@ -86,8 +86,8 @@ fun HomePagerMaterial(
                 .padding(innerPadding)
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 26.dp),
-            verticalArrangement = Arrangement.spacedBy(13.dp)
+                .padding(horizontal = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
             if (state.checkUpdateEnabled) {
                 UpdateCard(state = state, actions = actions)
@@ -109,23 +109,54 @@ fun HomePagerMaterial(
             if (state.showRootWarning) {
                 WarningCard(stringResource(id = R.string.grant_root_failed))
             }
+
+            // Brand identity is a quiet masthead, not another action card.
+            YuhengHeroCard()
+
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(13.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                StatusCard(
-                    state = state,
-                    actions = actions,
-                )
-                YuhengHeroCard()
+                SectionHeading(title = "运行状态", subtitle = "ROOT · KERNELSU")
+                StatusCard(state = state, actions = actions)
+            }
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                SectionHeading(title = "设备概览", subtitle = "DEVICE OVERVIEW")
                 YuhengDeviceHintCard(deviceModel = state.systemInfo.deviceModel)
                 InfoCard(systemInfo = state.systemInfo)
-                    DonateCard(onOpenUrl = actions.onOpenUrl)
+            }
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                SectionHeading(title = "关于玉衡", subtitle = "ABOUT YUHENG")
+                DonateCard(onOpenUrl = actions.onOpenUrl)
                 LearnMoreCard(onOpenUrl = actions.onOpenUrl)
             }
             Spacer(Modifier.height(bottomInnerPadding))
         }
+    }
+}
+
+@Composable
+private fun SectionHeading(title: String, subtitle: String) {
+    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Text(
+            text = subtitle,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.72f),
+            letterSpacing = 1.25.sp,
+        )
     }
 }
 
