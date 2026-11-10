@@ -1,6 +1,8 @@
 name: Build Yuheng dual-signature LKM
 
 on:
+  push:
+    branches: [develop]
   workflow_dispatch:
 
 permissions:
