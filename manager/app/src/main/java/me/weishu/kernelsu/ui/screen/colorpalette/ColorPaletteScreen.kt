@@ -56,8 +56,16 @@ fun ColorPaletteScreen() {
                     }
                 }
                 copyResult.onSuccess { copied ->
-                    context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-                        .edit()
+                    val preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                    preferences.getString("yuheng_wallpaper_uri", null)?.let { previousUri ->
+                        runCatching {
+                            context.contentResolver.releasePersistableUriPermission(
+                                android.net.Uri.parse(previousUri),
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                            )
+                        }
+                    }
+                    preferences.edit()
                         .putString("yuheng_wallpaper_file", copied.absolutePath)
                         .remove("yuheng_wallpaper_uri")
                         .apply()
@@ -95,8 +103,16 @@ fun ColorPaletteScreen() {
         onBack = dropUnlessResumed { navigator.pop() },
         onPickWallpaper = { wallpaperPicker.launch(arrayOf("image/*")) },
         onClearWallpaper = {
-            context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-                .edit()
+            val preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+            preferences.getString("yuheng_wallpaper_uri", null)?.let { previousUri ->
+                runCatching {
+                    context.contentResolver.releasePersistableUriPermission(
+                        android.net.Uri.parse(previousUri),
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                    )
+                }
+            }
+            preferences.edit()
                 .remove("yuheng_wallpaper_uri")
                 .remove("yuheng_wallpaper_file")
                 .apply()

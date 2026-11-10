@@ -63,7 +63,7 @@ jobs:
           test -n "$KEY_ALIAS"
           test -n "$KEY_PASSWORD"
           chmod +x ./gradlew
-          ./gradlew --no-daemon :app:assembleRelease \
+          ./gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleRelease \
             -PKSU_NAME="玉衡" \
             -PKSU_PACKAGE_NAME="me.weishu.kernelsu" \
             -PKEYSTORE_FILE="$RUNNER_TEMP/yuheng-signing/yuheng-release.jks" \
