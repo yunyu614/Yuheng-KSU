@@ -26,7 +26,7 @@ fun MaterialKernelSUTheme(
         seedColor = when {
             appSettings.keyColor != 0 -> Color(appSettings.keyColor)
             dynamicColor -> Color.Unspecified
-            else -> DeepSeekBlue
+            else -> YuhengJade
         },
         isDark = darkTheme,
         isAmoled = amoledMode,
