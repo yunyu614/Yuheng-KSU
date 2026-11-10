@@ -74,6 +74,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -177,12 +178,14 @@ fun ColorPaletteScreenMaterial(
                                 (currentKeyColor == 0 && preset == YuhengThemePreset.QINGLONG)
                             Surface(
                                 onClick = { actions.onApplyYuhengPreset(preset.ordinal) },
-                                modifier = Modifier.width(154.dp),
-                                shape = RoundedCornerShape(22.dp),
-                                color = MaterialTheme.colorScheme.surfaceContainer,
+                                modifier = Modifier.width(162.dp),
+                                shape = RoundedCornerShape(24.dp),
+                                color = MaterialTheme.colorScheme.surfaceContainer.copy(
+                                    alpha = 1f
+                                ).compositeOver(Color(preset.seedColor).copy(alpha = if (selected) 0.13f else 0.055f)),
                                 border = BorderStroke(
                                     if (selected) 2.dp else 1.dp,
-                                    if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                                    if (selected) Color(preset.seedColor) else Color(preset.seedColor).copy(alpha = 0.24f),
                                 ),
                             ) {
                                 Column(
@@ -201,7 +204,7 @@ fun ColorPaletteScreenMaterial(
                                             Icon(
                                                 Icons.Rounded.Check,
                                                 contentDescription = null,
-                                                tint = MaterialTheme.colorScheme.primary,
+                                                tint = Color(preset.seedColor),
                                             )
                                         }
                                     }
@@ -213,7 +216,7 @@ fun ColorPaletteScreenMaterial(
                                     Text(
                                         text = preset.creature,
                                         style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.primary,
+                                        color = Color(preset.seedColor),
                                     )
                                     Text(
                                         text = preset.subtitle,
