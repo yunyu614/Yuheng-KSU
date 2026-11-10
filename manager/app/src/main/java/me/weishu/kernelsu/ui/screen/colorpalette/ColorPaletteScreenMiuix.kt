@@ -164,7 +164,22 @@ fun ColorPaletteScreenMiuix(
                         paletteStyle = state.currentPaletteStyle,
                         colorSpec = state.currentColorSpec,
                     )
-                    Spacer(modifier = Modifier.height(72.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        ArrowPreference(
+                            title = "青瓷雾",
+                            summary = "浅青釉与雾灰，温润柔和的浅色主题",
+                            onClick = { actions.onApplyYuhengPreset(false) }
+                        )
+                        ArrowPreference(
+                            title = "墨玉",
+                            summary = "深青灰与玉绿，低亮度的深色主题",
+                            onClick = { actions.onApplyYuhengPreset(true) }
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(56.dp))
 
                     val themeItems = listOf(
                         stringResource(id = R.string.settings_theme_mode_system),
