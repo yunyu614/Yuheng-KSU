@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import java.io.File
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,12 +34,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -72,23 +75,28 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(112.dp)
+            .height(136.dp)
             .clip(RoundedCornerShape(18.dp))
             .background(yuhengHeroBrush()),
     ) {
-        Box(
+        val ornament = if (dark) Color(0xFFBDA77B) else Color(0xFFA58B5D)
+        Canvas(
             modifier = Modifier
-                .size(168.dp)
-                .offset(x = (-58).dp, y = (-82).dp)
-                .background(accent.copy(alpha = if (dark) 0.12f else 0.16f), CircleShape),
-        )
-        Box(
-            modifier = Modifier
-                .size(112.dp)
-                .align(Alignment.BottomEnd)
-                .offset(x = 34.dp, y = 42.dp)
-                .background(accent.copy(alpha = 0.12f), CircleShape),
-        )
+                .size(150.dp)
+                .align(Alignment.CenterEnd)
+                .offset(x = 20.dp)
+        ) {
+            val center = Offset(size.width * 0.52f, size.height * 0.5f)
+            drawCircle(ornament.copy(alpha = 0.24f), radius = size.minDimension * 0.43f, center = center, style = Stroke(1.1.dp.toPx()))
+            drawCircle(ornament.copy(alpha = 0.20f), radius = size.minDimension * 0.32f, center = center, style = Stroke(0.8.dp.toPx()))
+            drawCircle(accent.copy(alpha = 0.30f), radius = size.minDimension * 0.13f, center = center, style = Stroke(1.dp.toPx()))
+            drawLine(ornament.copy(alpha = 0.26f), Offset(center.x, center.y - size.minDimension * 0.48f), Offset(center.x, center.y + size.minDimension * 0.48f), 0.8.dp.toPx())
+            drawLine(ornament.copy(alpha = 0.26f), Offset(center.x - size.minDimension * 0.48f, center.y), Offset(center.x + size.minDimension * 0.48f, center.y), 0.8.dp.toPx())
+            drawCircle(ornament.copy(alpha = 0.65f), radius = 2.2.dp.toPx(), center = Offset(center.x, center.y - size.minDimension * 0.43f))
+            drawCircle(ornament.copy(alpha = 0.65f), radius = 2.2.dp.toPx(), center = Offset(center.x + size.minDimension * 0.43f, center.y))
+            drawCircle(ornament.copy(alpha = 0.65f), radius = 2.2.dp.toPx(), center = Offset(center.x, center.y + size.minDimension * 0.43f))
+            drawCircle(ornament.copy(alpha = 0.65f), radius = 2.2.dp.toPx(), center = Offset(center.x - size.minDimension * 0.43f, center.y))
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -115,7 +123,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             }
             Spacer(Modifier.height(8.dp))
             BasicText(
-                text = "让 Root 管理，也有东方美学",
+                text = "以玉为度，令系统井然有序",
                 style = TextStyle(
                     color = title,
                     fontSize = 18.sp,
@@ -134,7 +142,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(8.dp))
             BasicText(
-                text = "五款东方配色  ·  随心切换",
+                text = "东方美学  ·  精致管理",
                 style = TextStyle(
                     color = accent,
                     fontSize = 10.sp,

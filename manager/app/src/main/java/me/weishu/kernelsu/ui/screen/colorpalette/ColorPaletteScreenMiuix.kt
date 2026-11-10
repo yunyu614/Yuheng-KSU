@@ -172,26 +172,61 @@ fun ColorPaletteScreenMiuix(
                         ArrowPreference(
                             title = "青瓷雾",
                             summary = "浅青釉与雾灰，温润柔和",
+                            startAction = {
+                                Box(
+                                    Modifier.padding(end = 8.dp).size(22.dp)
+                                        .clip(RoundedCornerShape(7.dp))
+                                        .background(Color(0xFF55796B))
+                                )
+                            },
                             onClick = { actions.onApplyYuhengPreset(0) }
                         )
                         ArrowPreference(
                             title = "月白",
                             summary = "月白与银青，清透克制",
+                            startAction = {
+                                Box(
+                                    Modifier.padding(end = 8.dp).size(22.dp)
+                                        .clip(RoundedCornerShape(7.dp))
+                                        .background(Color(0xFF7894A3))
+                                )
+                            },
                             onClick = { actions.onApplyYuhengPreset(1) }
                         )
                         ArrowPreference(
                             title = "黛青",
                             summary = "深黛与松石，沉静耐看",
+                            startAction = {
+                                Box(
+                                    Modifier.padding(end = 8.dp).size(22.dp)
+                                        .clip(RoundedCornerShape(7.dp))
+                                        .background(Color(0xFF527D76))
+                                )
+                            },
                             onClick = { actions.onApplyYuhengPreset(2) }
                         )
                         ArrowPreference(
                             title = "丹霞",
                             summary = "暖陶与浅绯，温润柔和",
+                            startAction = {
+                                Box(
+                                    Modifier.padding(end = 8.dp).size(22.dp)
+                                        .clip(RoundedCornerShape(7.dp))
+                                        .background(Color(0xFFB97968))
+                                )
+                            },
                             onClick = { actions.onApplyYuhengPreset(3) }
                         )
                         ArrowPreference(
                             title = "琥珀",
                             summary = "蜜金与米杏，雅致温暖",
+                            startAction = {
+                                Box(
+                                    Modifier.padding(end = 8.dp).size(22.dp)
+                                        .clip(RoundedCornerShape(7.dp))
+                                        .background(Color(0xFF9C8055))
+                                )
+                            },
                             onClick = { actions.onApplyYuhengPreset(4) }
                         )
                         ArrowPreference(

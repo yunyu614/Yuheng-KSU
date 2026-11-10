@@ -158,6 +158,17 @@ fun ColorPaletteScreenMaterial(
                                 onClick = { actions.onApplyYuhengPreset(0) },
                                 headlineContent = { Text("青瓷雾") },
                                 supportingContent = { Text("浅青釉与雾灰，温润柔和") },
+                                leadingContent = {
+                                    Box(
+                                        Modifier.size(28.dp).clip(CircleShape)
+                                            .background(Color(0xFF55796B))
+                                    )
+                                },
+                                trailingContent = {
+                                    if (currentKeyColor == 0xFF55796B.toInt()) {
+                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                                    }
+                                },
                             )
                         },
                         {
@@ -165,6 +176,17 @@ fun ColorPaletteScreenMaterial(
                                 onClick = { actions.onApplyYuhengPreset(1) },
                                 headlineContent = { Text("月白") },
                                 supportingContent = { Text("月白与银青，清透克制") },
+                                leadingContent = {
+                                    Box(
+                                        Modifier.size(28.dp).clip(CircleShape)
+                                            .background(Color(0xFF7894A3))
+                                    )
+                                },
+                                trailingContent = {
+                                    if (currentKeyColor == 0xFF7894A3.toInt()) {
+                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                                    }
+                                },
                             )
                         },
                         {
@@ -172,6 +194,17 @@ fun ColorPaletteScreenMaterial(
                                 onClick = { actions.onApplyYuhengPreset(2) },
                                 headlineContent = { Text("黛青") },
                                 supportingContent = { Text("深黛与松石，沉静耐看") },
+                                leadingContent = {
+                                    Box(
+                                        Modifier.size(28.dp).clip(CircleShape)
+                                            .background(Color(0xFF527D76))
+                                    )
+                                },
+                                trailingContent = {
+                                    if (currentKeyColor == 0xFF527D76.toInt()) {
+                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                                    }
+                                },
                             )
                         },
                         {
@@ -179,6 +212,17 @@ fun ColorPaletteScreenMaterial(
                                 onClick = { actions.onApplyYuhengPreset(3) },
                                 headlineContent = { Text("丹霞") },
                                 supportingContent = { Text("暖陶与浅绯，温润柔和") },
+                                leadingContent = {
+                                    Box(
+                                        Modifier.size(28.dp).clip(CircleShape)
+                                            .background(Color(0xFFB97968))
+                                    )
+                                },
+                                trailingContent = {
+                                    if (currentKeyColor == 0xFFB97968.toInt()) {
+                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                                    }
+                                },
                             )
                         },
                         {
@@ -186,6 +230,17 @@ fun ColorPaletteScreenMaterial(
                                 onClick = { actions.onApplyYuhengPreset(4) },
                                 headlineContent = { Text("琥珀") },
                                 supportingContent = { Text("蜜金与米杏，雅致温暖") },
+                                leadingContent = {
+                                    Box(
+                                        Modifier.size(28.dp).clip(CircleShape)
+                                            .background(Color(0xFF9C8055))
+                                    )
+                                },
+                                trailingContent = {
+                                    if (currentKeyColor == 0xFF9C8055.toInt()) {
+                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                                    }
+                                },
                             )
                         },
                         {
