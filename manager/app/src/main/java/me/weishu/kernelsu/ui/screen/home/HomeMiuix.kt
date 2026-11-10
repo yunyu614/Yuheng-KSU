@@ -57,7 +57,7 @@ import me.weishu.kernelsu.ui.component.WarningLevel
 import me.weishu.kernelsu.ui.component.dialog.rememberConfirmDialog
 import me.weishu.kernelsu.ui.component.miuix.WarningCard
 import me.weishu.kernelsu.ui.component.rebootlistpopup.RebootListPopupMiuix
-import me.weishu.kernelsu.ui.theme.YuhengBlue
+import me.weishu.kernelsu.ui.theme.YuhengJade
 import me.weishu.kernelsu.ui.theme.LocalEnableBlur
 import me.weishu.kernelsu.ui.theme.isInDarkTheme
 import me.weishu.kernelsu.ui.util.BlurredBar
@@ -280,7 +280,7 @@ private fun StatusCard(
                                     tint = if (isDynamicColor) {
                                         colorScheme.primary.copy(alpha = 0.8f)
                                     } else {
-                                        YuhengBlue.copy(alpha = 0.82f)
+                                        YuhengJade.copy(alpha = 0.82f)
                                     },
                                     contentDescription = null
                                 )
