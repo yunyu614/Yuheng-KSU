@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -378,30 +379,57 @@ fun SettingPagerMaterial(
 private fun SettingsAppearanceIntro() {
     val preset = LocalYuhengThemePreset.current
     val dark = isInDarkTheme()
+    val modeLabel = if (dark) "夜间雅色" else "日间雅色"
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clip(RoundedCornerShape(22.dp))
-            .background(preset.surface(dark).copy(alpha = 0.88f))
-            .border(1.dp, preset.accent.copy(alpha = 0.22f), RoundedCornerShape(22.dp))
-            .padding(horizontal = 18.dp, vertical = 16.dp)
+            .background(preset.surface(dark).copy(alpha = 0.90f))
+            .border(1.dp, preset.accent.copy(alpha = 0.24f), RoundedCornerShape(22.dp))
+            .padding(horizontal = 18.dp, vertical = 17.dp)
     ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = "YU HENG  /  PERSONALIZATION",
+                style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
+                color = preset.accent,
+            )
+            Spacer(Modifier.weight(1f))
+            Text(
+                text = modeLabel,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(50))
+                    .background(preset.accent.copy(alpha = 0.12f))
+                    .padding(horizontal = 10.dp, vertical = 5.dp),
+                style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
+                color = preset.accent,
+            )
+        }
+        Spacer(Modifier.height(12.dp))
         Text(
-            text = "YU HENG  /  PERSONALIZATION",
-            style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
-            color = preset.accent,
+            text = "让玉衡，呈现你的东方气韵",
+            style = androidx.compose.material3.MaterialTheme.typography.titleLarge,
+            color = preset.text(dark),
+        )
+        Spacer(Modifier.height(6.dp))
+        Text(
+            text = "当前主题 · ${preset.creature}",
+            style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
+            color = preset.muted(dark),
+        )
+        Spacer(Modifier.height(13.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(2.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(preset.accent.copy(alpha = 0.28f))
         )
         Spacer(Modifier.height(8.dp))
         Text(
-            text = "让玉衡，呈现你的东方气韵",
-            style = androidx.compose.material3.MaterialTheme.typography.titleMedium,
-            color = preset.text(dark),
-        )
-        Spacer(Modifier.height(4.dp))
-        Text(
-            text = "当前主题 · ${preset.creature}    /    外观、行为与安全设置",
-            style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
+            text = "外观个性化  /  系统行为  /  安全与维护",
+            style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
             color = preset.muted(dark),
         )
     }
