@@ -72,11 +72,15 @@ object ThemeController {
         val uiMode = repo.uiMode
         val storedMode = ColorMode.fromValue(repo.themeMode)
         val legacyMonet = storedMode.isMonet
-        val colorModeValue = if (legacyMonet) storedMode.toNonMonetMode() else storedMode.value
+        val colorModeValue = when {
+            legacyMonet -> storedMode.toNonMonetMode()
+            storedMode.isAmoled -> ColorMode.DARK.value
+            else -> storedMode.value
+        }
         val monetEnabled = repo.miuixMonet || legacyMonet
-        if (legacyMonet) {
+        if (legacyMonet || storedMode.isAmoled) {
             repo.themeMode = colorModeValue
-            repo.miuixMonet = true
+            if (legacyMonet) repo.miuixMonet = true
         }
         val colorMode = ColorMode.fromValue(colorModeValue)
         val keyColor = repo.keyColor
