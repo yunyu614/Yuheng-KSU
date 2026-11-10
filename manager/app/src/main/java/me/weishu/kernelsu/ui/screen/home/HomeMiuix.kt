@@ -49,15 +49,15 @@ import androidx.compose.ui.unit.sp
 import me.weishu.kernelsu.KernelVersion
 import me.weishu.kernelsu.Natives
 import me.weishu.kernelsu.R
-import me.weishu.kernelsu.ui.component.DeepSeekDeviceHintCard
-import me.weishu.kernelsu.ui.component.DeepSeekHeroCard
-import me.weishu.kernelsu.ui.component.deepSeekCardColor
-import me.weishu.kernelsu.ui.component.deepSeekHeroBrush
+import me.weishu.kernelsu.ui.component.YuhengDeviceHintCard
+import me.weishu.kernelsu.ui.component.YuhengHeroCard
+import me.weishu.kernelsu.ui.component.yuhengCardColor
+import me.weishu.kernelsu.ui.component.yuhengHeroBrush
 import me.weishu.kernelsu.ui.component.WarningLevel
 import me.weishu.kernelsu.ui.component.dialog.rememberConfirmDialog
 import me.weishu.kernelsu.ui.component.miuix.WarningCard
 import me.weishu.kernelsu.ui.component.rebootlistpopup.RebootListPopupMiuix
-import me.weishu.kernelsu.ui.theme.DeepSeekBlue
+import me.weishu.kernelsu.ui.theme.YuhengBlue
 import me.weishu.kernelsu.ui.theme.LocalEnableBlur
 import me.weishu.kernelsu.ui.theme.isInDarkTheme
 import me.weishu.kernelsu.ui.util.BlurredBar
@@ -145,7 +145,7 @@ fun HomePagerMiuix(
                         if (state.showRootWarning) {
                             WarningCard(stringResource(id = R.string.grant_root_failed))
                         }
-                        DeepSeekHeroCard()
+                        YuhengHeroCard()
                         Column(
                             modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -155,7 +155,7 @@ fun HomePagerMiuix(
                                 state = state,
                                 actions = actions,
                             )
-                            DeepSeekDeviceHintCard(deviceModel = state.systemInfo.deviceModel)
+                            YuhengDeviceHintCard(deviceModel = state.systemInfo.deviceModel)
                             InfoCard(systemInfo = state.systemInfo)
                             DonateCard(onOpenUrl = actions.onOpenUrl)
                             LearnMoreCard(onOpenUrl = actions.onOpenUrl)
@@ -280,7 +280,7 @@ private fun StatusCard(
                                     tint = if (isDynamicColor) {
                                         colorScheme.primary.copy(alpha = 0.8f)
                                     } else {
-                                        DeepSeekBlue.copy(alpha = 0.82f)
+                                        YuhengBlue.copy(alpha = 0.82f)
                                     },
                                     contentDescription = null
                                 )
@@ -402,7 +402,7 @@ private fun LearnMoreCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         cornerRadius = 28.dp,
-        colors = CardDefaults.defaultColors(color = deepSeekCardColor()),
+        colors = CardDefaults.defaultColors(color = yuhengCardColor()),
     ) {
         BasicComponent(
             title = stringResource(R.string.home_learn_kernelsu),
@@ -424,7 +424,7 @@ private fun DonateCard(onOpenUrl: (String) -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         cornerRadius = 28.dp,
-        colors = CardDefaults.defaultColors(color = deepSeekCardColor()),
+        colors = CardDefaults.defaultColors(color = yuhengCardColor()),
     ) {
         BasicComponent(
             title = stringResource(R.string.home_support_title),
@@ -478,7 +478,7 @@ private fun InfoCard(systemInfo: SystemInfo) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(28.dp))
-            .background(deepSeekHeroBrush()),
+            .background(yuhengHeroBrush()),
     ) {
         Column(
             modifier = Modifier
