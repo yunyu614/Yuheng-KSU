@@ -1,5 +1,8 @@
 package me.weishu.kernelsu.ui.screen.settings
 
+import android.content.Context
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -56,6 +59,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.weishu.kernelsu.R
@@ -87,6 +91,33 @@ fun SettingPagerMaterial(
     val snackBarHost = remember { SnackbarHostState() }
     val showUninstallDialog = rememberSaveable { mutableStateOf(false) }
     var showBottomSheet by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val wallpaperPreferences = remember(context) {
+        context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+    }
+    var hasCustomWallpaper by remember(wallpaperPreferences) {
+        mutableStateOf(
+            wallpaperPreferences.getString("yuheng_wallpaper_uri", null) != null ||
+                wallpaperPreferences.getString("yuheng_wallpaper_file", null) != null
+        )
+    }
+    val wallpaperPicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument(),
+    ) { uri ->
+        if (uri != null) {
+            runCatching {
+                context.contentResolver.takePersistableUriPermission(
+                    uri,
+                    android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                )
+            }
+            wallpaperPreferences.edit()
+                .remove("yuheng_wallpaper_file")
+                .putString("yuheng_wallpaper_uri", uri.toString())
+                .apply()
+            hasCustomWallpaper = true
+        }
+    }
 
     UninstallDialog(
         show = showUninstallDialog.value,
@@ -125,6 +156,35 @@ fun SettingPagerMaterial(
                                 )
                             }
                         )
+                    }
+                    add {
+                        SegmentedListItem(
+                            onClick = { wallpaperPicker.launch(arrayOf("image/*")) },
+                            headlineContent = { Text("自定义壁纸") },
+                            supportingContent = {
+                                Text(if (hasCustomWallpaper) "已设置个人壁纸 · 点击更换" else "从相册选择图片作为玉衡界面背景")
+                            },
+                            leadingContent = { Icon(Icons.Filled.DisplaySettings, "自定义壁纸") },
+                            trailingContent = {
+                                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null)
+                            }
+                        )
+                    }
+                    if (hasCustomWallpaper) {
+                        add {
+                            SegmentedListItem(
+                                onClick = {
+                                    wallpaperPreferences.edit()
+                                        .remove("yuheng_wallpaper_uri")
+                                        .remove("yuheng_wallpaper_file")
+                                        .apply()
+                                    hasCustomWallpaper = false
+                                },
+                                headlineContent = { Text("恢复默认背景") },
+                                supportingContent = { Text("移除自定义壁纸，恢复当前神兽主题背景") },
+                                leadingContent = { Icon(Icons.Filled.Delete, "恢复默认背景") },
+                            )
+                        }
                     }
                 }
             )
