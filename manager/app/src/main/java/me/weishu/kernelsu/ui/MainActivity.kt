@@ -58,7 +58,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import me.weishu.kernelsu.Natives
-import me.weishu.kernelsu.ui.component.DeepSeekAppBackground
+import me.weishu.kernelsu.ui.component.YuhengAppBackground
 import me.weishu.kernelsu.ui.component.bottombar.BottomBar
 import me.weishu.kernelsu.ui.component.bottombar.MainPagerState
 import me.weishu.kernelsu.ui.component.bottombar.NavigationBadgeState
@@ -244,7 +244,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    DeepSeekAppBackground {
+                    YuhengAppBackground {
                         when (uiMode) {
                             UiMode.Material -> androidx.compose.material3.Scaffold(
                                 containerColor = Color.Transparent
