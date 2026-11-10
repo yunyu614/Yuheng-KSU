@@ -7,7 +7,7 @@
 - 首个构建目标：`android16-6.12`
 - 适用前提：设备内核 KMI 与构建目标一致；仅凭 Android 版本号不能判断兼容性。
 
-构建工作流：`.github/workflows/build-yuheng-dual-lkm.yml`（手动触发，仅构建 `android16-6.12`）  
+构建工作流：`.github/workflows/build-yuheng-dual-lkm.yml`（推送到 `develop`、面向 `develop` 的 Pull Request，以及手动触发；当前仅构建 `android16-6.12`）  
 KernelSU 源码：v3.3.1（`KSU_VERSION=32680`，UAPI 5）
 
 ## 为什么需要配套 LKM
