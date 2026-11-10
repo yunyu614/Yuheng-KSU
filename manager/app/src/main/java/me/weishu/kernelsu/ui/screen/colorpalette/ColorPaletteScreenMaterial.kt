@@ -56,6 +56,7 @@ import androidx.compose.material.icons.rounded.Pin
 import androidx.compose.material.icons.rounded.Style
 import androidx.compose.material.icons.rounded.Swipe
 import androidx.compose.material.icons.rounded.ViewCarousel
+import androidx.compose.material.icons.rounded.Wallpaper
 import androidx.compose.material3.ButtonGroupDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFlexibleTopAppBar
@@ -349,6 +350,23 @@ fun ColorPaletteScreenMaterial(
                         }
                     }
                 }
+            }
+
+            item {
+                SegmentedColumn(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    content = listOf(
+                        {
+                            SegmentedSwitchItem(
+                                icon = Icons.Rounded.Wallpaper,
+                                title = stringResource(id = R.string.settings_monet),
+                                summary = "跟随系统动态取色，同时保留神兽主题的背景与纹样",
+                                checked = uiState.miuixMonet,
+                                onCheckedChange = actions.onSetMiuixMonet
+                            )
+                        }
+                    )
+                )
             }
 
             item {

@@ -43,22 +43,21 @@ fun MiuixKernelSUTheme(
     }
 
     val resolvedKeyColor: Color? = when {
-        appSettings.keyColor != 0 -> Color(appSettings.keyColor)
-        appSettings.colorMode.isMonet ->
+        appSettings.monetEnabled ->
             if (darkTheme) dynamicDarkColorScheme(context).primary
             else dynamicLightColorScheme(context).primary
-
+        appSettings.keyColor != 0 -> Color(appSettings.keyColor)
         else -> YuhengJade
     }
 
     val controller = ThemeController(
-        when (appSettings.colorMode) {
-            ColorMode.SYSTEM -> ColorSchemeMode.System
-            ColorMode.LIGHT -> ColorSchemeMode.Light
-            ColorMode.DARK -> ColorSchemeMode.Dark
-            ColorMode.MONET_SYSTEM -> ColorSchemeMode.MonetSystem
-            ColorMode.MONET_LIGHT -> ColorSchemeMode.MonetLight
-            ColorMode.MONET_DARK, ColorMode.DARK_AMOLED -> ColorSchemeMode.MonetDark
+        when {
+            appSettings.monetEnabled && appSettings.colorMode.isSystem -> ColorSchemeMode.MonetSystem
+            appSettings.monetEnabled && appSettings.colorMode == ColorMode.LIGHT -> ColorSchemeMode.MonetLight
+            appSettings.monetEnabled -> ColorSchemeMode.MonetDark
+            appSettings.colorMode == ColorMode.SYSTEM -> ColorSchemeMode.System
+            appSettings.colorMode == ColorMode.LIGHT -> ColorSchemeMode.Light
+            else -> ColorSchemeMode.Dark
         },
         keyColor = resolvedKeyColor,
         isDark = darkTheme,

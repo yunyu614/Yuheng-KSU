@@ -27,12 +27,13 @@ enum class ColorMode(val value: Int) {
     val isSystem: Boolean get() = value == 0 || value == 3
     val isDark: Boolean get() = value == 2 || value == 5 || value == 6
     val isAmoled: Boolean get() = value == 6
-    val isMonet: Boolean get() = value >= 3
+    val isMonet: Boolean get() = value in 3..5
 
     fun toNonMonetMode(): Int = when (this) {
         MONET_SYSTEM -> 0
         MONET_LIGHT -> 1
-        MONET_DARK, DARK_AMOLED -> 2
+        MONET_DARK -> 2
+        DARK_AMOLED -> 6
         else -> value
     }
 
@@ -40,6 +41,7 @@ enum class ColorMode(val value: Int) {
         SYSTEM -> 3
         LIGHT -> 4
         DARK -> 5
+        DARK_AMOLED -> 5
         else -> value
     }
 }
@@ -49,6 +51,7 @@ data class AppSettings(
     val keyColor: Int,
     val paletteStyle: PaletteStyle,
     val colorSpec: ColorSpec.SpecVersion,
+    val monetEnabled: Boolean = false,
 )
 
 val PaletteStyle.supportsSpec2025: Boolean
@@ -67,20 +70,14 @@ fun ColorSpec.SpecVersion.effectiveFor(style: PaletteStyle): ColorSpec.SpecVersi
 object ThemeController {
     fun getAppSettings(repo: SettingsRepository = SettingsRepositoryImpl()): AppSettings {
         val uiMode = repo.uiMode
-        var colorModeValue = repo.themeMode
-
-        if (uiMode == "miuix") {
-            val miuixMonet = repo.miuixMonet
-            val colorMode = ColorMode.fromValue(colorModeValue)
-            colorModeValue = if (!miuixMonet && colorMode.isMonet) {
-                colorMode.toNonMonetMode()
-            } else if (miuixMonet && !colorMode.isMonet) {
-                colorMode.toMonetMode()
-            } else {
-                colorModeValue
-            }
+        val storedMode = ColorMode.fromValue(repo.themeMode)
+        val legacyMonet = storedMode.isMonet
+        val colorModeValue = if (legacyMonet) storedMode.toNonMonetMode() else storedMode.value
+        val monetEnabled = repo.miuixMonet || legacyMonet
+        if (legacyMonet) {
+            repo.themeMode = colorModeValue
+            repo.miuixMonet = true
         }
-
         val colorMode = ColorMode.fromValue(colorModeValue)
         val keyColor = repo.keyColor
         val paletteStyleStr = repo.colorStyle
@@ -96,7 +93,7 @@ object ThemeController {
             ColorSpec.SpecVersion.SPEC_2025
         }
 
-        return AppSettings(colorMode, keyColor, paletteStyle, colorSpec)
+        return AppSettings(colorMode, keyColor, paletteStyle, colorSpec, monetEnabled)
     }
 }
 

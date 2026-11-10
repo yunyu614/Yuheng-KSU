@@ -170,61 +170,61 @@ fun ColorPaletteScreenMiuix(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         ArrowPreference(
-                            title = "青瓷雾",
-                            summary = "浅青釉与雾灰，温润柔和",
+                            title = "青龙 · 苍龙行云",
+                            summary = "苍青云纹与东方星宿，清雅而有生机",
                             startAction = {
                                 Box(
                                     Modifier.padding(end = 8.dp).size(22.dp)
                                         .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFF55796B))
+                                        .background(Color(0xFF347B68))
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(0) }
                         )
                         ArrowPreference(
-                            title = "月白",
-                            summary = "月白与银青，清透克制",
+                            title = "白虎 · 白虎镇岳",
+                            summary = "白虎 · 白虎镇岳与银青，清透克制",
                             startAction = {
                                 Box(
                                     Modifier.padding(end = 8.dp).size(22.dp)
                                         .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFF7894A3))
+                                        .background(Color(0xFF9AA8B2))
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(1) }
                         )
                         ArrowPreference(
-                            title = "黛青",
-                            summary = "深黛与松石，沉静耐看",
+                            title = "玄武 · 玄武负山",
+                            summary = "玄黄龟甲与北斗星象，厚重而守护",
                             startAction = {
                                 Box(
                                     Modifier.padding(end = 8.dp).size(22.dp)
                                         .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFF527D76))
+                                        .background(Color(0xFFD6A82E))
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(2) }
                         )
                         ArrowPreference(
-                            title = "丹霞",
-                            summary = "暖陶与浅绯，温润柔和",
+                            title = "朱雀 · 朱雀衔火",
+                            summary = "朱砂凤羽与赤焰日轮，热烈而华美",
                             startAction = {
                                 Box(
                                     Modifier.padding(end = 8.dp).size(22.dp)
                                         .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFFB97968))
+                                        .background(Color(0xFFB9423A))
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(3) }
                         )
                         ArrowPreference(
-                            title = "琥珀",
-                            summary = "蜜金与米杏，雅致温暖",
+                            title = "麒麟 · 麒麟呈瑞",
+                            summary = "紫金祥云与瑞兽鳞甲，华贵而祥瑞",
                             startAction = {
                                 Box(
                                     Modifier.padding(end = 8.dp).size(22.dp)
                                         .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFF9C8055))
+                                        .background(Color(0xFF9570B5))
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(4) }

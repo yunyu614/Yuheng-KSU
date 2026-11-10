@@ -7,6 +7,7 @@ import androidx.compose.material3.MotionScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowInsetsControllerCompat
 import me.weishu.kernelsu.ui.webui.MonetColorsProvider
@@ -20,18 +21,19 @@ fun MaterialKernelSUTheme(
     val systemDarkTheme = isSystemInDarkTheme()
     val darkTheme = appSettings.colorMode.isDark || (appSettings.colorMode.isSystem && systemDarkTheme)
     val amoledMode = appSettings.colorMode.isAmoled
-    val dynamicColor = appSettings.keyColor == 0 && appSettings.colorMode.isMonet
+    val dynamicColor = appSettings.monetEnabled
 
     val colorScheme = rememberKernelSUColorScheme(
         seedColor = when {
-            appSettings.keyColor != 0 -> Color(appSettings.keyColor)
             dynamicColor -> Color.Unspecified
+            appSettings.keyColor != 0 -> Color(appSettings.keyColor)
             else -> YuhengJade
         },
         isDark = darkTheme,
         isAmoled = amoledMode,
         paletteStyle = appSettings.paletteStyle,
         colorSpec = appSettings.colorSpec,
+        surfaceSeedColor = Color(if (appSettings.keyColor != 0) appSettings.keyColor else YuhengJade.toArgb()),
     )
 
     LaunchedEffect(darkTheme) {

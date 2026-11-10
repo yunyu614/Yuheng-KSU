@@ -7,46 +7,35 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
 import com.materialkolor.rememberDynamicColorScheme
 
-fun ColorScheme.yuhengSurfacePalette(isDark: Boolean): ColorScheme = if (isDark) {
-    copy(
-        background = Color(0xFF111A16),
-        onBackground = Color(0xFFE4ECE5),
-        surface = Color(0xFF17231D),
-        onSurface = Color(0xFFE3ECE5),
-        surfaceVariant = Color(0xFF2A3A32),
-        onSurfaceVariant = Color(0xFFB5C2B8),
-        surfaceContainerLowest = Color(0xFF101813),
-        surfaceContainerLow = Color(0xFF1B2922),
-        surfaceContainer = Color(0xFF202F27),
-        surfaceContainerHigh = Color(0xFF26362D),
-        surfaceContainerHighest = Color(0xFF2D3D34),
-        surfaceDim = Color(0xFF101813),
-        surfaceBright = Color(0xFF35463B),
-        outline = Color(0xFF81958A),
-        outlineVariant = Color(0xFF46594D),
+fun ColorScheme.yuhengSurfacePalette(isDark: Boolean, preset: YuhengThemePreset): ColorScheme {
+    val background = preset.background(isDark)
+    val surface = preset.surface(isDark)
+    val text = preset.text(isDark)
+    val muted = preset.muted(isDark)
+    val container = if (isDark) Color(
+        red = (background.red * 1.34f).coerceAtMost(1f),
+        green = (background.green * 1.34f).coerceAtMost(1f),
+        blue = (background.blue * 1.34f).coerceAtMost(1f),
+    ) else Color(
+        red = (background.red * 0.975f).coerceAtMost(1f),
+        green = (background.green * 0.975f).coerceAtMost(1f),
+        blue = (background.blue * 0.975f).coerceAtMost(1f),
     )
-} else {
-    copy(
-        background = Color(0xFFF3F1E9),
-        onBackground = Color(0xFF23352E),
-        surface = Color(0xFFFBFAF5),
-        onSurface = Color(0xFF26362F),
-        surfaceVariant = Color(0xFFE6E9E0),
-        onSurfaceVariant = Color(0xFF58665D),
-        surfaceContainerLowest = Color(0xFFFFFFFF),
-        surfaceContainerLow = Color(0xFFF7F6EF),
-        surfaceContainer = Color(0xFFF0F0E8),
-        surfaceContainerHigh = Color(0xFFEAECE3),
-        surfaceContainerHighest = Color(0xFFE3E7DE),
-        surfaceDim = Color(0xFFD9DED5),
-        surfaceBright = Color(0xFFFBFAF5),
-        outline = Color(0xFF87958A),
-        outlineVariant = Color(0xFFD2D9CF),
+    return copy(
+        background = background, onBackground = text, surface = surface, onSurface = text,
+        surfaceVariant = container, onSurfaceVariant = muted,
+        surfaceContainerLowest = if (isDark) background else Color(0xFFFFFEFA),
+        surfaceContainerLow = surface, surfaceContainer = container,
+        surfaceContainerHigh = if (isDark) surface.copy(alpha = 0.96f) else container,
+        surfaceContainerHighest = if (isDark) surface.copy(alpha = 0.90f) else container.copy(alpha = 0.92f),
+        surfaceDim = background, surfaceBright = surface,
+        outline = muted, outlineVariant = preset.decorative.copy(alpha = if (isDark) 0.30f else 0.26f),
     )
 }
 
@@ -70,6 +59,7 @@ fun rememberKernelSUColorScheme(
     isAmoled: Boolean,
     paletteStyle: PaletteStyle,
     colorSpec: ColorSpec.SpecVersion,
+    surfaceSeedColor: Color = YuhengJade,
 ): ColorScheme {
     val context = LocalContext.current
     val seed = if (seedColor == Color.Unspecified) {
@@ -83,7 +73,7 @@ fun rememberKernelSUColorScheme(
         isAmoled = isAmoled,
         style = paletteStyle,
         specVersion = colorSpec.effectiveFor(paletteStyle),
-    ).yuhengSurfacePalette(isDark).amoledBackground(isAmoled)
+    ).yuhengSurfacePalette(isDark, YuhengThemePreset.fromSeedColor(surfaceSeedColor.toArgb())).amoledBackground(isAmoled)
 }
 
 @Composable

@@ -87,6 +87,8 @@ import me.weishu.kernelsu.ui.screen.template.AppProfileTemplateScreen
 import me.weishu.kernelsu.ui.screen.templateeditor.TemplateEditorScreen
 import me.weishu.kernelsu.ui.theme.KernelSUTheme
 import me.weishu.kernelsu.ui.theme.LocalColorMode
+import me.weishu.kernelsu.ui.theme.LocalYuhengThemePreset
+import me.weishu.kernelsu.ui.theme.YuhengThemePreset
 import me.weishu.kernelsu.ui.theme.LocalEnableBlur
 import me.weishu.kernelsu.ui.theme.LocalEnableFloatingBottomBar
 import me.weishu.kernelsu.ui.theme.LocalEnableFloatingBottomBarBlur
@@ -168,6 +170,7 @@ class MainActivity : ComponentActivity() {
                 LocalNavigator provides navigator,
                 LocalDensity provides density,
                 LocalColorMode provides appSettings.colorMode.value,
+                LocalYuhengThemePreset provides YuhengThemePreset.fromSeedColor(if (appSettings.keyColor != 0) appSettings.keyColor else YuhengThemePreset.QINGLONG.seedColor),
                 LocalEnableBlur provides uiState.enableBlur,
                 LocalEnableFloatingBottomBar provides uiState.enableFloatingBottomBar,
                 LocalEnableFloatingBottomBarBlur provides uiState.enableFloatingBottomBarBlur,

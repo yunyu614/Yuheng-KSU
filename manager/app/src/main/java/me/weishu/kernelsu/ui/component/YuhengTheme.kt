@@ -47,6 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.weishu.kernelsu.ui.theme.isInDarkTheme
+import me.weishu.kernelsu.ui.theme.LocalYuhengThemePreset
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -55,10 +56,10 @@ private val JadeText = Color(0xFFE4EEE8)
 private val JadeMuted = Color(0xFF687A70)
 
 @Composable
-fun yuhengHeroBrush(): Brush = if (isInDarkTheme()) {
-    Brush.linearGradient(listOf(Color(0xFF1B2420), Color(0xFF202D26), Color(0xFF26362E)))
-} else {
-    Brush.linearGradient(listOf(Color(0xFFE7EEE9), Color(0xFFDDE7E0), Color(0xFFD5E1D9)))
+fun yuhengHeroBrush(): Brush {
+    val dark = isInDarkTheme()
+    val preset = LocalYuhengThemePreset.current
+    return Brush.linearGradient(listOf(preset.background(dark), preset.surface(dark), preset.background(dark)))
 }
 
 @Composable
@@ -68,9 +69,10 @@ fun Modifier.yuhengCardGradient(shape: Shape = RoundedCornerShape(18.dp)): Modif
 @Composable
 fun YuhengHeroCard(modifier: Modifier = Modifier) {
     val dark = isInDarkTheme()
-    val title = if (dark) JadeText else JadeInk
-    val muted = if (dark) Color(0xFFB5C9BE) else JadeMuted
-    val accent = if (dark) Color(0xFFA7C6B5) else Color(0xFF55796B)
+    val preset = LocalYuhengThemePreset.current
+    val title = preset.text(dark)
+    val muted = preset.muted(dark)
+    val accent = preset.accent
 
     Box(
         modifier = modifier
@@ -79,7 +81,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             .clip(RoundedCornerShape(18.dp))
             .background(yuhengHeroBrush()),
     ) {
-        val ornament = if (dark) Color(0xFFBDA77B) else Color(0xFFA58B5D)
+        val ornament = preset.decorative
         Canvas(
             modifier = Modifier
                 .size(150.dp)
@@ -158,6 +160,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
 fun YuhengAppBackground(content: @Composable () -> Unit) {
     val context = LocalContext.current
     val dark = isInDarkTheme()
+    val preset = LocalYuhengThemePreset.current
     val preferences = remember(context) {
         context.getSharedPreferences("settings", Context.MODE_PRIVATE)
     }
@@ -211,12 +214,24 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
         }
     }
 
-    val brush = if (dark) {
-        Brush.verticalGradient(listOf(Color(0xFF151C18), Color(0xFF19221D), Color(0xFF151C18)))
-    } else {
-        Brush.verticalGradient(listOf(Color(0xFFF0F3F0), Color(0xFFEBF0EC), Color(0xFFE7EDE8)))
-    }
+    val baseBackground = preset.background(dark)
+    val surfaceBackground = preset.surface(dark)
+    val brush = Brush.verticalGradient(listOf(baseBackground, surfaceBackground, baseBackground))
     Box(Modifier.fillMaxSize().background(brush)) {
+        if (wallpaper == null) {
+            Canvas(Modifier.fillMaxSize()) {
+                val ornament = preset.decorative.copy(alpha = if (dark) 0.10f else 0.13f)
+                val radius = size.minDimension * 0.22f
+                val center = Offset(size.width * 0.88f, size.height * 0.16f)
+                drawCircle(ornament, radius = radius, center = center, style = Stroke(1.2.dp.toPx()))
+                drawCircle(ornament.copy(alpha = 0.55f), radius = radius * 0.72f, center = center, style = Stroke(0.8.dp.toPx()))
+                drawCircle(ornament.copy(alpha = 0.42f), radius = radius * 0.42f, center = center, style = Stroke(0.7.dp.toPx()))
+                drawLine(ornament, Offset(center.x - radius, center.y), Offset(center.x + radius, center.y), 0.7.dp.toPx())
+                drawLine(ornament, Offset(center.x, center.y - radius), Offset(center.x, center.y + radius), 0.7.dp.toPx())
+                val lower = Offset(size.width * 0.08f, size.height * 0.82f)
+                drawCircle(ornament.copy(alpha = 0.55f), radius = radius * 0.58f, center = lower, style = Stroke(0.9.dp.toPx()))
+            }
+        }
         wallpaper?.let {
             Image(
                 bitmap = it.asImageBitmap(),
@@ -229,8 +244,7 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
             Modifier
                 .fillMaxSize()
                 .background(
-                    if (dark) Color(0xFF101A15).copy(alpha = 0.34f)
-                    else Color(0xFFF3F1E9).copy(alpha = 0.28f)
+                    baseBackground.copy(alpha = if (dark) 0.48f else 0.42f)
                 )
         )
         content()
@@ -238,15 +252,12 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun yuhengCardColor(): Color = if (isInDarkTheme()) {
-    Color(0xFF1D2B24)
-} else {
-    Color(0xFFF8F7F0)
-}
+fun yuhengCardColor(): Color = LocalYuhengThemePreset.current.surface(isInDarkTheme())
 
 @Composable
 fun YuhengDeviceHintCard(deviceModel: String, modifier: Modifier = Modifier) {
     val dark = isInDarkTheme()
+    val preset = LocalYuhengThemePreset.current
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -260,14 +271,14 @@ fun YuhengDeviceHintCard(deviceModel: String, modifier: Modifier = Modifier) {
                 .width(3.dp)
                 .height(34.dp)
                 .clip(RoundedCornerShape(2.dp))
-                .background(if (dark) Color(0xFFA7C6B5) else Color(0xFF55796B)),
+                .background(preset.accent),
         )
         Spacer(Modifier.width(12.dp))
         Column {
             BasicText(
                 text = "设备信息",
                 style = TextStyle(
-                    color = if (dark) Color(0xFFB5C9BE) else JadeMuted,
+                    color = preset.muted(dark),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
                 ),
@@ -276,7 +287,7 @@ fun YuhengDeviceHintCard(deviceModel: String, modifier: Modifier = Modifier) {
             BasicText(
                 text = deviceModel,
                 style = TextStyle(
-                    color = if (dark) JadeText else JadeInk,
+                    color = preset.text(dark),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
                 ),

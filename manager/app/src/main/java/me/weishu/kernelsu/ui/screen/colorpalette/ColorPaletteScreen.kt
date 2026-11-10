@@ -25,6 +25,7 @@ import me.weishu.kernelsu.ui.LocalUiMode
 import me.weishu.kernelsu.ui.UiMode
 import me.weishu.kernelsu.ui.navigation3.LocalNavigator
 import me.weishu.kernelsu.ui.theme.ColorMode
+import me.weishu.kernelsu.ui.theme.YuhengThemePreset
 import me.weishu.kernelsu.ui.viewmodel.SettingsViewModel
 
 @Composable
@@ -104,22 +105,9 @@ fun ColorPaletteScreen() {
         },
         onSetThemeMode = viewModel::setThemeMode,
         onApplyYuhengPreset = { preset ->
-            val presetColor = when (preset) {
-                0 -> 0xFF55796B.toInt() // 青瓷雾
-                1 -> 0xFF7894A3.toInt() // 月白
-                2 -> 0xFF527D76.toInt() // 黛青
-                3 -> 0xFFB97968.toInt() // 丹霞
-                else -> 0xFF9C8055.toInt() // 琥珀
-            }
-            val paletteStyle = when (preset) {
-                1 -> PaletteStyle.Neutral
-                2 -> PaletteStyle.Expressive
-                3 -> PaletteStyle.Vibrant
-                else -> PaletteStyle.TonalSpot
-            }
-            viewModel.setMiuixMonet(false)
-            viewModel.setKeyColor(presetColor)
-            viewModel.setColorStyle(paletteStyle.name)
+            val selectedPreset = YuhengThemePreset.entries.getOrElse(preset) { YuhengThemePreset.QINGLONG }
+            viewModel.setKeyColor(selectedPreset.seedColor)
+            viewModel.setColorStyle(PaletteStyle.TonalSpot.name)
         },
         onSetMiuixMonet = viewModel::setMiuixMonet,
         onSetKeyColor = viewModel::setKeyColor,
