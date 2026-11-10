@@ -295,7 +295,7 @@ fun ColorPaletteScreenMaterial(
                         .padding(horizontal = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    options.chunked(4).forEach { rowOptions ->
+                    options.chunked(3).forEach { rowOptions ->
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
