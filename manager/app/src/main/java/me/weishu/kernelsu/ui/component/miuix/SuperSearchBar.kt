@@ -69,7 +69,7 @@ import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
 import me.weishu.kernelsu.ui.component.SearchStatus
-import me.weishu.kernelsu.ui.component.deepSeekHeroBrush
+import me.weishu.kernelsu.ui.component.yuhengHeroBrush
 import me.weishu.kernelsu.ui.theme.isInDarkTheme
 import top.yukonga.miuix.kmp.basic.Icon
 import top.yukonga.miuix.kmp.basic.Text
@@ -271,7 +271,7 @@ fun SearchBar(
             .padding(horizontal = 12.dp)
             .padding(top = searchBarTopPadding, bottom = 6.dp)
             .heightIn(min = 45.dp)
-            .background(deepSeekHeroBrush(), CircleShape)
+            .background(yuhengHeroBrush(), CircleShape)
             .focusRequester(focusRequester),
         decorationBox = { innerTextField ->
             Row(
@@ -332,7 +332,7 @@ fun SearchBarFake(
             .padding(horizontal = 12.dp)
             .padding(top = searchBarTopPadding, bottom = 6.dp)
             .heightIn(min = 45.dp)
-            .background(deepSeekHeroBrush(), CircleShape)
+            .background(yuhengHeroBrush(), CircleShape)
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
