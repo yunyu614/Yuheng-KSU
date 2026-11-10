@@ -157,6 +157,18 @@ ifneq ($(strip $(KSU_EXPECTED_SIZE2)),)
 $(info -- KernelSU Manager signature size 2: $(KSU_EXPECTED_SIZE2))
 $(info -- KernelSU Manager signature hash 2: $(KSU_EXPECTED_HASH2))
 endif
+ifneq ($(strip $(KSU_EXPECTED_SIZE3)$(KSU_EXPECTED_HASH3)),)
+ifeq ($(strip $(KSU_EXPECTED_SIZE3)),)
+$(error KSU_EXPECTED_SIZE3 and KSU_EXPECTED_HASH3 must be set together)
+endif
+ifeq ($(strip $(KSU_EXPECTED_HASH3)),)
+$(error KSU_EXPECTED_SIZE3 and KSU_EXPECTED_HASH3 must be set together)
+endif
+endif
+ifneq ($(strip $(KSU_EXPECTED_SIZE3)),)
+$(info -- KernelSU Manager signature size 3: $(KSU_EXPECTED_SIZE3))
+$(info -- KernelSU Manager signature hash 3: $(KSU_EXPECTED_HASH3))
+endif
 $(info -- KernelSU is PR Build: $(KSU_IS_PR_BUILD))
 
 ccflags-y += -DKSU_PACKAGE_NAME=\"$(KSU_PACKAGE_NAME)\"
@@ -165,6 +177,10 @@ ccflags-y += -DEXPECTED_HASH=\"$(KSU_EXPECTED_HASH)\"
 ifneq ($(strip $(KSU_EXPECTED_SIZE2)),)
 ccflags-y += -DEXPECTED_SIZE2=$(KSU_EXPECTED_SIZE2)
 ccflags-y += -DEXPECTED_HASH2=\"$(KSU_EXPECTED_HASH2)\"
+endif
+ifneq ($(strip $(KSU_EXPECTED_SIZE3)),)
+ccflags-y += -DEXPECTED_SIZE3=$(KSU_EXPECTED_SIZE3)
+ccflags-y += -DEXPECTED_HASH3=\"$(KSU_EXPECTED_HASH3)\"
 endif
 ccflags-y += -DKSU_IS_PR_BUILD=$(KSU_IS_PR_BUILD)
 
