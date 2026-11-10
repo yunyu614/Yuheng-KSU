@@ -132,6 +132,7 @@ import me.weishu.kernelsu.data.model.ModuleUpdateInfo
 import me.weishu.kernelsu.data.repository.isSoftRebootPreferred
 import me.weishu.kernelsu.ui.component.ObserveAsEvents
 import me.weishu.kernelsu.ui.component.ScrollToTopOnChange
+import me.weishu.kernelsu.ui.component.YuhengBeastIllustration
 import me.weishu.kernelsu.ui.component.yuhengCardGradient
 import me.weishu.kernelsu.ui.component.dialog.rememberConfirmDialog
 import me.weishu.kernelsu.ui.component.dialog.rememberLoadingDialog
@@ -141,6 +142,7 @@ import me.weishu.kernelsu.ui.component.material.SearchAppBar
 import me.weishu.kernelsu.ui.component.material.SnackBarHost
 import me.weishu.kernelsu.ui.component.material.TonalCard
 import me.weishu.kernelsu.ui.component.statustag.StatusTag
+import me.weishu.kernelsu.ui.theme.LocalYuhengThemePreset
 import me.weishu.kernelsu.ui.theme.LocalModuleDescriptionMaxLines
 import me.weishu.kernelsu.ui.util.reboot
 
