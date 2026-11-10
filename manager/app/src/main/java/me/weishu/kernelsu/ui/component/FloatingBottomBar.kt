@@ -385,7 +385,7 @@ fun FloatingBottomBar(
                     } else Modifier
                 )
                 .then(dampedDragAnimation.modifier)
-                .height(48.dp)
+                .height(56.dp)
                 .padding(4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
