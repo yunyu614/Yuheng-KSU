@@ -109,7 +109,6 @@ fun HomePagerMaterial(
             if (state.showRootWarning) {
                 WarningCard(stringResource(id = R.string.grant_root_failed))
             }
-            YuhengHeroCard()
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(13.dp),
@@ -119,6 +118,7 @@ fun HomePagerMaterial(
                     state = state,
                     actions = actions,
                 )
+                YuhengHeroCard()
                 YuhengDeviceHintCard(deviceModel = state.systemInfo.deviceModel)
                 InfoCard(systemInfo = state.systemInfo)
                     DonateCard(onOpenUrl = actions.onOpenUrl)
@@ -240,7 +240,7 @@ private fun StatusCard(
             modifier = Modifier.fillMaxWidth(),
             color = containerColor,
             contentColor = contentColor,
-            shape = RoundedCornerShape(23.dp),
+            shape = RoundedCornerShape(18.dp),
             onClick = {
                 if (!state.isLateLoadMode) {
                     actions.onInstallClick()
@@ -383,7 +383,7 @@ private fun InfoCard(systemInfo: SystemInfo) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(28.dp))
+            .clip(RoundedCornerShape(18.dp))
             .background(yuhengHeroBrush()),
     ) {
         Column(
