@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import java.io.File
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -147,31 +148,42 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
 fun YuhengAppBackground(content: @Composable () -> Unit) {
     val context = LocalContext.current
     val dark = isInDarkTheme()
-    val wallpaperUri = remember {
+    val preferences = remember(context) {
         context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-            .getString("yuheng_wallpaper_uri", null)
     }
-    var wallpaper by remember(wallpaperUri) { mutableStateOf<Bitmap?>(null) }
+    val wallpaperFilePath = remember {
+        preferences.getString("yuheng_wallpaper_file", null)
+    }
+    val wallpaperUri = remember {
+        preferences.getString("yuheng_wallpaper_uri", null)
+    }
+    var wallpaper by remember(wallpaperFilePath, wallpaperUri) { mutableStateOf<Bitmap?>(null) }
 
-    LaunchedEffect(wallpaperUri) {
+    LaunchedEffect(wallpaperFilePath, wallpaperUri) {
         wallpaper = withContext(Dispatchers.IO) {
-            val value = wallpaperUri ?: return@withContext null
             runCatching {
-                val uri = Uri.parse(value)
+                val file = wallpaperFilePath?.let(::File)?.takeIf { it.isFile && it.length() > 0L }
                 val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-                context.contentResolver.openInputStream(uri)?.use {
-                    BitmapFactory.decodeStream(it, null, bounds)
+                if (file != null) {
+                    BitmapFactory.decodeFile(file.absolutePath, bounds)
+                } else if (wallpaperUri != null) {
+                    context.contentResolver.openInputStream(Uri.parse(wallpaperUri))?.use {
+                        BitmapFactory.decodeStream(it, null, bounds)
+                    }
                 }
+                if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return@runCatching null
                 var sampleSize = 1
-                while (bounds.outWidth / sampleSize > 1600 || bounds.outHeight / sampleSize > 2400) {
+                while (bounds.outWidth / sampleSize > 1800 || bounds.outHeight / sampleSize > 2800) {
                     sampleSize *= 2
                 }
                 val options = BitmapFactory.Options().apply {
                     inSampleSize = sampleSize
                     inPreferredConfig = Bitmap.Config.RGB_565
                 }
-                context.contentResolver.openInputStream(uri)?.use {
-                    BitmapFactory.decodeStream(it, null, options)
+                if (file != null) {
+                    BitmapFactory.decodeFile(file.absolutePath, options)
+                } else {
+                    BitmapFactory.decodeStream(context.contentResolver.openInputStream(Uri.parse(wallpaperUri!!)), null, options)
                 }
             }.getOrNull()
         }
@@ -195,8 +207,8 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
             Modifier
                 .fillMaxSize()
                 .background(
-                    if (dark) Color(0xFF151C18).copy(alpha = 0.78f)
-                    else Color(0xFFF0F3F0).copy(alpha = 0.82f)
+                    if (dark) Color(0xFF101A15).copy(alpha = 0.48f)
+                    else Color(0xFFEAF1EC).copy(alpha = 0.54f)
                 )
         )
         content()

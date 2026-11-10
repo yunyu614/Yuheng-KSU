@@ -7,10 +7,15 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.dropUnlessResumed
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
 import me.weishu.kernelsu.KernelSUApplication
@@ -25,21 +30,30 @@ fun ColorPaletteScreen() {
     val navigator = LocalNavigator.current
     val context = LocalContext.current
     val activity = LocalActivity.current
+    val scope = rememberCoroutineScope()
     val wallpaperPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri ->
         if (uri != null) {
-            runCatching {
-                context.contentResolver.takePersistableUriPermission(
-                    uri,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
+            scope.launch {
+                val target = File(context.filesDir, "yuheng-wallpaper")
+                val copied = withContext(Dispatchers.IO) {
+                    runCatching {
+                        context.contentResolver.openInputStream(uri)?.use { input ->
+                            target.outputStream().use { output -> input.copyTo(output) }
+                        } ?: error("Unable to read selected image")
+                        target
+                    }.getOrNull()
+                }
+                if (copied != null) {
+                    context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                        .edit()
+                        .putString("yuheng_wallpaper_file", copied.absolutePath)
+                        .remove("yuheng_wallpaper_uri")
+                        .apply()
+                    activity?.recreate()
+                }
             }
-            context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-                .edit()
-                .putString("yuheng_wallpaper_uri", uri.toString())
-                .apply()
-            activity?.recreate()
         }
     }
     val viewModel = viewModel<SettingsViewModel>()
@@ -67,7 +81,9 @@ fun ColorPaletteScreen() {
             context.getSharedPreferences("settings", Context.MODE_PRIVATE)
                 .edit()
                 .remove("yuheng_wallpaper_uri")
+                .remove("yuheng_wallpaper_file")
                 .apply()
+            File(context.filesDir, "yuheng-wallpaper").delete()
             activity?.recreate()
         },
         onSetThemeMode = viewModel::setThemeMode,
@@ -79,8 +95,15 @@ fun ColorPaletteScreen() {
                 3 -> 0xFFB97968.toInt() // 丹霞
                 else -> 0xFF9C8055.toInt() // 琥珀
             }
+            val paletteStyle = when (preset) {
+                1 -> PaletteStyle.Neutral
+                2 -> PaletteStyle.Expressive
+                3 -> PaletteStyle.Vibrant
+                else -> PaletteStyle.TonalSpot
+            }
             viewModel.setMiuixMonet(false)
             viewModel.setKeyColor(presetColor)
+            viewModel.setColorStyle(paletteStyle.name)
         },
         onSetMiuixMonet = viewModel::setMiuixMonet,
         onSetKeyColor = viewModel::setKeyColor,
