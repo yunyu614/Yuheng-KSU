@@ -1,7 +1,6 @@
 package me.weishu.kernelsu.ui.screen.about
 
 import android.os.Build
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,13 +44,11 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
@@ -284,7 +281,7 @@ private fun AboutContent(
                 modifier = Modifier
                     .size(112.dp)
                     .clip(RoundedCornerShape(30.dp))
-                    .background(if (isInDark) Color(0xFF1A2A55) else Color(0xFFE6EEFF))
+                    .background(if (isInDark) Color(0xFF24312D) else Color(0xFFDDE8E1))
                     .graphicsLayer {
                         alpha = 1 - iconProgress
                         scaleX = 1 - (iconProgress * 0.05f)
@@ -297,24 +294,24 @@ private fun AboutContent(
                         iconY = y + size.height
                     },
             ) {
-                Image(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .then(
-                            if (enableBlur) {
-                                Modifier.textureBlur(
-                                    backdrop = backdrop,
-                                    shape = RoundedCornerShape(0.dp),
-                                    blurRadius = 150f,
-                                    colors = BlurColors(blendColors = logoBlend),
-                                    contentBlendMode = ComposeBlendMode.DstIn,
-                                    enabled = true,
-                                )
-                            } else Modifier
-                        ),
-                    painter = painterResource(id = R.drawable.deepseek_plush),
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
+                Text(
+                    modifier = Modifier.then(
+                        if (enableBlur) {
+                            Modifier.textureBlur(
+                                backdrop = backdrop,
+                                shape = RoundedCornerShape(0.dp),
+                                blurRadius = 150f,
+                                colors = BlurColors(blendColors = logoBlend),
+                                contentBlendMode = ComposeBlendMode.DstIn,
+                                enabled = true,
+                            )
+                        } else Modifier
+                    ),
+                    text = "玉",
+                    color = if (isInDark) Color(0xFFA7C6B5) else Color(0xFF55796B),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 58.sp,
+                    textAlign = TextAlign.Center,
                 )
             }
             Text(
