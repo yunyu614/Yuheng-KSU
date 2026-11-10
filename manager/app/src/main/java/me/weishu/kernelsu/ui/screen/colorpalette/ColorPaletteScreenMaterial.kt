@@ -147,6 +147,7 @@ fun ColorPaletteScreenMaterial(
                     keyColor = currentKeyColor,
                     isDark = isDark,
                     isAmoled = isAmoled,
+                    monetEnabled = uiState.miuixMonet,
                     paletteStyle = colorStyle,
                     colorSpec = colorSpec,
                 )
@@ -592,6 +593,7 @@ private fun ThemePreviewCard(
     keyColor: Int,
     isDark: Boolean,
     isAmoled: Boolean = false,
+    monetEnabled: Boolean = false,
     paletteStyle: PaletteStyle = PaletteStyle.TonalSpot,
     colorSpec: ColorSpec.SpecVersion = ColorSpec.SpecVersion.SPEC_2025,
 ) {
@@ -602,11 +604,12 @@ private fun ThemePreviewCard(
     val useRail = useNavigationRail(enableFloatingBottomBar = false)
 
     val colorScheme = rememberKernelSUColorScheme(
-        seedColor = if (keyColor == 0) Color.Unspecified else Color(keyColor),
+        seedColor = if (monetEnabled || keyColor == 0) Color.Unspecified else Color(keyColor),
         isDark = isDark,
         isAmoled = isAmoled,
         paletteStyle = paletteStyle,
         colorSpec = colorSpec,
+        surfaceSeedColor = Color(if (keyColor != 0) keyColor else 0xFF347B68),
     )
 
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {

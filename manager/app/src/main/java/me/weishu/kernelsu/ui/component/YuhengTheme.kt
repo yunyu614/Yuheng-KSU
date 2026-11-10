@@ -131,7 +131,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             }
             Spacer(Modifier.height(8.dp))
             BasicText(
-                text = "以玉为度，令系统井然有序",
+                text = "玉衡 · ${preset.creature}",
                 style = TextStyle(
                     color = title,
                     fontSize = 18.sp,
@@ -141,7 +141,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(4.dp))
             BasicText(
-                text = "以玉为度，简而有序",
+                text = preset.subtitle,
                 style = TextStyle(
                     color = muted,
                     fontSize = 12.sp,
@@ -150,7 +150,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(8.dp))
             BasicText(
-                text = "东方美学  ·  精致管理",
+                text = "五方神兽  ·  东方精工",
                 style = TextStyle(
                     color = accent,
                     fontSize = 10.sp,
