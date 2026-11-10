@@ -14,11 +14,8 @@ import me.weishu.kernelsu.ui.navigation3.LocalNavigator
 fun AboutScreen() {
     val navigator = LocalNavigator.current
     val uriHandler = LocalUriHandler.current
-    val htmlString = stringResource(
-        id = R.string.about_source_code,
-        "<b><a href=\"https://github.com/tiann/KernelSU\">GitHub</a></b>",
-        "<b><a href=\"https://t.me/KernelSU\">Telegram</a></b>"
-    )
+    // 玉衡仅保留项目自己的 GitHub 源码入口。
+    val htmlString = "<b><a href=\"https://github.com/yunyu614/Yuheng-KSU\">GitHub</a></b>"
     val state = AboutUiState(
         title = stringResource(R.string.about),
         appName = stringResource(R.string.app_name),
