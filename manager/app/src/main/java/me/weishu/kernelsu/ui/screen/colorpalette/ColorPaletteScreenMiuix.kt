@@ -170,13 +170,28 @@ fun ColorPaletteScreenMiuix(
                     ) {
                         ArrowPreference(
                             title = "青瓷雾",
-                            summary = "浅青釉与雾灰，温润柔和的浅色主题",
-                            onClick = { actions.onApplyYuhengPreset(false) }
+                            summary = "浅青釉与雾灰，温润柔和",
+                            onClick = { actions.onApplyYuhengPreset(0) }
                         )
                         ArrowPreference(
-                            title = "墨玉",
-                            summary = "深青灰与玉绿，低亮度的深色主题",
-                            onClick = { actions.onApplyYuhengPreset(true) }
+                            title = "月白",
+                            summary = "月白与银青，清透克制",
+                            onClick = { actions.onApplyYuhengPreset(1) }
+                        )
+                        ArrowPreference(
+                            title = "黛青",
+                            summary = "深黛与松石，沉静耐看",
+                            onClick = { actions.onApplyYuhengPreset(2) }
+                        )
+                        ArrowPreference(
+                            title = "丹霞",
+                            summary = "暖陶与浅绯，温润柔和",
+                            onClick = { actions.onApplyYuhengPreset(3) }
+                        )
+                        ArrowPreference(
+                            title = "琥珀",
+                            summary = "蜜金与米杏，雅致温暖",
+                            onClick = { actions.onApplyYuhengPreset(4) }
                         )
                     }
                     Spacer(modifier = Modifier.height(56.dp))

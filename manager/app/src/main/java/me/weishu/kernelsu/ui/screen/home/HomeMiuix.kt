@@ -267,15 +267,38 @@ private fun StatusCard(
                         showIndication = !state.isLateLoadMode,
                         pressFeedbackType = PressFeedbackType.Tilt
                     ) {
-                        Box {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .offset(27.dp, 31.dp),
-                                contentAlignment = Alignment.BottomEnd
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 14.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(12.dp),
                             ) {
+                                Column(
+                                    modifier = Modifier.weight(1f),
+                                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                                ) {
+                                    Text(
+                                        text = workingText,
+                                        fontSize = 19.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                    )
+                                    Text(
+                                        text = stringResource(
+                                            R.string.home_working_version,
+                                            "${state.ksuVersion}-${state.kernelUAPIVersion}"
+                                        ),
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        lineHeight = 18.sp,
+                                    )
+                                }
                                 Icon(
-                                    modifier = Modifier.size(72.dp),
+                                    modifier = Modifier.size(44.dp),
                                     imageVector = Icons.Rounded.CheckCircleOutline,
                                     tint = if (isDynamicColor) {
                                         colorScheme.primary.copy(alpha = 0.8f)
@@ -286,41 +309,12 @@ private fun StatusCard(
                                 )
                             }
                             if (workingMode != null) {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(16.dp, 10.dp),
-                                    contentAlignment = Alignment.BottomStart,
-                                ) {
-                                    Text(
-                                        text = workingMode,
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Medium,
-                                    )
-                                }
-                            }
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp, 14.dp),
-                                contentAlignment = Alignment.TopStart,
-                            ) {
-                                Column {
-                                    Text(
-                                        text = workingText,
-                                        fontSize = 19.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                    )
-                                    Spacer(Modifier.height(1.dp))
-                                    Text(
-                                        text = stringResource(
-                                            R.string.home_working_version,
-                                            "${state.ksuVersion}-${state.kernelUAPIVersion}"
-                                        ),
-                                        fontSize = 13.sp,
-                                        fontWeight = FontWeight.Medium,
-                                    )
-                                }
+                                Text(
+                                    text = workingMode,
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = if (isDynamicColor) colorScheme.primary else YuhengJade,
+                                )
                             }
                         }
                     }
