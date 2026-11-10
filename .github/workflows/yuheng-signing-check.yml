@@ -1,0 +1,54 @@
+name: Yuheng signing key check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-signing-key:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Check all four signing secrets
+        env:
+          KEYSTORE_BASE64: ${{ secrets.YUHENG_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.YUHENG_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.YUHENG_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.YUHENG_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64" || { echo "::error::Missing YUHENG_KEYSTORE_BASE64"; exit 1; }
+          test -n "$KEYSTORE_PASSWORD" || { echo "::error::Missing YUHENG_KEYSTORE_PASSWORD"; exit 1; }
+          test -n "$KEY_ALIAS" || { echo "::error::Missing YUHENG_KEY_ALIAS"; exit 1; }
+          test -n "$KEY_PASSWORD" || { echo "::error::Missing YUHENG_KEY_PASSWORD"; exit 1; }
+          echo "All four repository secrets are present."
+      - name: Restore and validate keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.YUHENG_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.YUHENG_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.YUHENG_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.YUHENG_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          WORK_DIR="$RUNNER_TEMP/yuheng-signing-check"
+          mkdir -p "$WORK_DIR"
+          KEYSTORE="$WORK_DIR/yuheng-release.jks"
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$KEYSTORE"
+          test -s "$KEYSTORE"
+          chmod 600 "$KEYSTORE"
+
+          keytool -list -keystore "$KEYSTORE" -storepass "$KEYSTORE_PASSWORD" -alias "$KEY_ALIAS" >/dev/null
+          echo "Keystore password and key alias are valid."
+
+          keytool -certreq -keystore "$KEYSTORE" -storepass "$KEYSTORE_PASSWORD" \
+            -keypass "$KEY_PASSWORD" -alias "$KEY_ALIAS" -file "$WORK_DIR/validation.csr" >/dev/null
+          test -s "$WORK_DIR/validation.csr"
+          echo "Private key password is valid."
+          rm -f "$KEYSTORE" "$WORK_DIR/validation.csr"
+          echo "Yuheng signing credentials validation passed."
