@@ -58,7 +58,7 @@
         <item>Fat fish have big wisdom too.</item>
         <item>Shall we swim toward AGI together?</item>
     </string-array>
-    <string name="home">Home</string>
+    <string name="home">Overview</string>
     <string name="home_not_installed">Not installed</string>
     <string name="home_click_to_install">Tap to install</string>
     <string name="home_working">Working</string>
