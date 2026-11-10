@@ -64,6 +64,100 @@ fun yuhengHeroBrush(): Brush {
     return Brush.linearGradient(listOf(preset.background(dark), preset.surface(dark), preset.background(dark)))
 }
 
+/**
+ * Theme-specific filled scenery. These are environmental silhouettes, not enlarged beast glyphs:
+ * each preset gets a distinct visual language while remaining lightweight to render.
+ */
+@Composable
+fun YuhengThemeAtmosphere(
+    preset: YuhengThemePreset = LocalYuhengThemePreset.current,
+    modifier: Modifier = Modifier,
+    alpha: Float = 0.16f,
+) {
+    Canvas(modifier) {
+        val w = size.width
+        val h = size.height
+        val ink = preset.accent.copy(alpha = alpha)
+        val ornament = preset.decorative.copy(alpha = alpha * 0.82f)
+        fun shape(color: Color, build: Path.() -> Unit) {
+            drawPath(Path().apply(build), color)
+        }
+        when (preset) {
+            YuhengThemePreset.QINGLONG -> {
+                drawCircle(ornament, h * 0.28f, Offset(w * 0.82f, h * 0.22f))
+                shape(ink) {
+                    moveTo(0f, h * 0.82f); cubicTo(w * .18f, h * .58f, w * .30f, h * .76f, w * .46f, h * .62f)
+                    cubicTo(w * .62f, h * .48f, w * .72f, h * .72f, w, h * .48f)
+                    lineTo(w, h); lineTo(0f, h); close()
+                }
+                shape(ornament) {
+                    moveTo(0f, h * .91f); cubicTo(w * .22f, h * .72f, w * .32f, h * .92f, w * .53f, h * .78f)
+                    cubicTo(w * .72f, h * .65f, w * .83f, h * .86f, w, h * .72f)
+                    lineTo(w, h); lineTo(0f, h); close()
+                }
+                drawCircle(ornament, h * .10f, Offset(w * .22f, h * .34f))
+                drawCircle(ornament, h * .07f, Offset(w * .31f, h * .31f))
+            }
+            YuhengThemePreset.BAIHU -> {
+                drawCircle(ornament, h * .25f, Offset(w * .80f, h * .24f))
+                shape(ink) {
+                    moveTo(0f, h); lineTo(w * .22f, h * .35f); lineTo(w * .37f, h * .66f)
+                    lineTo(w * .56f, h * .20f); lineTo(w * .78f, h * .62f); lineTo(w, h * .30f)
+                    lineTo(w, h); close()
+                }
+                shape(ornament) {
+                    moveTo(0f, h); lineTo(w * .30f, h * .63f); lineTo(w * .46f, h * .82f)
+                    lineTo(w * .70f, h * .48f); lineTo(w, h * .78f); lineTo(w, h); close()
+                }
+            }
+            YuhengThemePreset.XUANWU -> {
+                drawCircle(ornament, h * .31f, Offset(w * .76f, h * .28f))
+                shape(ink) {
+                    moveTo(0f, h * .72f); cubicTo(w * .22f, h * .52f, w * .35f, h * .88f, w * .56f, h * .68f)
+                    cubicTo(w * .76f, h * .48f, w * .86f, h * .82f, w, h * .60f)
+                    lineTo(w, h); lineTo(0f, h); close()
+                }
+                shape(ornament) {
+                    moveTo(0f, h * .88f); cubicTo(w * .20f, h * .68f, w * .36f, h, w * .57f, h * .82f)
+                    cubicTo(w * .76f, h * .64f, w * .87f, h * .98f, w, h * .78f)
+                    lineTo(w, h); lineTo(0f, h); close()
+                }
+                drawCircle(ink, h * .13f, Offset(w * .24f, h * .36f))
+            }
+            YuhengThemePreset.ZHUQUE -> {
+                drawCircle(ornament, h * .31f, Offset(w * .78f, h * .26f))
+                shape(ink) {
+                    moveTo(w * .48f, h); cubicTo(w * .18f, h * .68f, w * .42f, h * .51f, w * .28f, h * .20f)
+                    cubicTo(w * .55f, h * .40f, w * .52f, h * .14f, w * .68f, 0f)
+                    cubicTo(w * .67f, h * .38f, w * .94f, h * .48f, w * .72f, h)
+                    close()
+                }
+                shape(ornament) {
+                    moveTo(w * .60f, h); cubicTo(w * .42f, h * .73f, w * .66f, h * .62f, w * .60f, h * .39f)
+                    cubicTo(w * .86f, h * .64f, w * .80f, h * .82f, w, h)
+                    close()
+                }
+            }
+            YuhengThemePreset.QILIN -> {
+                drawCircle(ornament, h * .27f, Offset(w * .78f, h * .22f))
+                drawCircle(ink, h * .13f, Offset(w * .18f, h * .54f))
+                drawCircle(ink, h * .16f, Offset(w * .31f, h * .49f))
+                drawCircle(ink, h * .12f, Offset(w * .44f, h * .55f))
+                shape(ink) {
+                    moveTo(0f, h * .82f); cubicTo(w * .20f, h * .64f, w * .34f, h * .84f, w * .52f, h * .68f)
+                    cubicTo(w * .70f, h * .52f, w * .82f, h * .76f, w, h * .58f)
+                    lineTo(w, h); lineTo(0f, h); close()
+                }
+                shape(ornament) {
+                    moveTo(0f, h * .94f); cubicTo(w * .24f, h * .76f, w * .40f, h * .98f, w * .60f, h * .82f)
+                    cubicTo(w * .76f, h * .68f, w * .90f, h * .90f, w, h * .80f)
+                    lineTo(w, h); lineTo(0f, h); close()
+                }
+            }
+        }
+    }
+}
+
 @Composable
 fun Modifier.yuhengCardGradient(shape: Shape = RoundedCornerShape(18.dp)): Modifier =
     clip(shape)
@@ -85,6 +179,11 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             .clip(RoundedCornerShape(18.dp))
             .background(yuhengHeroBrush()),
     ) {
+        YuhengThemeAtmosphere(
+            preset = preset,
+            modifier = Modifier.fillMaxSize(),
+            alpha = if (dark) 0.28f else 0.22f,
+        )
         Image(
             painter = painterResource(id = beastIconRes(preset)),
             contentDescription = "${preset.creature}",
@@ -214,15 +313,10 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
     val brush = Brush.verticalGradient(listOf(baseBackground, surfaceBackground, baseBackground))
     Box(Modifier.fillMaxSize().background(brush)) {
         if (wallpaper == null) {
-            Image(
-                painter = painterResource(id = beastIconRes(preset)),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(280.dp)
-                    .align(Alignment.TopEnd)
-                    .offset(x = 72.dp, y = 92.dp),
-                alpha = if (dark) 0.13f else 0.10f,
-                contentScale = ContentScale.Fit,
+            YuhengThemeAtmosphere(
+                preset = preset,
+                modifier = Modifier.fillMaxSize(),
+                alpha = if (dark) 0.10f else 0.075f,
             )
             Box(
                 modifier = Modifier
