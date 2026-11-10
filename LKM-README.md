@@ -19,12 +19,14 @@ KernelSU 源码：v3.3.1（`KSU_VERSION=32680`，UAPI 5）
 
 ## 管理器签名
 
-```text
-APK signing: v2-only
-Certificate DER: 825 bytes (0x0339)
-Certificate SHA-256: bad08be1f8e813067892adca0e70452cd645ba31e5ed15bec35e60fa430f2f48
-Manager package: me.weishu.kernelsu
-```
+两张证书均使用相同的管理器包名，内核会分别校验 APK v2 签名证书：
+
+| 信任对象 | DER 大小 | SHA-256 |
+|---|---:|---|
+| 大肥鱼原管理器 | 825 bytes（`0x0339`） | `bad08be1f8e813067892adca0e70452cd645ba31e5ed15bec35e60fa430f2f48` |
+| 玉衡自有发布证书 | 892 bytes（`0x037c`） | `35fd4e58e9401af81397dae9ae5c385f1ef54c72256e3a3014e631cfa6a918e9` |
+
+管理器包名：`me.weishu.kernelsu`。APK 需包含 v2 签名；仅有 v3/v3.1 签名不满足当前内核解析器的校验方式。
 
 ## 构建参数
 
