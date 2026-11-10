@@ -1,5 +1,7 @@
 # 玉衡 · Yuheng
 
+<p align="center"><img src="docs/images/icon.png" width="112" alt="玉衡图标" /></p>
+
 <p align="center">
   <strong>以玉为度，简而有序。</strong><br />
   面向 Android 的 KernelSU 管理器衍生项目 · 东方未来科技美学
