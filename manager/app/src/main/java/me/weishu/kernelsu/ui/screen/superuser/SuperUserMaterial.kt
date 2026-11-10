@@ -72,6 +72,8 @@ import androidx.compose.ui.unit.dp
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.data.model.AppInfo
 import me.weishu.kernelsu.ui.component.AppIconImage
+import me.weishu.kernelsu.ui.component.YuhengBeastIllustration
+import me.weishu.kernelsu.ui.theme.LocalYuhengThemePreset
 import me.weishu.kernelsu.ui.component.ScrollToTopOnChange
 import me.weishu.kernelsu.ui.component.yuhengCardGradient
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
@@ -408,6 +410,10 @@ fun SuperUserPagerMaterial(
                                 color = colorScheme.onSurfaceVariant,
                             )
                         }
+                        YuhengBeastIllustration(
+                            preset = LocalYuhengThemePreset.current,
+                            modifier = Modifier.size(42.dp),
+                        )
                     }
                 }
                 itemsIndexed(uiState.groupedApps, key = { _, item -> item.uid }) { index, group ->
