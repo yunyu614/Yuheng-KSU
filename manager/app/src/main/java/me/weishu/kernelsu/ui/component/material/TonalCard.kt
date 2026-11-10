@@ -1,5 +1,6 @@
 package me.weishu.kernelsu.ui.component.material
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.combinedClickable
@@ -32,6 +33,8 @@ fun TonalCard(
         containerColor = containerColor,
         contentColor = contentColor,
     )
+    val glassBorder = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.34f))
+    val glassElevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     when {
         onLongClick != null -> Card(
             modifier = modifier
@@ -45,6 +48,8 @@ fun TonalCard(
                 ),
             colors = colors,
             shape = shape,
+            border = glassBorder,
+            elevation = glassElevation,
         ) { content() }
 
         onClick != null -> Card(
@@ -54,12 +59,16 @@ fun TonalCard(
             colors = colors,
             shape = shape,
             interactionSource = interactionSource,
+            border = glassBorder,
+            elevation = glassElevation,
         ) { content() }
 
         else -> Card(
             modifier = modifier,
             colors = colors,
             shape = shape,
+            border = glassBorder,
+            elevation = glassElevation,
         ) { content() }
     }
 }
