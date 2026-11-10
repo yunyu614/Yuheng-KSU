@@ -2,6 +2,8 @@ package me.weishu.kernelsu.ui.screen.colorpalette
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.widget.Toast
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -37,21 +39,35 @@ fun ColorPaletteScreen() {
         if (uri != null) {
             scope.launch {
                 val target = File(context.filesDir, "yuheng-wallpaper")
-                val copied = withContext(Dispatchers.IO) {
+                val temp = File(context.filesDir, "yuheng-wallpaper.tmp")
+                val copyResult = withContext(Dispatchers.IO) {
                     runCatching {
                         context.contentResolver.openInputStream(uri)?.use { input ->
-                            target.outputStream().use { output -> input.copyTo(output) }
-                        } ?: error("Unable to read selected image")
+                            temp.outputStream().use { output -> input.copyTo(output) }
+                        } ?: error("无法读取所选图片")
+                        check(temp.isFile && temp.length() > 0L) { "图片文件为空" }
+                        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                        BitmapFactory.decodeFile(temp.absolutePath, bounds)
+                        check(bounds.outWidth > 0 && bounds.outHeight > 0) { "所选文件不是有效图片" }
+                        if (target.exists()) check(target.delete()) { "无法替换旧壁纸" }
+                        check(temp.renameTo(target)) { "无法保存壁纸文件" }
                         target
-                    }.getOrNull()
+                    }
                 }
-                if (copied != null) {
+                copyResult.onSuccess { copied ->
                     context.getSharedPreferences("settings", Context.MODE_PRIVATE)
                         .edit()
                         .putString("yuheng_wallpaper_file", copied.absolutePath)
                         .remove("yuheng_wallpaper_uri")
                         .apply()
                     activity?.recreate()
+                }.onFailure { error ->
+                    temp.delete()
+                    Toast.makeText(
+                        context,
+                        "壁纸导入失败：${error.localizedMessage ?: "无法读取图片"}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

@@ -1,6 +1,7 @@
 package me.weishu.kernelsu.ui.component
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -23,6 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -151,13 +153,23 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
     val preferences = remember(context) {
         context.getSharedPreferences("settings", Context.MODE_PRIVATE)
     }
-    val wallpaperFilePath = remember {
-        preferences.getString("yuheng_wallpaper_file", null)
+    var wallpaperFilePath by remember(preferences) {
+        mutableStateOf(preferences.getString("yuheng_wallpaper_file", null))
     }
-    val wallpaperUri = remember {
-        preferences.getString("yuheng_wallpaper_uri", null)
+    var wallpaperUri by remember(preferences) {
+        mutableStateOf(preferences.getString("yuheng_wallpaper_uri", null))
     }
-    var wallpaper by remember(wallpaperFilePath, wallpaperUri) { mutableStateOf<Bitmap?>(null) }
+    DisposableEffect(preferences) {
+        val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == null || key == "yuheng_wallpaper_file" || key == "yuheng_wallpaper_uri") {
+                wallpaperFilePath = preferences.getString("yuheng_wallpaper_file", null)
+                wallpaperUri = preferences.getString("yuheng_wallpaper_uri", null)
+            }
+        }
+        preferences.registerOnSharedPreferenceChangeListener(listener)
+        onDispose { preferences.unregisterOnSharedPreferenceChangeListener(listener) }
+    }
+    var wallpaper by remember { mutableStateOf<Bitmap?>(null) }
 
     LaunchedEffect(wallpaperFilePath, wallpaperUri) {
         wallpaper = withContext(Dispatchers.IO) {
@@ -183,7 +195,9 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
                 if (file != null) {
                     BitmapFactory.decodeFile(file.absolutePath, options)
                 } else {
-                    BitmapFactory.decodeStream(context.contentResolver.openInputStream(Uri.parse(wallpaperUri!!)), null, options)
+                    context.contentResolver.openInputStream(Uri.parse(wallpaperUri!!))?.use {
+                        BitmapFactory.decodeStream(it, null, options)
+                    }
                 }
             }.getOrNull()
         }
