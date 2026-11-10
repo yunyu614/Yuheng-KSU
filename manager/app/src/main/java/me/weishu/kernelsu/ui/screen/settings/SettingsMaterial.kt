@@ -53,6 +53,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -62,6 +63,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.UiMode
 import me.weishu.kernelsu.ui.theme.LocalYuhengThemePreset
@@ -89,6 +91,7 @@ fun SettingPagerMaterial(
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     val snackBarHost = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
     val showUninstallDialog = rememberSaveable { mutableStateOf(false) }
     var showBottomSheet by remember { mutableStateOf(false) }
     val context = LocalContext.current
@@ -105,11 +108,27 @@ fun SettingPagerMaterial(
         contract = ActivityResultContracts.OpenDocument(),
     ) { uri ->
         if (uri != null) {
-            runCatching {
+            val persistedPermission = runCatching {
                 context.contentResolver.takePersistableUriPermission(
                     uri,
                     android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
                 )
+            }
+            if (persistedPermission.isFailure) {
+                coroutineScope.launch {
+                    snackBarHost.showSnackbar("无法持久访问这张图片，请更换图片来源后重试")
+                }
+                return@rememberLauncherForActivityResult
+            }
+
+            val previousUri = wallpaperPreferences.getString("yuheng_wallpaper_uri", null)
+            if (previousUri != null && previousUri != uri.toString()) {
+                runCatching {
+                    context.contentResolver.releasePersistableUriPermission(
+                        android.net.Uri.parse(previousUri),
+                        android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                    )
+                }
             }
             wallpaperPreferences.edit()
                 .remove("yuheng_wallpaper_file")
@@ -174,6 +193,14 @@ fun SettingPagerMaterial(
                         add {
                             SegmentedListItem(
                                 onClick = {
+                                    wallpaperPreferences.getString("yuheng_wallpaper_uri", null)?.let { savedUri ->
+                                        runCatching {
+                                            context.contentResolver.releasePersistableUriPermission(
+                                                android.net.Uri.parse(savedUri),
+                                                android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                                            )
+                                        }
+                                    }
                                     wallpaperPreferences.edit()
                                         .remove("yuheng_wallpaper_uri")
                                         .remove("yuheng_wallpaper_file")
