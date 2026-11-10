@@ -64,7 +64,7 @@
 - [x] 运行工作流并完成完整 Android 工程导入
 - [x] Gradle Debug 构建通过（2026-11-10，Actions run 42759122178）
 - [ ] 真机 Root 授权与模块操作回归
-- [ ] Material / Miuix 双 UI 主题一致性验证
+- [ ] Material / Miuix 双 UI 真机主题表现与 Root 流程回归验证
 
 
 ## 玉衡 UI 第一轮改造（2026-11-10）
@@ -77,5 +77,5 @@
 - [x] 默认应用显示名称改为「玉衡」，包名仍保留 `me.weishu.kernelsu`。
 - [x] 新增 Android Debug APK 自动构建工作流。
 - [x] 执行首轮 CI，Gradle Debug APK 构建及 artifact 上传成功。
-- [x] 移除旧主题文案、Token 余额页、API 请求仓库与 Token 插画；少量历史图片资源仍待引用审查。
-- [x] 在 Material / Miuix 主题页加入青瓷雾、墨玉预设入口，复用设置仓库持久化主题模式与种子色；待本轮 CI 验证。
+- [x] 移除旧主题文案、Token 余额页、API 请求仓库、Token 插画与历史角色图片资源。
+- [x] 在 Material / Miuix 主题页加入青瓷雾、墨玉预设入口，复用设置仓库持久化主题模式与种子色。
