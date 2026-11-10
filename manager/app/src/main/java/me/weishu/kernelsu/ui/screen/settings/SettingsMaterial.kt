@@ -1,5 +1,13 @@
 package me.weishu.kernelsu.ui.screen.settings
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -51,6 +59,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.UiMode
+import me.weishu.kernelsu.ui.component.yuhengCardColor
+import me.weishu.kernelsu.ui.component.LocalYuhengThemePreset
+import me.weishu.kernelsu.ui.theme.isInDarkTheme
 import me.weishu.kernelsu.ui.component.KsuIsValid
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
 import me.weishu.kernelsu.ui.component.material.SegmentedColumn
@@ -95,6 +106,7 @@ fun SettingPagerMaterial(
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .verticalScroll(rememberScrollState())
         ) {
+            SettingsAppearanceIntro()
             SettingsSectionTitle("外观与个性化")
             SegmentedColumn(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 13.dp),
@@ -364,13 +376,58 @@ fun SettingPagerMaterial(
 }
 
 @Composable
+private fun SettingsAppearanceIntro() {
+    val preset = LocalYuhengThemePreset.current
+    val dark = isInDarkTheme()
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clip(RoundedCornerShape(22.dp))
+            .background(preset.surface(dark).copy(alpha = 0.88f))
+            .border(1.dp, preset.accent.copy(alpha = 0.22f), RoundedCornerShape(22.dp))
+            .padding(horizontal = 18.dp, vertical = 16.dp)
+    ) {
+        Text(
+            text = "YU HENG  /  PERSONALIZATION",
+            style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
+            color = preset.accent,
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = "让玉衡，呈现你的东方气韵",
+            style = androidx.compose.material3.MaterialTheme.typography.titleMedium,
+            color = preset.text(dark),
+        )
+        Spacer(Modifier.height(4.dp))
+        Text(
+            text = "当前主题 · ${preset.creature}    /    外观、行为与安全设置",
+            style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
+            color = preset.muted(dark),
+        )
+    }
+}
+
+@Composable
 private fun SettingsSectionTitle(title: String) {
-    Text(
-        text = title,
-        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 2.dp),
-        style = androidx.compose.material3.MaterialTheme.typography.titleSmall,
-        color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground,
-    )
+    Row(
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 13.dp, bottom = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            modifier = Modifier
+                .width(3.dp)
+                .height(16.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(LocalYuhengThemePreset.current.accent)
+        )
+        Text(
+            text = title,
+            modifier = Modifier.padding(start = 9.dp),
+            style = androidx.compose.material3.MaterialTheme.typography.titleSmall,
+            color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground,
+        )
+    }
 }
 
 @Composable
