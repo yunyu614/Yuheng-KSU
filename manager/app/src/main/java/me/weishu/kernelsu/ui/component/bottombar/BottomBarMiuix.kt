@@ -86,7 +86,7 @@ fun BottomBarMiuix(
                 .pointerInput(Unit) {
                     detectTapGestures { }
                 }
-                .padding(start = 28.dp, end = 28.dp, bottom = bottomPadding),
+                .padding(start = 22.dp, end = 22.dp, bottom = bottomPadding),
             selectedIndex = mainState.selectedPage,
             onSelected = { mainState.animateToPage(it) },
             backdrop = backdrop,
