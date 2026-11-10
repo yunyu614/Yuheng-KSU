@@ -3,10 +3,11 @@ package me.weishu.kernelsu.ui.theme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 
-val DeepSeekBlue = Color(0xFF4D6BFE)
+val YuhengJade = Color(0xFF55796B)
+val DeepSeekBlue = YuhengJade
 
 val keyColorOptions = listOf(
-    DeepSeekBlue.toArgb(),
+    YuhengJade.toArgb(),
     Color(0xFFF44336).toArgb(),
     Color(0xFFE91E63).toArgb(),
     Color(0xFF9C27B0).toArgb(),
