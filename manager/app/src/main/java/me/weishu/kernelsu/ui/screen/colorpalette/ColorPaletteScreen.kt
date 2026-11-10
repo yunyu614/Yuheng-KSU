@@ -1,6 +1,10 @@
 package me.weishu.kernelsu.ui.screen.colorpalette
 
+import android.content.Context
+import android.content.Intent
 import androidx.activity.compose.LocalActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +25,23 @@ fun ColorPaletteScreen() {
     val navigator = LocalNavigator.current
     val context = LocalContext.current
     val activity = LocalActivity.current
+    val wallpaperPicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        if (uri != null) {
+            runCatching {
+                context.contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
+            context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                .edit()
+                .putString("yuheng_wallpaper_uri", uri.toString())
+                .apply()
+            activity?.recreate()
+        }
+    }
     val viewModel = viewModel<SettingsViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val currentPaletteStyle = try {
@@ -41,6 +62,14 @@ fun ColorPaletteScreen() {
     )
     val actions = ColorPaletteScreenActions(
         onBack = dropUnlessResumed { navigator.pop() },
+        onPickWallpaper = { wallpaperPicker.launch(arrayOf("image/*")) },
+        onClearWallpaper = {
+            context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                .edit()
+                .remove("yuheng_wallpaper_uri")
+                .apply()
+            activity?.recreate()
+        },
         onSetThemeMode = viewModel::setThemeMode,
         onApplyYuhengPreset = { preset ->
             val presetColor = when (preset) {

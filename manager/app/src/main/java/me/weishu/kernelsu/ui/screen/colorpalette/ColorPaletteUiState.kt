@@ -17,6 +17,8 @@ data class ColorPaletteUiState(
 @Immutable
 data class ColorPaletteScreenActions(
     val onBack: () -> Unit,
+    val onPickWallpaper: () -> Unit,
+    val onClearWallpaper: () -> Unit,
     val onSetThemeMode: (Int) -> Unit,
     val onApplyYuhengPreset: (Int) -> Unit,
     val onSetMiuixMonet: (Boolean) -> Unit,

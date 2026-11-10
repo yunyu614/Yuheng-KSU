@@ -187,6 +187,20 @@ fun ColorPaletteScreenMaterial(
                                 headlineContent = { Text("琥珀") },
                                 supportingContent = { Text("蜜金与米杏，雅致温暖") },
                             )
+                        },
+                        {
+                            SegmentedListItem(
+                                onClick = actions.onPickWallpaper,
+                                headlineContent = { Text("自定义壁纸") },
+                                supportingContent = { Text("从相册选择图片作为应用背景") },
+                            )
+                        },
+                        {
+                            SegmentedListItem(
+                                onClick = actions.onClearWallpaper,
+                                headlineContent = { Text("恢复默认背景") },
+                                supportingContent = { Text("移除自定义壁纸，恢复玉衡默认背景") },
+                            )
                         }
                     )
                 )

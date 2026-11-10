@@ -193,6 +193,16 @@ fun ColorPaletteScreenMiuix(
                             summary = "蜜金与米杏，雅致温暖",
                             onClick = { actions.onApplyYuhengPreset(4) }
                         )
+                        ArrowPreference(
+                            title = "自定义壁纸",
+                            summary = "从相册选择图片作为应用背景",
+                            onClick = actions.onPickWallpaper
+                        )
+                        ArrowPreference(
+                            title = "恢复默认背景",
+                            summary = "移除自定义壁纸，恢复玉衡默认背景",
+                            onClick = actions.onClearWallpaper
+                        )
                     }
                     Spacer(modifier = Modifier.height(56.dp))
 

@@ -1,5 +1,10 @@
 package me.weishu.kernelsu.ui.component
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,17 +22,27 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.weishu.kernelsu.ui.theme.isInDarkTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 private val JadeInk = Color(0xFF263B32)
 private val JadeText = Color(0xFFE4EEE8)
@@ -130,13 +145,60 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
 
 @Composable
 fun YuhengAppBackground(content: @Composable () -> Unit) {
+    val context = LocalContext.current
     val dark = isInDarkTheme()
+    val wallpaperUri = remember {
+        context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+            .getString("yuheng_wallpaper_uri", null)
+    }
+    var wallpaper by remember(wallpaperUri) { mutableStateOf<Bitmap?>(null) }
+
+    LaunchedEffect(wallpaperUri) {
+        wallpaper = withContext(Dispatchers.IO) {
+            val value = wallpaperUri ?: return@withContext null
+            runCatching {
+                val uri = Uri.parse(value)
+                val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                context.contentResolver.openInputStream(uri)?.use {
+                    BitmapFactory.decodeStream(it, null, bounds)
+                }
+                var sampleSize = 1
+                while (bounds.outWidth / sampleSize > 1600 || bounds.outHeight / sampleSize > 2400) {
+                    sampleSize *= 2
+                }
+                val options = BitmapFactory.Options().apply {
+                    inSampleSize = sampleSize
+                    inPreferredConfig = Bitmap.Config.RGB_565
+                }
+                context.contentResolver.openInputStream(uri)?.use {
+                    BitmapFactory.decodeStream(it, null, options)
+                }
+            }.getOrNull()
+        }
+    }
+
     val brush = if (dark) {
         Brush.verticalGradient(listOf(Color(0xFF151C18), Color(0xFF19221D), Color(0xFF151C18)))
     } else {
         Brush.verticalGradient(listOf(Color(0xFFF0F3F0), Color(0xFFEBF0EC), Color(0xFFE7EDE8)))
     }
     Box(Modifier.fillMaxSize().background(brush)) {
+        wallpaper?.let {
+            Image(
+                bitmap = it.asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+            )
+        }
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(
+                    if (dark) Color(0xFF151C18).copy(alpha = 0.78f)
+                    else Color(0xFFF0F3F0).copy(alpha = 0.82f)
+                )
+        )
         content()
     }
 }
