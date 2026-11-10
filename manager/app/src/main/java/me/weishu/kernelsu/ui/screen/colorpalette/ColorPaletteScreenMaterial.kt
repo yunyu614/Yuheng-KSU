@@ -90,6 +90,7 @@ import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.component.bottombar.useNavigationRail
+import me.weishu.kernelsu.ui.component.YuhengThemeAtmosphere
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
 import me.weishu.kernelsu.ui.component.material.ExpressiveToggleButton
 import me.weishu.kernelsu.ui.component.material.SegmentedColumn
@@ -189,22 +190,39 @@ fun ColorPaletteScreenMaterial(
                                 ),
                             ) {
                                 Column(
-                                    modifier = Modifier.padding(14.dp),
-                                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                                    modifier = Modifier.padding(12.dp),
+                                    verticalArrangement = Arrangement.spacedBy(8.dp),
                                 ) {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(112.dp)
+                                            .clip(RoundedCornerShape(17.dp))
+                                            .background(Color(preset.seedColor).copy(alpha = if (selected) 0.15f else 0.09f)),
+                                    ) {
+                                        YuhengThemeAtmosphere(
+                                            preset = preset,
+                                            modifier = Modifier.fillMaxSize(),
+                                            alpha = 0.36f,
+                                        )
                                         Image(
                                             painter = painterResource(id = preset.iconRes),
                                             contentDescription = preset.creature,
-                                            modifier = Modifier.size(76.dp),
+                                            modifier = Modifier
+                                                .size(104.dp)
+                                                .align(Alignment.CenterEnd)
+                                                .padding(5.dp),
                                             contentScale = androidx.compose.ui.layout.ContentScale.Fit,
                                         )
-                                        Spacer(Modifier.weight(1f))
                                         if (selected) {
                                             Icon(
                                                 Icons.Rounded.Check,
                                                 contentDescription = null,
                                                 tint = Color(preset.seedColor),
+                                                modifier = Modifier
+                                                    .align(Alignment.TopStart)
+                                                    .padding(9.dp)
+                                                    .size(20.dp),
                                             )
                                         }
                                     }
