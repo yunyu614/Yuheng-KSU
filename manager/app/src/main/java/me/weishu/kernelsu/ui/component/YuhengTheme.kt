@@ -54,8 +54,8 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(184.dp)
-            .clip(RoundedCornerShape(24.dp))
+            .height(112.dp)
+            .clip(RoundedCornerShape(18.dp))
             .background(yuhengHeroBrush()),
     ) {
         Box(
@@ -74,7 +74,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 22.dp, vertical = 20.dp),
+                .padding(horizontal = 18.dp, vertical = 14.dp),
             verticalArrangement = Arrangement.Center,
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -95,31 +95,31 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
                     ),
                 )
             }
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(8.dp))
             BasicText(
                 text = "让 Root 管理，也有东方美学",
                 style = TextStyle(
                     color = title,
-                    fontSize = 21.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.2.sp,
                 ),
             )
-            Spacer(Modifier.height(7.dp))
+            Spacer(Modifier.height(4.dp))
             BasicText(
                 text = "以玉为度，简而有序",
                 style = TextStyle(
                     color = muted,
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     letterSpacing = 0.4.sp,
                 ),
             )
-            Spacer(Modifier.height(13.dp))
+            Spacer(Modifier.height(8.dp))
             BasicText(
                 text = "青瓷雾  ·  墨玉",
                 style = TextStyle(
                     color = accent,
-                    fontSize = 11.sp,
+                    fontSize = 10.sp,
                     fontWeight = FontWeight.Medium,
                     letterSpacing = 1.sp,
                 ),
