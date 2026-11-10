@@ -184,14 +184,12 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize(),
             alpha = if (dark) 0.28f else 0.22f,
         )
-        Image(
-            painter = painterResource(id = beastIconRes(preset)),
-            contentDescription = "${preset.creature}",
+        YuhengBeastIllustration(
+            preset = preset,
             modifier = Modifier
-                .size(112.dp)
+                .size(124.dp)
                 .align(Alignment.CenterEnd)
-                .offset(x = (-8).dp),
-            contentScale = ContentScale.Fit,
+                .offset(x = (-5).dp),
         )
         Column(
             modifier = Modifier
