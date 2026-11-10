@@ -177,7 +177,7 @@ class SettingsViewModel(
 
     fun setThemeMode(mode: Int) {
         val currentUiMode = repo.uiMode
-        val effectiveMode = if (currentUiMode == "miuix" && _uiState.value.miuixMonet) {
+        val effectiveMode = if (currentUiMode == "miuix" && repo.miuixMonet) {
             mode + 3
         } else {
             mode

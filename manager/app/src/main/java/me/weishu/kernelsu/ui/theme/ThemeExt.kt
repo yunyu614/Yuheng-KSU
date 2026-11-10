@@ -12,6 +12,44 @@ import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
 import com.materialkolor.rememberDynamicColorScheme
 
+fun ColorScheme.yuhengSurfacePalette(isDark: Boolean): ColorScheme = if (isDark) {
+    copy(
+        background = Color(0xFF111A16),
+        onBackground = Color(0xFFE4ECE5),
+        surface = Color(0xFF17231D),
+        onSurface = Color(0xFFE3ECE5),
+        surfaceVariant = Color(0xFF2A3A32),
+        onSurfaceVariant = Color(0xFFB5C2B8),
+        surfaceContainerLowest = Color(0xFF101813),
+        surfaceContainerLow = Color(0xFF1B2922),
+        surfaceContainer = Color(0xFF202F27),
+        surfaceContainerHigh = Color(0xFF26362D),
+        surfaceContainerHighest = Color(0xFF2D3D34),
+        surfaceDim = Color(0xFF101813),
+        surfaceBright = Color(0xFF35463B),
+        outline = Color(0xFF81958A),
+        outlineVariant = Color(0xFF46594D),
+    )
+} else {
+    copy(
+        background = Color(0xFFF3F1E9),
+        onBackground = Color(0xFF23352E),
+        surface = Color(0xFFFBFAF5),
+        onSurface = Color(0xFF26362F),
+        surfaceVariant = Color(0xFFE6E9E0),
+        onSurfaceVariant = Color(0xFF58665D),
+        surfaceContainerLowest = Color(0xFFFFFFFF),
+        surfaceContainerLow = Color(0xFFF7F6EF),
+        surfaceContainer = Color(0xFFF0F0E8),
+        surfaceContainerHigh = Color(0xFFEAECE3),
+        surfaceContainerHighest = Color(0xFFE3E7DE),
+        surfaceDim = Color(0xFFD9DED5),
+        surfaceBright = Color(0xFFFBFAF5),
+        outline = Color(0xFF87958A),
+        outlineVariant = Color(0xFFD2D9CF),
+    )
+}
+
 fun ColorScheme.amoledBackground(amoled: Boolean): ColorScheme =
     if (!amoled) this
     else copy(
@@ -45,7 +83,7 @@ fun rememberKernelSUColorScheme(
         isAmoled = isAmoled,
         style = paletteStyle,
         specVersion = colorSpec.effectiveFor(paletteStyle),
-    ).amoledBackground(isAmoled)
+    ).yuhengSurfacePalette(isDark).amoledBackground(isAmoled)
 }
 
 @Composable

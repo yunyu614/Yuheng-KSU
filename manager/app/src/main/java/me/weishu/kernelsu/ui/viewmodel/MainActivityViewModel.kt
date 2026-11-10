@@ -20,10 +20,8 @@ class MainActivityViewModel(
     private val prefs = ksuApp.getSharedPreferences("settings", Context.MODE_PRIVATE)
     private val settingRepo: SettingsRepository = SettingsRepositoryImpl()
     private val mainPageState = MainPageState(savedStateHandle)
-    private val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-        if (key == null || key in observedKeys) {
-            _uiState.value = readUiState()
-        }
+    private val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
+        _uiState.value = readUiState()
     }
 
     private val _uiState = MutableStateFlow(readUiState())
@@ -57,24 +55,6 @@ class MainActivityViewModel(
         )
     }
 
-    private companion object {
-        val observedKeys = setOf(
-            "color_mode",
-            "miuix_monet",
-            "key_color",
-            "color_style",
-            "color_spec",
-            "page_scale",
-            "module_description_max_lines",
-            "enable_blur",
-            "enable_floating_bottom_bar",
-            "enable_floating_bottom_bar_blur",
-            "enable_navigation_badge",
-            "enable_swipe_dismiss",
-            "pager_interception_mode",
-            "ui_mode",
-        )
-    }
 }
 
 private const val SELECTED_MAIN_PAGE_KEY = "selected_main_page"
