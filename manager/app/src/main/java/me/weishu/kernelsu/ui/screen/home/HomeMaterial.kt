@@ -215,12 +215,8 @@ private fun StatusCard(
         val ksuActive = state.ksuVersion != null
         val notInstalled = !ksuActive && state.kernelVersion.isGKI()
 
-        val containerColor = if (ksuActive) {
-            MaterialTheme.colorScheme.secondaryContainer
-        } else {
-            MaterialTheme.colorScheme.errorContainer
-        }
-        val contentColor = MaterialTheme.colorScheme.contentColorFor(containerColor)
+        val containerColor = yuhengCardColor()
+        val contentColor = MaterialTheme.colorScheme.onSurface
 
         val statusIcon = when {
             ksuActive -> Icons.Outlined.CheckCircle
@@ -424,12 +420,25 @@ private fun InfoCard(systemInfo: SystemInfo) {
         ) {
             @Composable
             fun InfoCardItem(label: String, content: String) {
-                Text(text = label, style = MaterialTheme.typography.bodyLarge)
-                Text(
-                    text = content,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    Text(
+                        text = label,
+                        modifier = Modifier.width(104.dp),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Text(
+                        text = content,
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.End,
+                    )
+                }
             }
 
             @Composable
@@ -437,9 +446,9 @@ private fun InfoCard(systemInfo: SystemInfo) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 12.dp)
+                        .padding(vertical = 10.dp)
                         .height(0.5.dp)
-                        .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)),
+                        .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.10f)),
                 )
             }
 
