@@ -153,6 +153,10 @@ endif
 $(info -- KernelSU Manager package name: $(KSU_PACKAGE_NAME))
 $(info -- KernelSU Manager signature size: $(KSU_EXPECTED_SIZE))
 $(info -- KernelSU Manager signature hash: $(KSU_EXPECTED_HASH))
+ifneq ($(strip $(KSU_EXPECTED_SIZE2)),)
+$(info -- KernelSU Manager signature size 2: $(KSU_EXPECTED_SIZE2))
+$(info -- KernelSU Manager signature hash 2: $(KSU_EXPECTED_HASH2))
+endif
 $(info -- KernelSU is PR Build: $(KSU_IS_PR_BUILD))
 
 ccflags-y += -DKSU_PACKAGE_NAME=\"$(KSU_PACKAGE_NAME)\"
