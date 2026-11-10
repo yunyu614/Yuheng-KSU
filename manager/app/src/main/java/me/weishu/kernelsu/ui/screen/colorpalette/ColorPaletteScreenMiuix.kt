@@ -3,6 +3,7 @@ package me.weishu.kernelsu.ui.screen.colorpalette
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -64,6 +65,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -173,22 +175,22 @@ fun ColorPaletteScreenMiuix(
                             title = "青龙 · 苍龙行云",
                             summary = "苍青云纹与东方星宿，清雅而有生机",
                             startAction = {
-                                Box(
-                                    Modifier.padding(end = 8.dp).size(22.dp)
-                                        .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFF347B68))
+                                Image(
+                                    painter = painterResource(R.drawable.ic_theme_qinglong),
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(0) }
                         )
                         ArrowPreference(
                             title = "白虎 · 白虎镇岳",
-                            summary = "白虎 · 白虎镇岳与银青，清透克制",
+                            summary = "霜银虎纹与山岳意象，冷冽而沉稳",
                             startAction = {
-                                Box(
-                                    Modifier.padding(end = 8.dp).size(22.dp)
-                                        .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFF9AA8B2))
+                                Image(
+                                    painter = painterResource(R.drawable.ic_theme_baihu),
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(1) }
@@ -197,10 +199,10 @@ fun ColorPaletteScreenMiuix(
                             title = "玄武 · 玄武负山",
                             summary = "玄黄龟甲与北斗星象，厚重而守护",
                             startAction = {
-                                Box(
-                                    Modifier.padding(end = 8.dp).size(22.dp)
-                                        .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFFD6A82E))
+                                Image(
+                                    painter = painterResource(R.drawable.ic_theme_xuanwu),
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(2) }
@@ -209,10 +211,10 @@ fun ColorPaletteScreenMiuix(
                             title = "朱雀 · 朱雀衔火",
                             summary = "朱砂凤羽与赤焰日轮，热烈而华美",
                             startAction = {
-                                Box(
-                                    Modifier.padding(end = 8.dp).size(22.dp)
-                                        .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFFB9423A))
+                                Image(
+                                    painter = painterResource(R.drawable.ic_theme_zhuque),
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(3) }
@@ -221,10 +223,10 @@ fun ColorPaletteScreenMiuix(
                             title = "麒麟 · 麒麟呈瑞",
                             summary = "紫金祥云与瑞兽鳞甲，华贵而祥瑞",
                             startAction = {
-                                Box(
-                                    Modifier.padding(end = 8.dp).size(22.dp)
-                                        .clip(RoundedCornerShape(7.dp))
-                                        .background(Color(0xFF9570B5))
+                                Image(
+                                    painter = painterResource(R.drawable.ic_theme_qilin),
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(4) }

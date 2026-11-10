@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextStyle
@@ -95,6 +96,15 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             drawCircle(ornament.copy(alpha = 0.65f), radius = 2.2.dp.toPx(), center = Offset(center.x, center.y + size.minDimension * 0.43f))
             drawCircle(ornament.copy(alpha = 0.65f), radius = 2.2.dp.toPx(), center = Offset(center.x - size.minDimension * 0.43f, center.y))
         }
+        Image(
+            painter = painterResource(id = preset.iconRes),
+            contentDescription = null,
+            modifier = Modifier
+                .size(112.dp)
+                .align(Alignment.CenterEnd)
+                .offset(x = (-6).dp),
+            contentScale = ContentScale.Fit,
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()

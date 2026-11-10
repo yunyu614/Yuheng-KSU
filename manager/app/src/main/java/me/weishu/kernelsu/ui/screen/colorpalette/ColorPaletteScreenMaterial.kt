@@ -10,6 +10,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -79,6 +80,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -160,9 +162,10 @@ fun ColorPaletteScreenMaterial(
                                 headlineContent = { Text("青龙 · 苍龙行云") },
                                 supportingContent = { Text("苍青云纹与东方星宿，清雅而有生机") },
                                 leadingContent = {
-                                    Box(
-                                        Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFF347B68))
+                                    Image(
+                                        painter = painterResource(R.drawable.ic_theme_qinglong),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(38.dp)
                                     )
                                 },
                                 trailingContent = {
@@ -176,11 +179,12 @@ fun ColorPaletteScreenMaterial(
                             SegmentedListItem(
                                 onClick = { actions.onApplyYuhengPreset(1) },
                                 headlineContent = { Text("白虎 · 白虎镇岳") },
-                                supportingContent = { Text("白虎 · 白虎镇岳与银青，清透克制") },
+                                supportingContent = { Text("霜银虎纹与山岳意象，冷冽而沉稳") },
                                 leadingContent = {
-                                    Box(
-                                        Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFF9AA8B2))
+                                    Image(
+                                        painter = painterResource(R.drawable.ic_theme_baihu),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(38.dp)
                                     )
                                 },
                                 trailingContent = {
@@ -196,9 +200,10 @@ fun ColorPaletteScreenMaterial(
                                 headlineContent = { Text("玄武 · 玄武负山") },
                                 supportingContent = { Text("玄黄龟甲与北斗星象，厚重而守护") },
                                 leadingContent = {
-                                    Box(
-                                        Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFFD6A82E))
+                                    Image(
+                                        painter = painterResource(R.drawable.ic_theme_xuanwu),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(38.dp)
                                     )
                                 },
                                 trailingContent = {
@@ -214,9 +219,10 @@ fun ColorPaletteScreenMaterial(
                                 headlineContent = { Text("朱雀 · 朱雀衔火") },
                                 supportingContent = { Text("朱砂凤羽与赤焰日轮，热烈而华美") },
                                 leadingContent = {
-                                    Box(
-                                        Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFFB9423A))
+                                    Image(
+                                        painter = painterResource(R.drawable.ic_theme_zhuque),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(38.dp)
                                     )
                                 },
                                 trailingContent = {
@@ -232,9 +238,10 @@ fun ColorPaletteScreenMaterial(
                                 headlineContent = { Text("麒麟 · 麒麟呈瑞") },
                                 supportingContent = { Text("紫金祥云与瑞兽鳞甲，华贵而祥瑞") },
                                 leadingContent = {
-                                    Box(
-                                        Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFF9570B5))
+                                    Image(
+                                        painter = painterResource(R.drawable.ic_theme_qilin),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(38.dp)
                                     )
                                 },
                                 trailingContent = {
