@@ -55,10 +55,10 @@ import androidx.compose.ui.unit.dp
 import me.weishu.kernelsu.KernelVersion
 import me.weishu.kernelsu.Natives
 import me.weishu.kernelsu.R
-import me.weishu.kernelsu.ui.component.DeepSeekDeviceHintCard
-import me.weishu.kernelsu.ui.component.DeepSeekHeroCard
-import me.weishu.kernelsu.ui.component.deepSeekCardColor
-import me.weishu.kernelsu.ui.component.deepSeekHeroBrush
+import me.weishu.kernelsu.ui.component.YuhengDeviceHintCard
+import me.weishu.kernelsu.ui.component.YuhengHeroCard
+import me.weishu.kernelsu.ui.component.yuhengCardColor
+import me.weishu.kernelsu.ui.component.yuhengHeroBrush
 import me.weishu.kernelsu.ui.component.WarningLevel
 import me.weishu.kernelsu.ui.component.dialog.rememberConfirmDialog
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
@@ -109,7 +109,7 @@ fun HomePagerMaterial(
             if (state.showRootWarning) {
                 WarningCard(stringResource(id = R.string.grant_root_failed))
             }
-            DeepSeekHeroCard()
+            YuhengHeroCard()
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(13.dp),
@@ -119,7 +119,7 @@ fun HomePagerMaterial(
                     state = state,
                     actions = actions,
                 )
-                DeepSeekDeviceHintCard(deviceModel = state.systemInfo.deviceModel)
+                YuhengDeviceHintCard(deviceModel = state.systemInfo.deviceModel)
                 InfoCard(systemInfo = state.systemInfo)
                     DonateCard(onOpenUrl = actions.onOpenUrl)
                 LearnMoreCard(onOpenUrl = actions.onOpenUrl)
@@ -331,7 +331,7 @@ private fun WarningCard(
 private fun LearnMoreCard(onOpenUrl: (String) -> Unit) {
     val url = stringResource(R.string.home_learn_kernelsu_url)
     TonalCard(
-        containerColor = deepSeekCardColor(),
+        containerColor = yuhengCardColor(),
         onClick = { onOpenUrl(url) },
     ) {
         Row(
@@ -356,7 +356,7 @@ private fun LearnMoreCard(onOpenUrl: (String) -> Unit) {
 @Composable
 private fun DonateCard(onOpenUrl: (String) -> Unit) {
     TonalCard(
-        containerColor = deepSeekCardColor(),
+        containerColor = yuhengCardColor(),
         onClick = { onOpenUrl("https://patreon.com/weishu") },
     ) {
         Row(
@@ -384,7 +384,7 @@ private fun InfoCard(systemInfo: SystemInfo) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(28.dp))
-            .background(deepSeekHeroBrush()),
+            .background(yuhengHeroBrush()),
     ) {
         Column(
             modifier = Modifier
