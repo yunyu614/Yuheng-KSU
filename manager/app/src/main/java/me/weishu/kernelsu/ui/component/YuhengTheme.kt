@@ -221,8 +221,8 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
             Modifier
                 .fillMaxSize()
                 .background(
-                    if (dark) Color(0xFF101A15).copy(alpha = 0.48f)
-                    else Color(0xFFEAF1EC).copy(alpha = 0.54f)
+                    if (dark) Color(0xFF101A15).copy(alpha = 0.34f)
+                    else Color(0xFFF3F1E9).copy(alpha = 0.28f)
                 )
         )
         content()
@@ -231,9 +231,9 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
 
 @Composable
 fun yuhengCardColor(): Color = if (isInDarkTheme()) {
-    Color(0xFF232F29)
+    Color(0xFF1D2B24)
 } else {
-    Color(0xFFF0F4F0)
+    Color(0xFFF8F7F0)
 }
 
 @Composable

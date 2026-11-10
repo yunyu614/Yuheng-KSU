@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#FFDCE9E1</color>
-    <color name="ic_launcher_foreground">#FF426D5C</color>
+    <color name="ic_launcher_background">#FFEEEDE3</color>
+    <color name="ic_launcher_foreground">#FF345F52</color>
     <color name="ic_splash_background">#FFDCE9E1</color>
     <color name="deepseek_blue">#FF426D5C</color>
-    <color name="deepseek_bg_light">#FFE8EFEB</color>
-    <color name="deepseek_bg_dark">#FF171F1D</color>
+    <color name="deepseek_bg_light">#FFF3F1E9</color>
+    <color name="deepseek_bg_dark">#FF111A16</color>
 </resources>
