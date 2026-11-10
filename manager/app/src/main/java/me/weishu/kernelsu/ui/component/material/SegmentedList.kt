@@ -71,7 +71,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.round
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.launch
-import me.weishu.kernelsu.ui.component.deepSeekCardGradient
+import me.weishu.kernelsu.ui.component.yuhengCardGradient
 import kotlin.math.roundToInt
 
 val LocalListItemShapes = compositionLocalOf<ListItemShapes?> { null }
@@ -137,7 +137,7 @@ fun SegmentedColumn(
                 ) {
                     Box(
                         modifier = if (gradient) {
-                            Modifier.deepSeekCardGradient(shapes.shape)
+                            Modifier.yuhengCardGradient(shapes.shape)
                         } else {
                             Modifier
                         },
