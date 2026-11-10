@@ -50,6 +50,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -103,6 +104,17 @@ fun SettingPagerMaterial(
             wallpaperPreferences.getString("yuheng_wallpaper_uri", null) != null ||
                 wallpaperPreferences.getString("yuheng_wallpaper_file", null) != null
         )
+    }
+    DisposableEffect(wallpaperPreferences) {
+        val listener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == null || key == "yuheng_wallpaper_uri" || key == "yuheng_wallpaper_file") {
+                hasCustomWallpaper =
+                    wallpaperPreferences.getString("yuheng_wallpaper_uri", null) != null ||
+                        wallpaperPreferences.getString("yuheng_wallpaper_file", null) != null
+            }
+        }
+        wallpaperPreferences.registerOnSharedPreferenceChangeListener(listener)
+        onDispose { wallpaperPreferences.unregisterOnSharedPreferenceChangeListener(listener) }
     }
     val wallpaperPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),

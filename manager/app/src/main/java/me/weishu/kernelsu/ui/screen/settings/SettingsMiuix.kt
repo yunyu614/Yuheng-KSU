@@ -37,6 +37,7 @@ import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material.icons.rounded.SystemUpdateAlt
 import androidx.compose.material.icons.rounded.VerifiedUser
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -95,6 +96,17 @@ fun SettingPagerMiuix(
             wallpaperPreferences.getString("yuheng_wallpaper_uri", null) != null ||
                 wallpaperPreferences.getString("yuheng_wallpaper_file", null) != null
         )
+    }
+    DisposableEffect(wallpaperPreferences) {
+        val listener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == null || key == "yuheng_wallpaper_uri" || key == "yuheng_wallpaper_file") {
+                hasCustomWallpaper.value =
+                    wallpaperPreferences.getString("yuheng_wallpaper_uri", null) != null ||
+                        wallpaperPreferences.getString("yuheng_wallpaper_file", null) != null
+            }
+        }
+        wallpaperPreferences.registerOnSharedPreferenceChangeListener(listener)
+        onDispose { wallpaperPreferences.unregisterOnSharedPreferenceChangeListener(listener) }
     }
     val wallpaperPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
