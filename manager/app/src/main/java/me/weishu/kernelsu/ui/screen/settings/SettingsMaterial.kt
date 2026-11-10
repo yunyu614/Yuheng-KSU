@@ -95,6 +95,7 @@ fun SettingPagerMaterial(
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .verticalScroll(rememberScrollState())
         ) {
+            SettingsSectionTitle("外观与个性化")
             SegmentedColumn(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 13.dp),
                     gradient = true,
@@ -116,6 +117,7 @@ fun SettingPagerMaterial(
                 }
             )
 
+            SettingsSectionTitle("配置模板")
             val profileTemplate = stringResource(id = R.string.settings_profile_template)
             KsuIsValid {
                 SegmentedColumn(
@@ -138,6 +140,7 @@ fun SettingPagerMaterial(
                 )
             }
 
+            SettingsSectionTitle("系统行为与安全")
             KsuIsValid {
                 val suCompatModeItems = listOf(
                     stringResource(id = R.string.settings_mode_enable_by_default),
@@ -259,6 +262,7 @@ fun SettingPagerMaterial(
                     )
                 )
 
+                SettingsSectionTitle("高级选项")
                 SegmentedColumn(
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 13.dp),
                     gradient = true,
@@ -296,6 +300,7 @@ fun SettingPagerMaterial(
             }
 
             if (uiState.isLkmMode) {
+                SettingsSectionTitle("维护")
                 SegmentedColumn(
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 13.dp),
                     gradient = true,
@@ -313,6 +318,7 @@ fun SettingPagerMaterial(
                 )
             }
 
+            SettingsSectionTitle("关于玉衡")
             SegmentedColumn(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 13.dp),
                     gradient = true,
@@ -355,6 +361,16 @@ fun SettingPagerMaterial(
             Spacer(modifier = Modifier.height(bottomInnerPadding))
         }
     }
+}
+
+@Composable
+private fun SettingsSectionTitle(title: String) {
+    Text(
+        text = title,
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 2.dp),
+        style = androidx.compose.material3.MaterialTheme.typography.titleSmall,
+        color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground,
+    )
 }
 
 @Composable
