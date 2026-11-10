@@ -51,10 +51,6 @@ import me.weishu.kernelsu.ui.theme.LocalYuhengThemePreset
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-private val JadeInk = Color(0xFF263B32)
-private val JadeText = Color(0xFFE4EEE8)
-private val JadeMuted = Color(0xFF687A70)
-
 @Composable
 fun yuhengHeroBrush(): Brush {
     val dark = isInDarkTheme()
@@ -240,13 +236,13 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
                 contentScale = ContentScale.Crop,
             )
         }
-        Box(
-            Modifier
-                .fillMaxSize()
-                .background(
-                    baseBackground.copy(alpha = if (dark) 0.48f else 0.42f)
-                )
-        )
+        if (wallpaper != null) {
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(baseBackground.copy(alpha = if (dark) 0.46f else 0.40f))
+            )
+        }
         content()
     }
 }

@@ -157,16 +157,16 @@ fun ColorPaletteScreenMaterial(
                         {
                             SegmentedListItem(
                                 onClick = { actions.onApplyYuhengPreset(0) },
-                                headlineContent = { Text("青瓷雾") },
-                                supportingContent = { Text("浅青釉与雾灰，温润柔和") },
+                                headlineContent = { Text("青龙 · 苍龙行云") },
+                                supportingContent = { Text("苍青云纹与东方星宿，清雅而有生机") },
                                 leadingContent = {
                                     Box(
                                         Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFF55796B))
+                                            .background(Color(0xFF347B68))
                                     )
                                 },
                                 trailingContent = {
-                                    if (currentKeyColor == 0xFF55796B.toInt()) {
+                                    if (currentKeyColor == 0 || currentKeyColor == 0xFF347B68.toInt()) {
                                         Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                     }
                                 },
@@ -175,16 +175,16 @@ fun ColorPaletteScreenMaterial(
                         {
                             SegmentedListItem(
                                 onClick = { actions.onApplyYuhengPreset(1) },
-                                headlineContent = { Text("月白") },
-                                supportingContent = { Text("月白与银青，清透克制") },
+                                headlineContent = { Text("白虎 · 白虎镇岳") },
+                                supportingContent = { Text("白虎 · 白虎镇岳与银青，清透克制") },
                                 leadingContent = {
                                     Box(
                                         Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFF7894A3))
+                                            .background(Color(0xFF9AA8B2))
                                     )
                                 },
                                 trailingContent = {
-                                    if (currentKeyColor == 0xFF7894A3.toInt()) {
+                                    if (currentKeyColor == 0xFF9AA8B2.toInt()) {
                                         Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                     }
                                 },
@@ -193,16 +193,16 @@ fun ColorPaletteScreenMaterial(
                         {
                             SegmentedListItem(
                                 onClick = { actions.onApplyYuhengPreset(2) },
-                                headlineContent = { Text("黛青") },
-                                supportingContent = { Text("深黛与松石，沉静耐看") },
+                                headlineContent = { Text("玄武 · 玄武负山") },
+                                supportingContent = { Text("玄黄龟甲与北斗星象，厚重而守护") },
                                 leadingContent = {
                                     Box(
                                         Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFF527D76))
+                                            .background(Color(0xFFD6A82E))
                                     )
                                 },
                                 trailingContent = {
-                                    if (currentKeyColor == 0xFF527D76.toInt()) {
+                                    if (currentKeyColor == 0xFFD6A82E.toInt()) {
                                         Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                     }
                                 },
@@ -211,16 +211,16 @@ fun ColorPaletteScreenMaterial(
                         {
                             SegmentedListItem(
                                 onClick = { actions.onApplyYuhengPreset(3) },
-                                headlineContent = { Text("丹霞") },
-                                supportingContent = { Text("暖陶与浅绯，温润柔和") },
+                                headlineContent = { Text("朱雀 · 朱雀衔火") },
+                                supportingContent = { Text("朱砂凤羽与赤焰日轮，热烈而华美") },
                                 leadingContent = {
                                     Box(
                                         Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFFB97968))
+                                            .background(Color(0xFFB9423A))
                                     )
                                 },
                                 trailingContent = {
-                                    if (currentKeyColor == 0xFFB97968.toInt()) {
+                                    if (currentKeyColor == 0xFFB9423A.toInt()) {
                                         Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                     }
                                 },
@@ -229,16 +229,16 @@ fun ColorPaletteScreenMaterial(
                         {
                             SegmentedListItem(
                                 onClick = { actions.onApplyYuhengPreset(4) },
-                                headlineContent = { Text("琥珀") },
-                                supportingContent = { Text("蜜金与米杏，雅致温暖") },
+                                headlineContent = { Text("麒麟 · 麒麟呈瑞") },
+                                supportingContent = { Text("紫金祥云与瑞兽鳞甲，华贵而祥瑞") },
                                 leadingContent = {
                                     Box(
                                         Modifier.size(28.dp).clip(CircleShape)
-                                            .background(Color(0xFF9C8055))
+                                            .background(Color(0xFF9570B5))
                                     )
                                 },
                                 trailingContent = {
-                                    if (currentKeyColor == 0xFF9C8055.toInt()) {
+                                    if (currentKeyColor == 0xFF9570B5.toInt()) {
                                         Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                     }
                                 },

@@ -34,8 +34,14 @@ class SettingsViewModel(
         viewModelScope.launch {
             val checkUpdate = false
             val checkModuleUpdate = false
-            val themeMode = repo.themeMode
-            val miuixMonet = repo.miuixMonet
+            val storedColorMode = ColorMode.fromValue(repo.themeMode)
+            val legacyMonet = storedColorMode.isMonet
+            val themeMode = if (legacyMonet) storedColorMode.toNonMonetMode() else repo.themeMode
+            val miuixMonet = repo.miuixMonet || legacyMonet
+            if (legacyMonet) {
+                repo.themeMode = themeMode
+                repo.miuixMonet = true
+            }
             val keyColor = repo.keyColor
             val enablePredictiveBack = repo.enablePredictiveBack
             val enableSwipeDismiss = repo.enableSwipeDismiss
@@ -141,33 +147,9 @@ class SettingsViewModel(
     }
 
     fun setUiMode(mode: String) {
-        val oldMode = repo.uiMode
-        val currentThemeMode = repo.themeMode
-
-        val newThemeMode = when (oldMode) {
-            "material" if mode == "miuix" -> {
-                val colorMode = ColorMode.fromValue(currentThemeMode)
-                val baseMode = if (colorMode == ColorMode.DARK_AMOLED) 2 else currentThemeMode
-                if (repo.miuixMonet && !colorMode.isMonet) {
-                    ColorMode.fromValue(baseMode).toMonetMode()
-                } else if (!repo.miuixMonet && colorMode.isMonet) {
-                    ColorMode.fromValue(baseMode).toNonMonetMode()
-                } else baseMode
-            }
-
-            "miuix" if mode == "material" -> {
-                val colorMode = ColorMode.fromValue(currentThemeMode)
-                if (colorMode.isMonet) {
-                    colorMode.toNonMonetMode()
-                } else currentThemeMode
-            }
-
-            else -> currentThemeMode
-        }
-
+        // UI implementation choice must never mutate the color mode or Monet preference.
         repo.uiMode = mode
-        repo.themeMode = newThemeMode
-        _uiState.update { it.copy(uiMode = mode, themeMode = newThemeMode) }
+        _uiState.update { it.copy(uiMode = mode) }
     }
 
     fun setCheckModuleUpdate(enabled: Boolean) {
@@ -176,32 +158,21 @@ class SettingsViewModel(
     }
 
     fun setThemeMode(mode: Int) {
-        val currentUiMode = repo.uiMode
-        val effectiveMode = if (currentUiMode == "miuix" && repo.miuixMonet) {
-            mode + 3
-        } else {
-            mode
-        }
-        repo.themeMode = effectiveMode
-        _uiState.update { it.copy(themeMode = effectiveMode) }
+        val normalized = ColorMode.fromValue(mode).toNonMonetMode()
+        repo.themeMode = normalized
+        _uiState.update { it.copy(themeMode = normalized) }
     }
 
     fun setColorMode(mode: ColorMode) {
-        repo.themeMode = mode.value
-        _uiState.update { it.copy(themeMode = mode.value) }
+        val normalized = mode.toNonMonetMode()
+        repo.themeMode = normalized
+        _uiState.update { it.copy(themeMode = normalized) }
     }
 
     fun setMiuixMonet(enabled: Boolean) {
-        val currentThemeMode = repo.themeMode
-        val colorMode = ColorMode.fromValue(currentThemeMode)
-        val newThemeMode = if (enabled) {
-            if (!colorMode.isMonet) colorMode.toMonetMode() else currentThemeMode
-        } else {
-            if (colorMode.isMonet) colorMode.toNonMonetMode() else currentThemeMode
-        }
+        // Monet is independent from light/dark mode and selected beast preset.
         repo.miuixMonet = enabled
-        repo.themeMode = newThemeMode
-        _uiState.update { it.copy(miuixMonet = enabled, themeMode = newThemeMode) }
+        _uiState.update { it.copy(miuixMonet = enabled) }
     }
 
     fun setKeyColor(color: Int) {
