@@ -4,7 +4,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 
 val YuhengJade = Color(0xFF55796B)
-val YuhengJadeLegacy = YuhengJade
 
 val keyColorOptions = listOf(
     YuhengJade.toArgb(),
