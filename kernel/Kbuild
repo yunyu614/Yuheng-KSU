@@ -140,14 +140,32 @@ endif
 KSU_EXPECTED_SIZE ?= 0x033b
 KSU_EXPECTED_HASH ?= c371061b19d8c7d7d6133c6a9bafe198fa944e50c1b31c9d8daa8d7f1fc2d2d6
 
+# Optional second trusted Manager certificate. Set both values together.
+ifneq ($(strip $(KSU_EXPECTED_SIZE2)$(KSU_EXPECTED_HASH2)),)
+ifeq ($(strip $(KSU_EXPECTED_SIZE2)),)
+$(error KSU_EXPECTED_SIZE2 and KSU_EXPECTED_HASH2 must be set together)
+endif
+ifeq ($(strip $(KSU_EXPECTED_HASH2)),)
+$(error KSU_EXPECTED_SIZE2 and KSU_EXPECTED_HASH2 must be set together)
+endif
+endif
+
 $(info -- KernelSU Manager package name: $(KSU_PACKAGE_NAME))
 $(info -- KernelSU Manager signature size: $(KSU_EXPECTED_SIZE))
 $(info -- KernelSU Manager signature hash: $(KSU_EXPECTED_HASH))
+ifneq ($(strip $(KSU_EXPECTED_SIZE2)),)
+$(info -- KernelSU Manager signature size 2: $(KSU_EXPECTED_SIZE2))
+$(info -- KernelSU Manager signature hash 2: $(KSU_EXPECTED_HASH2))
+endif
 $(info -- KernelSU is PR Build: $(KSU_IS_PR_BUILD))
 
 ccflags-y += -DKSU_PACKAGE_NAME=\"$(KSU_PACKAGE_NAME)\"
 ccflags-y += -DEXPECTED_SIZE=$(KSU_EXPECTED_SIZE)
 ccflags-y += -DEXPECTED_HASH=\"$(KSU_EXPECTED_HASH)\"
+ifneq ($(strip $(KSU_EXPECTED_SIZE2)),)
+ccflags-y += -DEXPECTED_SIZE2=$(KSU_EXPECTED_SIZE2)
+ccflags-y += -DEXPECTED_HASH2=\"$(KSU_EXPECTED_HASH2)\"
+endif
 ccflags-y += -DKSU_IS_PR_BUILD=$(KSU_IS_PR_BUILD)
 
 ccflags-y += -DKSU_NEW_DCACHE_FLUSH=$(KSU_NEW_DCACHE_FLUSH)
