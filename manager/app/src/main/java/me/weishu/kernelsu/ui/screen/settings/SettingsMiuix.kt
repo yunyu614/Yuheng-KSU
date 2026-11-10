@@ -85,6 +85,7 @@ fun SettingPagerMiuix(
     val showSendLogDialog = rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
+        containerColor = Color.Transparent,
         topBar = {
             BlurredBar(backdrop) {
                 TopAppBar(
