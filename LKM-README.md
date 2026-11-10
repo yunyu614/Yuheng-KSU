@@ -43,16 +43,19 @@ KSU_EXPECTED_HASH3=c371061b19d8c7d7d6133c6a9bafe198fa944e50c1b31c9d8daa8d7f1fc2d
 KSU_PACKAGE_NAME=me.weishu.kernelsu
 ```
 
-## 产物
+## 本仓库构建产物
+
+当前工作流只构建一个明确目标，不会自动生成 Android 15 / 6.6 或 Android 17 / 6.18 的模块：
 
 ```text
-kernelsu-android15-6.6-baifan.ko
-kernelsu-android16-6.12-baifan.ko
-kernelsu-android17-6.18-baifan.ko
-
-玉衡首个验证产物：`kernelsu-android16-6.12-yuheng-triple.ko`
+kernelsu-android16-6.12-yuheng-triple.ko
+SHA256SUMS.txt
 ```
 
-对应 Release：
+可在 [Build Yuheng triple-signature LKM](https://github.com/yunyu614/Yuheng-KSU/actions/workflows/build-yuheng-dual-lkm.yml) 的成功运行记录中下载 Artifact。每次使用前应核对 Artifact 对应的提交、SHA-256、设备 KMI 与架构。
+
+上游白饭 KSU LKM 参考版本：
 
 <https://github.com/NekoWannn/baifan-ksu-lkm/releases/tag/v3.3.1-baifan.13>
+
+该上游 Release 仅用于说明源码来源，不代表其中其他 KMI 的模块已由本仓库工作流构建或验证。
