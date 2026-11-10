@@ -1,33 +1,42 @@
-# Yuheng Five Beasts — Open Artwork Source Candidates
+# 五神兽视觉素材：候选记录与当前决策
 
-This file records candidate source artworks for the Five Beasts visual pack. These are **source references, not yet bundled app assets**. Before adding any image binary to `manager/app/src/main/res/drawable-nodpi/`, download the original-resolution file from the institution's own page, verify the image and rights metadata, create optimized derivatives, and preserve this record.
+> **状态：外部素材方案已搁置，不进入正式产品。** 用户已明确否定此前找到的古画、文物、刺绣等素材，也否定当前筛选到的外部 3D 模型候选。本文仅保留历史检索记录，不能视为已批准、已下载或可集成的素材清单。
 
-## Preferred source set
+## 当前决策
 
-| Theme | Candidate artwork | Source and rights | Intended treatment |
-|---|---|---|---|
-| Qinglong / 青龙 | *Dragon*, Fachang Muqi, c. 1250–1279, Southern Song | Cleveland Museum of Art, object 1958.427.1. Open Access / CC0; the museum explicitly permits copying, modification and distribution. https://www.clevelandart.org/art/1958.427.1 | Isolate the dragon and mist/wave passage; jade-green duotone for hero, muted crop for background. |
-| Baihu / 白虎 | *Tiger*, Fachang Muqi, c. 1250–1279, Southern Song | Cleveland Museum of Art, object 1958.427.2. Open Access / CC0; the museum explicitly permits copying, modification and distribution. https://www.clevelandart.org/art/1958.427.2 | Pair with the Qinglong scroll for a coherent artist/period visual language; silver/graphite treatment. |
-| Xuanwu / 玄武 | *Tortoise and Snake of the North (Xuanwu)*, early 6th century | Princeton University Art Museum, object y1956-17. The object page offers downloadable public-domain images. https://artmuseum.princeton.edu/art/collections/objects/28015 | Use as the unmistakable turtle-and-snake emblem; build a separate water/mountain background rather than stretching the sculpture photo. |
-| Zhuque / 朱雀 | *A Hundred Birds Worship the Phoenixes*, Qing dynasty | Smithsonian National Museum of Asian Art, object F1909.218. CC0 / public domain. https://asia.si.edu/explore-art-culture/collections/search/edanmdm%3Afsg_F1909.218/ | Crop a clear phoenix detail where resolution permits; cinnabar/red-gold color grade and feather motif. |
-| Qilin / 麒麟 | *Rank Badge with Qilin*, Qing dynasty | The Metropolitan Museum of Art, object 30.75.922. Public Domain; The Met Open Access images are available for unrestricted commercial and noncommercial use. https://www.metmuseum.org/art/collection/search/68898 | Prefer the embroidered qilin motif as a decorative emblem; purple-jade and antique-gold treatment. |
+玉衡五神兽主视觉与主题背景暂缓，等待具备图像生成能力后再统一制作和评审。暂不以外部低质量素材、抽象线条、通用动物照片或简单色块凑齐五套主题。
 
-## Licensing and implementation rules
+最终方向为**东方未来科技美学**，具体标准见 [YUHENG_VISUAL_DIRECTION.md](YUHENG_VISUAL_DIRECTION.md)。
 
-- Cleveland Museum of Art CC0 images can be modified and redistributed without attribution requirements; retaining attribution is still recommended.
-- Smithsonian object F1909.218 is marked CC0 / public domain.
-- Princeton's object page identifies the downloadable image as a public-domain work; retain the museum caption and source URL in this file.
-- The Met object 30.75.922 is marked Public Domain and covered by the Met Open Access policy.
-- Re-check each source page and the actual downloaded file before release. Do not assume every image on a museum site is CC0.
-- Do not hotlink museum image URLs at runtime. Bundle optimized local assets so the app works offline and does not depend on third-party servers.
-- Do not use a single historic painting as a full-screen wallpaper without composition work. Build a consistent pack: transparent/cropped creature emblem, separate low-contrast scene background, and small ornamental texture for each preset.
-- Suggested outputs: 1) hero illustration PNG/WebP with transparency, 2) 9:16 background WebP, 3) small repeating ornament PNG/WebP. Keep originals and attribution metadata in a separate source archive.
+## 已否决的方向
 
-## Asset status
+- 古画、水墨、文物照片、刺绣补子、传统书画直接作为主视觉。
+- 此前筛选的普通白虎、龙模型等外部候选：即使网页标注开放许可，也未达到产品要求的整体质感和艺术方向。
+- 抽象几何、线条图标或无法清晰辨认的神兽轮廓。
+- 来源、具体文件授权或 APK 再分发权利无法确认的图片。
 
-- [ ] Original-resolution source files downloaded and visually inspected
-- [ ] Rights metadata checked against each exact file
-- [ ] Five hero illustrations cropped and color-treated
-- [ ] Five matching backgrounds prepared
-- [ ] Optimized local resources added to the Android project
-- [ ] Attribution/source records reviewed for release
+## 未来素材验收
+
+每一主题必须同时满足：
+
+1. 神兽主体清晰、完整、有高质量实体感，手机实际尺寸仍能辨认。
+2. 主体材质、光影和环境具有精细度，不呈现廉价手游海报或素材拼贴感。
+3. 背景与主体属于同一视觉场景，构图为页面标题、状态信息和导航保留负空间。
+4. 五套使用一致的镜头语言、渲染品质和细节密度，但主色、材质和环境有明确差异。
+5. 主体透明图与独立背景分别交付，适配亮色/暗色界面和不同屏幕比例。
+6. 每个文件单独核对生成来源或再分发许可，并随仓库记录来源和许可信息。
+7. 进入 APK 前进行压缩、尺寸适配、内存占用和真机可读性检查。
+
+## 主题定义
+
+| 主题 | 识别要求 | 材质与环境 |
+| --- | --- | --- |
+| 青龙 | 完整东方龙，龙角、鳞片、须、爪清晰 | 翡翠玉、青金属、数字云海 |
+| 白虎 | 完整白虎，肌肉结构与条纹清晰 | 霜银、钛金属、冰晶雪岭 |
+| 玄武 | 龟与蛇必须同时清晰出现 | 玄黄陶瓷、古铜、黑曜石、深水能量场 |
+| 朱雀 | 完整展翼神鸟，羽毛层次明确 | 朱砂红、红宝石晶体、日冕与赤色云层 |
+| 麒麟 | 完整麒麟，角、鬃、鳞甲和四肢特征清楚 | 紫玉、钛金、香槟金、星云 |
+
+## 历史检索记录
+
+此前曾检查过博物馆开放艺术品页面及第三方模型页面。这些链接仅用于追溯历史检索，不代表用户认可，也不构成对具体图片文件授权的确认。未经重新评审，不得将其放入正式 APK。
