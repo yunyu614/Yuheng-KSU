@@ -584,7 +584,7 @@ private fun ThemePreviewCard(
         isAmoled = isAmoled,
         paletteStyle = paletteStyle,
         colorSpec = colorSpec,
-        surfaceSeedColor = Color(if (keyColor != 0) keyColor else 0xFF347B68),
+        surfaceSeedColor = Color(if (keyColor != 0) keyColor.toInt() else 0xFF347B68.toInt()),
     )
 
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
