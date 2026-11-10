@@ -127,6 +127,7 @@ fun SuperUserPagerMiuix(
     val topButtonBg = if (isInDarkTheme()) Color(0xFF2F5A8F) else Color(0xFFDCE9FF)
 
     Scaffold(
+        containerColor = Color.Transparent,
         topBar = {
             BlurredBar(backdrop) {
                 searchStatus.TopAppBarAnim(backgroundColor = barColor) {
