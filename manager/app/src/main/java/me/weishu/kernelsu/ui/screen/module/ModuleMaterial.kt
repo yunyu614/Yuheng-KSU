@@ -132,7 +132,7 @@ import me.weishu.kernelsu.data.model.ModuleUpdateInfo
 import me.weishu.kernelsu.data.repository.isSoftRebootPreferred
 import me.weishu.kernelsu.ui.component.ObserveAsEvents
 import me.weishu.kernelsu.ui.component.ScrollToTopOnChange
-import me.weishu.kernelsu.ui.component.deepSeekCardGradient
+import me.weishu.kernelsu.ui.component.yuhengCardGradient
 import me.weishu.kernelsu.ui.component.dialog.rememberConfirmDialog
 import me.weishu.kernelsu.ui.component.dialog.rememberLoadingDialog
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
@@ -715,7 +715,7 @@ private fun ModuleItem(
     TonalCard(
         modifier = Modifier
             .fillMaxWidth()
-            .deepSeekCardGradient(RoundedCornerShape(24.dp)),
+            .yuhengCardGradient(RoundedCornerShape(24.dp)),
         containerColor = Color.Transparent,
         shape = RoundedCornerShape(24.dp),
         interactionSource = cardInteractionSource,
