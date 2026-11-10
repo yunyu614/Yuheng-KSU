@@ -60,7 +60,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.UiMode
-import me.weishu.kernelsu.ui.component.LocalYuhengThemePreset
+import me.weishu.kernelsu.ui.theme.LocalYuhengThemePreset
 import me.weishu.kernelsu.ui.theme.isInDarkTheme
 import me.weishu.kernelsu.ui.component.KsuIsValid
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
