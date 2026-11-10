@@ -1,0 +1,86 @@
+name: Yuheng signed release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  manager-release:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Locate Android SDK tools
+        run: |
+          set -euo pipefail
+          test -d "$ANDROID_HOME"
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)"
+          test -n "$SDKMANAGER"
+          echo "$(dirname "$SDKMANAGER")" >> "$GITHUB_PATH"
+          echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
+      - name: Install Android build components
+        run: |
+          set -euo pipefail
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-37.0" "build-tools;36.0.0" "ndk;29.0.14206865"
+          if [ -d "$ANDROID_HOME/platforms/android-37.0" ] && [ ! -e "$ANDROID_HOME/platforms/android-37" ]; then
+            ln -s android-37.0 "$ANDROID_HOME/platforms/android-37"
+          fi
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Restore Yuheng signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.YUHENG_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64" || { echo "Missing YUHENG_KEYSTORE_BASE64 repository secret"; exit 1; }
+          mkdir -p "$RUNNER_TEMP/yuheng-signing"
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/yuheng-signing/yuheng-release.jks"
+          test -s "$RUNNER_TEMP/yuheng-signing/yuheng-release.jks"
+          chmod 600 "$RUNNER_TEMP/yuheng-signing/yuheng-release.jks"
+      - name: Build signed release APK
+        working-directory: manager
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.YUHENG_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.YUHENG_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.YUHENG_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_PASSWORD"
+          test -n "$KEY_ALIAS"
+          test -n "$KEY_PASSWORD"
+          chmod +x ./gradlew
+          ./gradlew --no-daemon :app:assembleRelease \
+            -PKSU_NAME="玉衡" \
+            -PKSU_PACKAGE_NAME="me.weishu.kernelsu" \
+            -PKEYSTORE_FILE="$RUNNER_TEMP/yuheng-signing/yuheng-release.jks" \
+            -PKEYSTORE_PASSWORD="$KEYSTORE_PASSWORD" \
+            -PKEY_ALIAS="$KEY_ALIAS" \
+            -PKEY_PASSWORD="$KEY_PASSWORD"
+      - name: Verify APK signature
+        run: |
+          set -euo pipefail
+          APK="$(find manager/app/build/outputs/apk/release -maxdepth 1 -name '*.apk' -print -quit)"
+          test -n "$APK"
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose "$APK"
+          sha256sum "$APK"
+      - name: Upload signed release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: yuheng-signed-release-apk
+          path: manager/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+          retention-days: 30
