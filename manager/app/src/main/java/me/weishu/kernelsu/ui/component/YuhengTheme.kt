@@ -34,8 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.border
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -64,7 +66,9 @@ fun yuhengHeroBrush(): Brush {
 
 @Composable
 fun Modifier.yuhengCardGradient(shape: Shape = RoundedCornerShape(18.dp)): Modifier =
-    clip(shape).background(yuhengCardColor())
+    clip(shape)
+        .background(yuhengCardColor())
+        .border(BorderStroke(1.dp, LocalYuhengThemePreset.current.accent.copy(alpha = 0.14f)), shape)
 
 @Composable
 fun YuhengHeroCard(modifier: Modifier = Modifier) {
