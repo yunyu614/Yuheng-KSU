@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.dp
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.UiMode
 import me.weishu.kernelsu.ui.component.KsuIsValid
-import me.weishu.kernelsu.ui.component.deepSeekCardGradient
+import me.weishu.kernelsu.ui.component.yuhengCardGradient
 import me.weishu.kernelsu.ui.component.dialog.rememberLoadingDialog
 import me.weishu.kernelsu.ui.component.miuix.SendLogDialog
 import me.weishu.kernelsu.ui.component.uninstalldialog.UninstallDialog
@@ -113,7 +113,7 @@ fun SettingPagerMiuix(
                         modifier = Modifier
                             .padding(top = 12.dp)
                             .fillMaxWidth()
-                            .deepSeekCardGradient(),
+                            .yuhengCardGradient(),
                         colors = CardDefaults.defaultColors(color = Color.Transparent),
                     ) {
                         OverlayDropdownPreference(
@@ -151,7 +151,7 @@ fun SettingPagerMiuix(
                             modifier = Modifier
                                 .padding(top = 12.dp)
                                 .fillMaxWidth()
-                                .deepSeekCardGradient(),
+                                .yuhengCardGradient(),
                             colors = CardDefaults.defaultColors(color = Color.Transparent),
                         ) {
                             val profileTemplate = stringResource(id = R.string.settings_profile_template)
@@ -176,7 +176,7 @@ fun SettingPagerMiuix(
                             modifier = Modifier
                                 .padding(top = 12.dp)
                                 .fillMaxWidth()
-                                .deepSeekCardGradient(),
+                                .yuhengCardGradient(),
                             colors = CardDefaults.defaultColors(color = Color.Transparent),
                         ) {
                             val suCompatModeItems = listOf(
@@ -338,7 +338,7 @@ fun SettingPagerMiuix(
                             modifier = Modifier
                                 .padding(top = 12.dp)
                                 .fillMaxWidth()
-                                .deepSeekCardGradient(),
+                                .yuhengCardGradient(),
                             colors = CardDefaults.defaultColors(color = Color.Transparent),
                         ) {
                             SwitchPreference(
@@ -393,7 +393,7 @@ fun SettingPagerMiuix(
                             modifier = Modifier
                                 .padding(top = 12.dp)
                                 .fillMaxWidth()
-                                .deepSeekCardGradient(),
+                                .yuhengCardGradient(),
                             colors = CardDefaults.defaultColors(color = Color.Transparent),
                         ) {
                             val uninstall = stringResource(id = R.string.settings_uninstall)
@@ -421,7 +421,7 @@ fun SettingPagerMiuix(
                         modifier = Modifier
                             .padding(vertical = 12.dp)
                             .fillMaxWidth()
-                            .deepSeekCardGradient(),
+                            .yuhengCardGradient(),
                         colors = CardDefaults.defaultColors(color = Color.Transparent),
                     ) {
                         ArrowPreference(
