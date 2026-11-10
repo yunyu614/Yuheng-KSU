@@ -405,7 +405,7 @@ fun SettingPagerMiuix(
                                         Icons.Rounded.Delete,
                                         modifier = Modifier.padding(end = 6.dp),
                                         contentDescription = uninstall,
-                                        tint = colorScheme.onBackground,
+                                        tint = Color(0xFFB76B62),
                                     )
                                 },
                                 onClick = { showUninstallDialog.value = true },

@@ -44,6 +44,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -315,7 +316,7 @@ fun SettingPagerMaterial(
                                 onClick = { showUninstallDialog.value = true },
                                 enabled = !uiState.isLateLoadMode,
                                 headlineContent = { Text(uninstall) },
-                                leadingContent = { Icon(Icons.Filled.Delete, uninstall) }
+                                leadingContent = { Icon(Icons.Filled.Delete, uninstall, tint = Color(0xFFB76B62)) }
                             )
                         }
                     )

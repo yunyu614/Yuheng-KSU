@@ -131,7 +131,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(8.dp))
             BasicText(
-                text = "青瓷雾  ·  墨玉",
+                text = "五款东方配色  ·  随心切换",
                 style = TextStyle(
                     color = accent,
                     fontSize = 10.sp,
