@@ -255,8 +255,8 @@ private fun StatusCard(
                         colors = CardDefaults.defaultColors(
                             color = when {
                                 isDynamicColor -> colorScheme.secondaryContainer
-                                isInDarkTheme() -> Color(0xFF142A55)
-                                else -> Color(0xFFE3ECFF)
+                                isInDarkTheme() -> Color(0xFF203129)
+                                else -> Color(0xFFE5EEE8)
                             }
                         ),
                         onClick = {
@@ -367,7 +367,7 @@ private fun StatusCard(
 
             else -> {
                 Card(
-                    cornerRadius = 28.dp,
+                    cornerRadius = 18.dp,
                     onClick = {
                         if (!state.isLateLoadMode) {
                             actions.onInstallClick()
@@ -401,7 +401,7 @@ private fun LearnMoreCard(
     val url = stringResource(R.string.home_learn_kernelsu_url)
     Card(
         modifier = Modifier.fillMaxWidth(),
-        cornerRadius = 28.dp,
+        cornerRadius = 18.dp,
         colors = CardDefaults.defaultColors(color = yuhengCardColor()),
     ) {
         BasicComponent(
@@ -423,7 +423,7 @@ private fun LearnMoreCard(
 private fun DonateCard(onOpenUrl: (String) -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        cornerRadius = 28.dp,
+        cornerRadius = 18.dp,
         colors = CardDefaults.defaultColors(color = yuhengCardColor()),
     ) {
         BasicComponent(
@@ -452,13 +452,13 @@ private fun InfoCard(systemInfo: SystemInfo) {
     ) {
         Text(
             text = title,
-            fontSize = MiuixTheme.textStyles.headline1.fontSize,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             color = colorScheme.onSurface
         )
         Text(
             text = content,
-            fontSize = MiuixTheme.textStyles.body2.fontSize,
+            fontSize = 13.sp,
             color = colorScheme.onSurfaceVariantSummary,
             modifier = Modifier.padding(top = 2.dp, bottom = bottomPadding)
         )
