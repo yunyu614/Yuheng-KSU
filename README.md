@@ -128,6 +128,7 @@ Root 管理器和内核模块具有高权限，错误的 APK、签名或 LKM 可
 - [LKM 构建与签名说明](LKM-README.md)
 - [贡献指南](CONTRIBUTING.md)
 - [安全策略](SECURITY.md)
+- [发布验收清单](docs/RELEASE_ACCEPTANCE.md)
 - [变更记录](CHANGELOG.md)
 
 ## 上游项目与致谢
