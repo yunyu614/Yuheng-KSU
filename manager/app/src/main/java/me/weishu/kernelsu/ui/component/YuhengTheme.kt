@@ -85,15 +85,15 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             .clip(RoundedCornerShape(18.dp))
             .background(yuhengHeroBrush()),
     ) {
-        Canvas(
+        Image(
+            painter = painterResource(id = beastIconRes(preset)),
+            contentDescription = "${preset.creature}",
             modifier = Modifier
-                .size(150.dp)
+                .size(112.dp)
                 .align(Alignment.CenterEnd)
-                .offset(x = 8.dp)
-        ) {
-            drawBeastArtwork(preset, alpha = 0.92f)
-            drawCircle(preset.decorative.copy(alpha = 0.18f), radius = size.minDimension * 0.48f, style = Stroke(1.dp.toPx()))
-        }
+                .offset(x = (-8).dp),
+            contentScale = ContentScale.Fit,
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -214,24 +214,31 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
     val brush = Brush.verticalGradient(listOf(baseBackground, surfaceBackground, baseBackground))
     Box(Modifier.fillMaxSize().background(brush)) {
         if (wallpaper == null) {
-            Canvas(Modifier.fillMaxSize()) {
-                // A different low-contrast beast illustration is part of each preset's atmosphere.
-                drawBeastArtwork(
-                    preset = preset,
-                    alpha = if (dark) 0.15f else 0.12f,
-                    center = Offset(size.width * 0.78f, size.height * 0.29f),
-                    scale = size.minDimension * 0.74f,
-                )
-                val glow = preset.accent.copy(alpha = if (dark) 0.12f else 0.10f)
-                drawCircle(
-                    brush = Brush.radialGradient(listOf(glow, Color.Transparent), center = Offset(size.width * 0.78f, size.height * 0.28f), radius = size.minDimension * 0.66f),
-                    radius = size.minDimension * 0.66f,
-                    center = Offset(size.width * 0.78f, size.height * 0.28f),
-                )
-                val ornament = preset.decorative.copy(alpha = if (dark) 0.11f else 0.14f)
-                drawCircle(ornament, radius = size.minDimension * 0.16f, center = Offset(size.width * 0.12f, size.height * 0.78f), style = Stroke(1.dp.toPx()))
-                drawCircle(ornament.copy(alpha = 0.55f), radius = size.minDimension * 0.11f, center = Offset(size.width * 0.12f, size.height * 0.78f), style = Stroke(0.8.dp.toPx()))
-            }
+            Image(
+                painter = painterResource(id = beastIconRes(preset)),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(280.dp)
+                    .align(Alignment.TopEnd)
+                    .offset(x = 72.dp, y = 92.dp),
+                alpha = if (dark) 0.13f else 0.10f,
+                contentScale = ContentScale.Fit,
+            )
+            Box(
+                modifier = Modifier
+                    .size(260.dp)
+                    .align(Alignment.TopEnd)
+                    .offset(x = 56.dp, y = 78.dp)
+                    .background(
+                        Brush.radialGradient(
+                            colors = listOf(
+                                preset.accent.copy(alpha = if (dark) 0.10f else 0.08f),
+                                Color.Transparent,
+                            )
+                        ),
+                        CircleShape,
+                    )
+            )
         }
         wallpaper?.let {
             Image(
@@ -356,6 +363,14 @@ private fun DrawScope.drawBeastArtwork(
             line(listOf(p(0.19f,0.49f),p(0.08f,0.38f),p(0.12f,0.30f)),detail,stroke*1.1f)
         }
     }
+}
+
+private fun beastIconRes(preset: YuhengThemePreset): Int = when (preset) {
+    YuhengThemePreset.QINGLONG -> me.weishu.kernelsu.R.drawable.ic_theme_qinglong
+    YuhengThemePreset.BAIHU -> me.weishu.kernelsu.R.drawable.ic_theme_baihu
+    YuhengThemePreset.XUANWU -> me.weishu.kernelsu.R.drawable.ic_theme_xuanwu
+    YuhengThemePreset.ZHUQUE -> me.weishu.kernelsu.R.drawable.ic_theme_zhuque
+    YuhengThemePreset.QILIN -> me.weishu.kernelsu.R.drawable.ic_theme_qilin
 }
 
 @Composable
