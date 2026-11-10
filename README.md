@@ -1,6 +1,6 @@
 # 玉衡 · Yuheng
 
-<p align="center"><img src="docs/images/icon.png" width="112" alt="玉衡图标" /></p>
+<p align="center"><sub>应用图标源码：<a href="manager/app/src/main/res/drawable/ic_launcher_foreground.xml">青龙主题标识（Android Vector Drawable）</a></sub></p>
 
 <p align="center">
   <strong>以玉为度，简而有序。</strong><br />
