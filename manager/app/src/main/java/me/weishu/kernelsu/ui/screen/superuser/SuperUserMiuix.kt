@@ -411,7 +411,6 @@ fun SuperUserPagerMiuix(
                 }
             }
         },
-        containerColor = Color.Transparent,
         contentWindowInsets = WindowInsets.systemBars.add(WindowInsets.displayCutout).only(WindowInsetsSides.Horizontal)
     ) { innerPadding ->
         val layoutDirection = LocalLayoutDirection.current
