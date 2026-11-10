@@ -25,12 +25,14 @@
 - [x] 玉衡品牌首页首轮改造。
 - [x] 青瓷雾浅色与墨玉深色基础视觉。
 - [x] 主导航调整为总览、授权管理、模块管理、系统设置四项。
-- [x] Debug APK 首轮 CI 构建成功（2026-11-10）。
+- [x] 玉衡预览版 Debug APK CI 构建成功（2026-11-10）。
 - [x] 主题页加入青瓷雾 / 墨玉预设入口，保存主题色与明暗模式。
 - [x] 移除旧余额页、API 请求代码、旧主题文案与历史角色图片资源。
 - [ ] Root 授权、模块安装 / 卸载、LKM 等真机回归测试。
 
-首轮 Debug APK 可从 [GitHub Actions 构建记录](https://github.com/yunyu614/Yuheng-KSU/actions) 下载。CI 编译成功不等于已完成真机兼容性验证；安装前请确认设备与内核环境，并做好备份。
+当前 Actions 产物是**界面预览版 Debug APK**，应用 ID 为 `me.weishu.kernelsu.preview`，使用 CI Debug 签名，仅用于界面、导航和主题体验验证，不会覆盖原有 `me.weishu.kernelsu` 管理器，也**不具备与配套白饭 LKM 匹配的签名身份**。请从 [GitHub Actions 构建记录](https://github.com/yunyu614/Yuheng-KSU/actions) 下载预览版。
+
+正式 Root 管理版必须使用与配套 LKM 内置摘要一致的原始 v2 签名证书。当前仓库没有原始私钥，CI 的 Debug 签名不能替代它；在获得原始签名密钥并完成证书摘要校验前，不发布可用于现有 LKM 的正式 APK。
 
 ## 上游来源与致谢
 
