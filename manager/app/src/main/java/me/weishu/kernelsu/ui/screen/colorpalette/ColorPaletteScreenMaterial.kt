@@ -90,6 +90,7 @@ import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
 import me.weishu.kernelsu.ui.component.material.ExpressiveToggleButton
 import me.weishu.kernelsu.ui.component.material.SegmentedColumn
 import me.weishu.kernelsu.ui.component.material.SegmentedDropdownItem
+import me.weishu.kernelsu.ui.component.material.SegmentedListItem
 import me.weishu.kernelsu.ui.component.material.SegmentedSwitchItem
 import me.weishu.kernelsu.ui.component.material.TonalCard
 import me.weishu.kernelsu.ui.component.material.TopBarBackButton
@@ -145,6 +146,28 @@ fun ColorPaletteScreenMaterial(
                     isAmoled = isAmoled,
                     paletteStyle = colorStyle,
                     colorSpec = colorSpec,
+                )
+            }
+
+            item {
+                SegmentedColumn(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    content = listOf(
+                        {
+                            SegmentedListItem(
+                                onClick = { actions.onApplyYuhengPreset(false) },
+                                headlineContent = { Text("青瓷雾") },
+                                supportingContent = { Text("浅青釉与雾灰，温润柔和的浅色主题") },
+                            )
+                        },
+                        {
+                            SegmentedListItem(
+                                onClick = { actions.onApplyYuhengPreset(true) },
+                                headlineContent = { Text("墨玉") },
+                                supportingContent = { Text("深青灰与玉绿，低亮度的深色主题") },
+                            )
+                        }
+                    )
                 )
             }
 
