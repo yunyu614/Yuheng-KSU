@@ -29,20 +29,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.weishu.kernelsu.ui.theme.isInDarkTheme
 
-private val JadeInk = Color(0xFF29463C)
+private val JadeInk = Color(0xFF263B32)
 private val JadeText = Color(0xFFE4EEE8)
-private val JadeMuted = Color(0xFF647B70)
+private val JadeMuted = Color(0xFF687A70)
 
 @Composable
 fun yuhengHeroBrush(): Brush = if (isInDarkTheme()) {
-    Brush.linearGradient(listOf(Color(0xFF171F1D), Color(0xFF263A32), Color(0xFF30483D)))
+    Brush.linearGradient(listOf(Color(0xFF1B2420), Color(0xFF202D26), Color(0xFF26362E)))
 } else {
-    Brush.linearGradient(listOf(Color(0xFFE8EFEB), Color(0xFFD5E3DC), Color(0xFFC5D8CE)))
+    Brush.linearGradient(listOf(Color(0xFFE7EEE9), Color(0xFFDDE7E0), Color(0xFFD5E1D9)))
 }
 
 @Composable
 fun Modifier.yuhengCardGradient(shape: Shape = RoundedCornerShape(18.dp)): Modifier =
-    clip(shape).background(yuhengHeroBrush())
+    clip(shape).background(yuhengCardColor())
 
 @Composable
 fun YuhengHeroCard(modifier: Modifier = Modifier) {
@@ -54,8 +54,8 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(184.dp)
-            .clip(RoundedCornerShape(24.dp))
+            .height(112.dp)
+            .clip(RoundedCornerShape(18.dp))
             .background(yuhengHeroBrush()),
     ) {
         Box(
@@ -74,7 +74,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 22.dp, vertical = 20.dp),
+                .padding(horizontal = 18.dp, vertical = 14.dp),
             verticalArrangement = Arrangement.Center,
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -95,31 +95,31 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
                     ),
                 )
             }
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(8.dp))
             BasicText(
                 text = "让 Root 管理，也有东方美学",
                 style = TextStyle(
                     color = title,
-                    fontSize = 21.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.2.sp,
                 ),
             )
-            Spacer(Modifier.height(7.dp))
+            Spacer(Modifier.height(4.dp))
             BasicText(
                 text = "以玉为度，简而有序",
                 style = TextStyle(
                     color = muted,
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     letterSpacing = 0.4.sp,
                 ),
             )
-            Spacer(Modifier.height(13.dp))
+            Spacer(Modifier.height(8.dp))
             BasicText(
                 text = "青瓷雾  ·  墨玉",
                 style = TextStyle(
                     color = accent,
-                    fontSize = 11.sp,
+                    fontSize = 10.sp,
                     fontWeight = FontWeight.Medium,
                     letterSpacing = 1.sp,
                 ),
@@ -132,9 +132,9 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
 fun YuhengAppBackground(content: @Composable () -> Unit) {
     val dark = isInDarkTheme()
     val brush = if (dark) {
-        Brush.verticalGradient(listOf(Color(0xFF171F1D), Color(0xFF1B2723), Color(0xFF171F1D)))
+        Brush.verticalGradient(listOf(Color(0xFF151C18), Color(0xFF19221D), Color(0xFF151C18)))
     } else {
-        Brush.verticalGradient(listOf(Color(0xFFE8EFEB), Color(0xFFE2EBE6), Color(0xFFDCE7E1)))
+        Brush.verticalGradient(listOf(Color(0xFFF0F3F0), Color(0xFFEBF0EC), Color(0xFFE7EDE8)))
     }
     Box(Modifier.fillMaxSize().background(brush)) {
         content()
@@ -143,9 +143,9 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
 
 @Composable
 fun yuhengCardColor(): Color = if (isInDarkTheme()) {
-    Color(0xFF24312D)
+    Color(0xFF232F29)
 } else {
-    Color(0xFFDDE8E1)
+    Color(0xFFF0F4F0)
 }
 
 @Composable
@@ -156,13 +156,13 @@ fun YuhengDeviceHintCard(deviceModel: String, modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(18.dp))
             .background(yuhengCardColor())
-            .padding(horizontal = 16.dp, vertical = 14.dp),
+            .padding(horizontal = 16.dp, vertical = 11.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
             Modifier
                 .width(3.dp)
-                .height(40.dp)
+                .height(34.dp)
                 .clip(RoundedCornerShape(2.dp))
                 .background(if (dark) Color(0xFFA7C6B5) else Color(0xFF55796B)),
         )

@@ -76,7 +76,7 @@
     <string name="reboot_bootloader">重启到 Bootloader</string>
     <string name="reboot_download">重启到 Download</string>
     <string name="reboot_edl">重启到 EDL</string>
-    <string name="about">关于 大肥鱼KSU</string>
+    <string name="about">关于玉衡</string>
     <string name="module_uninstall_confirm">确定要卸载模块 %s 吗？</string>
     <string name="metamodule_uninstall_confirm">确定要卸载模块 %s 吗？此操作将影响所有模块，并且元模块提供的某些功能（如挂载）将不再工作</string>
     <string name="module_uninstall_success">%s 已卸载</string>
@@ -99,7 +99,7 @@
     <string name="home_support_title">支持开发</string>
     <string name="home_support_content">KernelSU 将保持免费开源，向开发者捐赠以表示支持</string>
     <string name="home_gki_warning">自 v3.0.0 起 GKI 工作模式将仅用于测试环境，我们不建议用于日常使用，也不再提供镜像文件</string>
-    <string name="about_source_code"><![CDATA[在 %1$s 查看源码<br/>加入我们的<b><a href="mqqapi://card/show_pslcard?src_type=internal&amp;version=1&amp;uin=1077255467&amp;card_type=group&amp;source=qrcode">QQ群组</a></b>：1077255467]]></string>
+    <string name="about_source_code"><![CDATA[玉衡是独立的非官方衍生项目。<br/>在 %1$s 查看项目源码。]]></string>
     <string name="profile_default">默认</string>
     <string name="profile_template">模板</string>
     <string name="profile_custom">自定义</string>
@@ -200,7 +200,7 @@
     <string name="flash_success">刷写完成</string>
     <string name="flash_failed">刷写失败</string>
     <string name="selected_lkm">已选择的 LKM：%s</string>
-    <string name="install_bundled_lkm">已启用内置大肥鱼 LKM（免导入）</string>
+    <string name="install_bundled_lkm">已启用内置 LKM（无需导入）</string>
     <string name="save_log">保存日志</string>
     <string name="log_saved">日志已保存</string>
     <string name="settings_mode_enable_by_default">启用（默认）</string>

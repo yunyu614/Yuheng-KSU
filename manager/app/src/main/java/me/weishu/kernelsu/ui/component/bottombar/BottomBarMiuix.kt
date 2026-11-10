@@ -80,13 +80,13 @@ fun BottomBarMiuix(
         }
     } else {
         val bottomPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-            .let { inset -> if (inset != 0.dp) 8.dp + inset else 28.dp }
+            .let { inset -> if (inset != 0.dp) 8.dp + inset else 20.dp }
         FloatingBottomBar(
             modifier = modifier
                 .pointerInput(Unit) {
                     detectTapGestures { }
                 }
-                .padding(start = 28.dp, end = 28.dp, bottom = bottomPadding),
+                .padding(start = 22.dp, end = 22.dp, bottom = bottomPadding),
             selectedIndex = mainState.selectedPage,
             onSelected = { mainState.animateToPage(it) },
             backdrop = backdrop,
@@ -99,7 +99,7 @@ fun BottomBarMiuix(
                     onClick = {
                         activateTab(index)
                     },
-                    modifier = Modifier.defaultMinSize(minWidth = 76.dp)
+                    modifier = Modifier.defaultMinSize(minWidth = 70.dp)
                 ) {
                     // Icon and label take LocalContentColor so the FloatingBottomBar backdrop copy
                     // can recolor them to the accent tone inside the indicator pill.

@@ -385,7 +385,7 @@ fun FloatingBottomBar(
                     } else Modifier
                 )
                 .then(dampedDragAnimation.modifier)
-                .height(64.dp)
+                .height(56.dp)
                 .padding(4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -421,7 +421,7 @@ fun FloatingBottomBar(
                             onDrawSurface = { drawRect(containerColor) },
                         )
                         .then(interactiveHighlight.modifier)
-                        .height(56.dp)
+                        .height(48.dp)
                         .padding(horizontal = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     content = { content(::activateTab) }
@@ -475,7 +475,7 @@ fun FloatingBottomBar(
                                 alpha = dampedDragAnimation.pressProgress,
                             )
                         }
-                        .height(56.dp)
+                        .height(48.dp)
                         .width(tabWidthDp)
                 )
             } else {
@@ -488,7 +488,7 @@ fun FloatingBottomBar(
                         }
                         .clip(pillShape)
                         .background(accentColor.copy(alpha = 0.15f), pillShape)
-                        .height(56.dp)
+                        .height(48.dp)
                         .width(tabWidthDp),
                     contentAlignment = Alignment.CenterStart,
                 ) {
@@ -498,7 +498,7 @@ fun FloatingBottomBar(
                                 .clearAndSetSemantics {}
                                 .wrapContentWidth(align = Alignment.Start, unbounded = true)
                                 .requiredWidth(with(density) { (totalWidthPx - 8.dp.toPx()).toDp() })
-                                .height(56.dp)
+                                .height(48.dp)
                                 .graphicsLayer {
                                     val progressOffset = dampedDragAnimation.value * tabWidthPx
                                     translationX = if (isLtr) -progressOffset else progressOffset

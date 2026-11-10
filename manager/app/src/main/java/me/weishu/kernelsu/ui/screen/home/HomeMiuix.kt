@@ -145,7 +145,6 @@ fun HomePagerMiuix(
                         if (state.showRootWarning) {
                             WarningCard(stringResource(id = R.string.grant_root_failed))
                         }
-                        YuhengHeroCard()
                         Column(
                             modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -155,6 +154,7 @@ fun HomePagerMiuix(
                                 state = state,
                                 actions = actions,
                             )
+                            YuhengHeroCard()
                             YuhengDeviceHintCard(deviceModel = state.systemInfo.deviceModel)
                             InfoCard(systemInfo = state.systemInfo)
                             DonateCard(onOpenUrl = actions.onOpenUrl)
@@ -251,12 +251,12 @@ private fun StatusCard(
                 ) {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
-                        cornerRadius = 23.dp,
+                        cornerRadius = 18.dp,
                         colors = CardDefaults.defaultColors(
                             color = when {
                                 isDynamicColor -> colorScheme.secondaryContainer
-                                isInDarkTheme() -> Color(0xFF142A55)
-                                else -> Color(0xFFE3ECFF)
+                                isInDarkTheme() -> Color(0xFF203129)
+                                else -> Color(0xFFE5EEE8)
                             }
                         ),
                         onClick = {
@@ -275,7 +275,7 @@ private fun StatusCard(
                                 contentAlignment = Alignment.BottomEnd
                             ) {
                                 Icon(
-                                    modifier = Modifier.size(110.dp),
+                                    modifier = Modifier.size(72.dp),
                                     imageVector = Icons.Rounded.CheckCircleOutline,
                                     tint = if (isDynamicColor) {
                                         colorScheme.primary.copy(alpha = 0.8f)
@@ -308,7 +308,7 @@ private fun StatusCard(
                                 Column {
                                     Text(
                                         text = workingText,
-                                        fontSize = 22.sp,
+                                        fontSize = 19.sp,
                                         fontWeight = FontWeight.SemiBold,
                                     )
                                     Spacer(Modifier.height(1.dp))
@@ -317,7 +317,7 @@ private fun StatusCard(
                                             R.string.home_working_version,
                                             "${state.ksuVersion}-${state.kernelUAPIVersion}"
                                         ),
-                                        fontSize = 15.sp,
+                                        fontSize = 13.sp,
                                         fontWeight = FontWeight.Medium,
                                     )
                                 }
@@ -331,7 +331,7 @@ private fun StatusCard(
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Card(
                         modifier = Modifier.weight(1f),
-                        cornerRadius = 28.dp,
+                        cornerRadius = 18.dp,
                         onClick = {
                             if (!state.isLateLoadMode) {
                                 actions.onInstallClick()
@@ -367,7 +367,7 @@ private fun StatusCard(
 
             else -> {
                 Card(
-                    cornerRadius = 28.dp,
+                    cornerRadius = 18.dp,
                     onClick = {
                         if (!state.isLateLoadMode) {
                             actions.onInstallClick()
@@ -401,7 +401,7 @@ private fun LearnMoreCard(
     val url = stringResource(R.string.home_learn_kernelsu_url)
     Card(
         modifier = Modifier.fillMaxWidth(),
-        cornerRadius = 28.dp,
+        cornerRadius = 18.dp,
         colors = CardDefaults.defaultColors(color = yuhengCardColor()),
     ) {
         BasicComponent(
@@ -423,7 +423,7 @@ private fun LearnMoreCard(
 private fun DonateCard(onOpenUrl: (String) -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        cornerRadius = 28.dp,
+        cornerRadius = 18.dp,
         colors = CardDefaults.defaultColors(color = yuhengCardColor()),
     ) {
         BasicComponent(
@@ -452,13 +452,13 @@ private fun InfoCard(systemInfo: SystemInfo) {
     ) {
         Text(
             text = title,
-            fontSize = MiuixTheme.textStyles.headline1.fontSize,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             color = colorScheme.onSurface
         )
         Text(
             text = content,
-            fontSize = MiuixTheme.textStyles.body2.fontSize,
+            fontSize = 13.sp,
             color = colorScheme.onSurfaceVariantSummary,
             modifier = Modifier.padding(top = 2.dp, bottom = bottomPadding)
         )
@@ -477,8 +477,8 @@ private fun InfoCard(systemInfo: SystemInfo) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(28.dp))
-            .background(yuhengHeroBrush()),
+            .clip(RoundedCornerShape(18.dp))
+            .background(yuhengCardColor()),
     ) {
         Column(
             modifier = Modifier
