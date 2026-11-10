@@ -7,7 +7,7 @@
 
 ## 当前结论
 
-玉衡仓库已建立独立的 `develop` 开发分支，并已导入完整 Android Manager 工程。首轮 Debug APK 已由 GitHub Actions 成功编译并上传；真机 Root、模块及 LKM 回归仍待验证。本文件记录迁移边界、已完成工作与后续检查项。
+玉衡仓库已建立独立的 `develop` 开发分支，并已导入完整 Android Manager 工程。当前 GitHub Actions 成功产出的是独立包名的 Debug 界面预览版；正式 Root 管理版仍受原始 APK 签名私钥缺失限制，真机 Root、模块及 LKM 回归尚未完成。本文件记录迁移边界、已完成工作与后续检查项。
 
 对白饭项目的 `manager/` 目录进行递归清点，当前上游树包含 506 个条目。它不是单一 UI 工程：除 Kotlin / Compose 页面外，还包含 Android Manifest、Gradle 配置、AIDL、JNI / C++、预编译 native libraries、内置 LKM、WebView 资源和其他构建文件。
 
@@ -26,8 +26,8 @@
 ## 必须保留并核验的兼容边界
 
 1. **Root 核心逻辑**：授权、模块安装 / 卸载、安装镜像、LKM 加载和 UAPI 交互不应因品牌 UI 改造而被重写。
-2. **包名与身份**：初期保留 `me.weishu.kernelsu`，避免影响已有 Manager 与系统端交互。
-3. **签名与 LKM 信任**：上游 README 明确说明当前 Manager 使用自定义 v2-only 签名，配套 LKM 内嵌对应公钥摘要。不能直接换签名、替换 LKM 或混用官方 LKM。
+2. **包名与身份**：正式管理器保留 `me.weishu.kernelsu`，避免影响已有 Manager 与系统端交互；CI 预览包使用 `me.weishu.kernelsu.preview`，避免误覆盖正式管理器。
+3. **签名与 LKM 信任**：配套 LKM 的 `kernel/manager/apk_sign.c` 校验 APK v2 证书 DER 长度 `0x0339` 与 SHA-256 摘要 `bad08be1f8e813067892adca0e70452cd645ba31e5ed15bec35e60fa430f2f48`。当前仓库未包含对应私钥；CI Debug 签名不匹配该摘要，预览 APK 不能作为 Root 管理版使用。不得擅自替换签名或 LKM。
 4. **预编译依赖**：`jniLibs`、`assets/lkm`、JNI / CMake、AIDL、Gradle Version Catalog 等都属于工程完整性的一部分，不能只迁移 UI 源码。
 5. **双 UI 实现**：Material 与 Miuix 页面应共用主题语义和色彩 token，分别适配组件实现，避免两套界面表现不一致。
 6. **第三方素材与许可证**：保留上游版权声明、GPL 文本、修改说明及第三方素材归属。逐项核验图片、图标、字体、预编译二进制与 LKM 的许可和再分发条件。
@@ -62,7 +62,8 @@
 - [x] 识别关键签名 / LKM 耦合风险
 - [x] 添加手动上游源码导入工作流
 - [x] 运行工作流并完成完整 Android 工程导入
-- [x] Gradle Debug 构建通过（2026-11-10，Actions run 42759122178）
+- [x] Gradle Debug 界面预览包构建通过（2026-11-10，Actions run 42763393771；独立包名 `me.weishu.kernelsu.preview`）
+- [ ] 获取原始签名私钥，或与上游确认可行的签名交付方式；校验证书 DER 长度及 SHA-256 与 LKM 常量一致后再构建正式管理器
 - [ ] 真机 Root 授权与模块操作回归
 - [ ] Material / Miuix 双 UI 真机主题表现与 Root 流程回归验证
 
