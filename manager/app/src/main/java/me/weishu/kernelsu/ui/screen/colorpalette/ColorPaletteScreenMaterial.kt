@@ -91,6 +91,7 @@ import com.materialkolor.dynamiccolor.ColorSpec
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.component.bottombar.useNavigationRail
 import me.weishu.kernelsu.ui.component.YuhengThemeAtmosphere
+import me.weishu.kernelsu.ui.component.YuhengBeastIllustration
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
 import me.weishu.kernelsu.ui.component.material.ExpressiveToggleButton
 import me.weishu.kernelsu.ui.component.material.SegmentedColumn
@@ -205,14 +206,12 @@ fun ColorPaletteScreenMaterial(
                                             modifier = Modifier.fillMaxSize(),
                                             alpha = 0.36f,
                                         )
-                                        Image(
-                                            painter = painterResource(id = preset.iconRes),
-                                            contentDescription = preset.creature,
+                                        YuhengBeastIllustration(
+                                            preset = preset,
                                             modifier = Modifier
-                                                .size(104.dp)
+                                                .size(112.dp)
                                                 .align(Alignment.CenterEnd)
-                                                .padding(5.dp),
-                                            contentScale = androidx.compose.ui.layout.ContentScale.Fit,
+                                                .padding(3.dp),
                                         )
                                         if (selected) {
                                             Icon(
