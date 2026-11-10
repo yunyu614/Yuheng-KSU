@@ -66,7 +66,7 @@ import me.weishu.kernelsu.R
 import me.weishu.kernelsu.data.model.AppInfo
 import me.weishu.kernelsu.ui.component.AppIconImage
 import me.weishu.kernelsu.ui.component.ScrollToTopOnChange
-import me.weishu.kernelsu.ui.component.deepSeekCardGradient
+import me.weishu.kernelsu.ui.component.yuhengCardGradient
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
 import me.weishu.kernelsu.ui.component.material.SearchAppBar
 import me.weishu.kernelsu.ui.component.material.SegmentedColumn
@@ -443,7 +443,7 @@ private fun SimpleAppItem(
         onClick = onNavigate,
         modifier = Modifier
             .padding(horizontal = 4.dp)
-            .deepSeekCardGradient(),
+            .yuhengCardGradient(),
         colors = ListItemDefaults.colors(
             containerColor = Color.Transparent,
         ),
@@ -501,7 +501,7 @@ private fun GroupItem(
     SegmentedListItem(
         selected = selected,
         onClick = onClickPrimary,
-        modifier = Modifier.deepSeekCardGradient(),
+        modifier = Modifier.yuhengCardGradient(),
         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
         onLongClick = if (group.apps.size > 1) onToggleExpand else null,
         headlineContent = {
