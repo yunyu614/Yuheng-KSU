@@ -89,6 +89,7 @@ import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.component.bottombar.useNavigationRail
+import me.weishu.kernelsu.ui.component.YuhengBeastIllustration
 import me.weishu.kernelsu.ui.component.material.ExpressiveScaffold
 import me.weishu.kernelsu.ui.component.material.ExpressiveToggleButton
 import me.weishu.kernelsu.ui.component.material.SegmentedColumn
@@ -190,10 +191,9 @@ fun ColorPaletteScreenMaterial(
                                     verticalArrangement = Arrangement.spacedBy(6.dp),
                                 ) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Image(
-                                            painter = painterResource(preset.iconRes),
-                                            contentDescription = null,
-                                            modifier = Modifier.size(68.dp),
+                                        YuhengBeastIllustration(
+                                            preset = preset,
+                                            modifier = Modifier.size(76.dp),
                                         )
                                         Spacer(Modifier.weight(1f))
                                         if (selected) {
@@ -282,11 +282,11 @@ fun ColorPaletteScreenMaterial(
             }
 
             item {
+                // Keep only the three understandable display modes: automatic, light and dark.
                 val options = listOf(
-                    listOf(ColorMode.SYSTEM) to stringResource(R.string.settings_theme_mode_system),
-                    listOf(ColorMode.LIGHT) to stringResource(R.string.settings_theme_mode_light),
-                    listOf(ColorMode.DARK) to stringResource(R.string.settings_theme_mode_dark),
-                    listOf(ColorMode.DARK_AMOLED) to stringResource(R.string.settings_theme_mode_dark)
+                    listOf(ColorMode.SYSTEM) to "自动",
+                    listOf(ColorMode.LIGHT) to "白天",
+                    listOf(ColorMode.DARK) to "夜间",
                 )
 
                 Column(
