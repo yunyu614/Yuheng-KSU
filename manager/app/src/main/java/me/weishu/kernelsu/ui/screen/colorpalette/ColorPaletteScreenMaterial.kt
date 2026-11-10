@@ -99,6 +99,7 @@ import me.weishu.kernelsu.ui.component.material.TonalCard
 import me.weishu.kernelsu.ui.component.material.TopBarBackButton
 import me.weishu.kernelsu.ui.component.material.expressiveTopAppBarColors
 import me.weishu.kernelsu.ui.theme.ColorMode
+import me.weishu.kernelsu.ui.theme.YuhengThemePreset
 import me.weishu.kernelsu.ui.theme.keyColorOptions
 import me.weishu.kernelsu.ui.theme.rememberKernelSUColorScheme
 import kotlin.math.roundToInt
@@ -154,120 +155,94 @@ fun ColorPaletteScreenMaterial(
             }
 
             item {
-                SegmentedColumn(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    content = listOf(
-                        {
-                            SegmentedListItem(
-                                onClick = { actions.onApplyYuhengPreset(0) },
-                                headlineContent = { Text("青龙 · 苍龙行云") },
-                                supportingContent = { Text("苍青云纹与东方星宿，清雅而有生机") },
-                                leadingContent = {
-                                    Image(
-                                        painter = painterResource(R.drawable.ic_theme_qinglong),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(38.dp)
-                                    )
-                                },
-                                trailingContent = {
-                                    if (currentKeyColor == 0 || currentKeyColor == 0xFF347B68.toInt()) {
-                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                        Text(
+                            text = "五方神兽 · 主题典藏",
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        Text(
+                            text = "择一方神韵，让整座界面随之焕新",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    LazyRow(
+                        contentPadding = PaddingValues(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        items(YuhengThemePreset.entries) { preset ->
+                            val selected = currentKeyColor == preset.seedColor ||
+                                (currentKeyColor == 0 && preset == YuhengThemePreset.QINGLONG)
+                            Surface(
+                                onClick = { actions.onApplyYuhengPreset(preset.ordinal) },
+                                modifier = Modifier.width(154.dp),
+                                shape = RoundedCornerShape(22.dp),
+                                color = MaterialTheme.colorScheme.surfaceContainer,
+                                border = BorderStroke(
+                                    if (selected) 2.dp else 1.dp,
+                                    if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                                ),
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(14.dp),
+                                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                                ) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Image(
+                                            painter = painterResource(preset.iconRes),
+                                            contentDescription = null,
+                                            modifier = Modifier.size(68.dp),
+                                        )
+                                        Spacer(Modifier.weight(1f))
+                                        if (selected) {
+                                            Icon(
+                                                Icons.Rounded.Check,
+                                                contentDescription = null,
+                                                tint = MaterialTheme.colorScheme.primary,
+                                            )
+                                        }
                                     }
-                                },
-                            )
-                        },
-                        {
-                            SegmentedListItem(
-                                onClick = { actions.onApplyYuhengPreset(1) },
-                                headlineContent = { Text("白虎 · 白虎镇岳") },
-                                supportingContent = { Text("霜银虎纹与山岳意象，冷冽而沉稳") },
-                                leadingContent = {
-                                    Image(
-                                        painter = painterResource(R.drawable.ic_theme_baihu),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(38.dp)
+                                    Text(
+                                        text = preset.title,
+                                        style = MaterialTheme.typography.titleMedium,
+                                        color = MaterialTheme.colorScheme.onSurface,
                                     )
-                                },
-                                trailingContent = {
-                                    if (currentKeyColor == 0xFF9AA8B2.toInt()) {
-                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                                    }
-                                },
-                            )
-                        },
-                        {
-                            SegmentedListItem(
-                                onClick = { actions.onApplyYuhengPreset(2) },
-                                headlineContent = { Text("玄武 · 玄武负山") },
-                                supportingContent = { Text("玄黄龟甲与北斗星象，厚重而守护") },
-                                leadingContent = {
-                                    Image(
-                                        painter = painterResource(R.drawable.ic_theme_xuanwu),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(38.dp)
+                                    Text(
+                                        text = preset.creature,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.primary,
                                     )
-                                },
-                                trailingContent = {
-                                    if (currentKeyColor == 0xFFD6A82E.toInt()) {
-                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                                    }
-                                },
-                            )
-                        },
-                        {
-                            SegmentedListItem(
-                                onClick = { actions.onApplyYuhengPreset(3) },
-                                headlineContent = { Text("朱雀 · 朱雀衔火") },
-                                supportingContent = { Text("朱砂凤羽与赤焰日轮，热烈而华美") },
-                                leadingContent = {
-                                    Image(
-                                        painter = painterResource(R.drawable.ic_theme_zhuque),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(38.dp)
+                                    Text(
+                                        text = preset.subtitle,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
-                                },
-                                trailingContent = {
-                                    if (currentKeyColor == 0xFFB9423A.toInt()) {
-                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                                    }
-                                },
-                            )
-                        },
-                        {
-                            SegmentedListItem(
-                                onClick = { actions.onApplyYuhengPreset(4) },
-                                headlineContent = { Text("麒麟 · 麒麟呈瑞") },
-                                supportingContent = { Text("紫金祥云与瑞兽鳞甲，华贵而祥瑞") },
-                                leadingContent = {
-                                    Image(
-                                        painter = painterResource(R.drawable.ic_theme_qilin),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(38.dp)
-                                    )
-                                },
-                                trailingContent = {
-                                    if (currentKeyColor == 0xFF9570B5.toInt()) {
-                                        Icon(Icons.Rounded.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                                    }
-                                },
-                            )
-                        },
-                        {
-                            SegmentedListItem(
-                                onClick = actions.onPickWallpaper,
-                                headlineContent = { Text("自定义壁纸") },
-                                supportingContent = { Text("从相册选择图片作为应用背景") },
-                            )
-                        },
-                        {
-                            SegmentedListItem(
-                                onClick = actions.onClearWallpaper,
-                                headlineContent = { Text("恢复默认背景") },
-                                supportingContent = { Text("移除自定义壁纸，恢复玉衡默认背景") },
-                            )
+                                }
+                            }
                         }
+                    }
+                    SegmentedColumn(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        content = listOf(
+                            {
+                                SegmentedListItem(
+                                    onClick = actions.onPickWallpaper,
+                                    headlineContent = { Text("自定义壁纸") },
+                                    supportingContent = { Text("将自己的山水、纹样或摄影作品融入玉衡背景") },
+                                )
+                            },
+                            {
+                                SegmentedListItem(
+                                    onClick = actions.onClearWallpaper,
+                                    headlineContent = { Text("恢复默认背景") },
+                                    supportingContent = { Text("移除自定义壁纸，恢复当前神兽主题的专属底色") },
+                                )
+                            }
+                        )
                     )
-                )
+                }
             }
 
             item {
