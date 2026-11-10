@@ -42,6 +42,11 @@ fun ColorPaletteScreen() {
     val actions = ColorPaletteScreenActions(
         onBack = dropUnlessResumed { navigator.pop() },
         onSetThemeMode = viewModel::setThemeMode,
+        onApplyYuhengPreset = { dark ->
+            viewModel.setMiuixMonet(false)
+            viewModel.setKeyColor(if (dark) 0xFF8EAD9D.toInt() else 0xFF55796B.toInt())
+            viewModel.setThemeMode(if (dark) 2 else 1)
+        },
         onSetMiuixMonet = viewModel::setMiuixMonet,
         onSetKeyColor = viewModel::setKeyColor,
         onSetColorMode = viewModel::setColorMode,
