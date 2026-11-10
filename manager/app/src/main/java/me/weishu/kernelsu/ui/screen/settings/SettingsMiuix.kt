@@ -39,6 +39,7 @@ import androidx.compose.material.icons.rounded.VerifiedUser
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -91,7 +92,7 @@ fun SettingPagerMiuix(
     val showSendLogDialog = rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
     val wallpaperPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-    val hasCustomWallpaper = rememberSaveable {
+    val hasCustomWallpaper = remember(wallpaperPreferences) {
         mutableStateOf(
             wallpaperPreferences.getString("yuheng_wallpaper_uri", null) != null ||
                 wallpaperPreferences.getString("yuheng_wallpaper_file", null) != null
