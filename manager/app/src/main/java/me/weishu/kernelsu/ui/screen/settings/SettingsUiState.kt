@@ -68,6 +68,8 @@ data class SettingsUiState(
 data class SettingsScreenActions(
     val onSetCheckUpdate: (Boolean) -> Unit,
     val onSetCheckModuleUpdate: (Boolean) -> Unit,
+    val onSetFloatingBottomBar: (Boolean) -> Unit,
+    val onSetFloatingBottomBarBlur: (Boolean) -> Unit,
     val onOpenTheme: () -> Unit,
     val onSetUiModeIndex: (Int) -> Unit,
     val onOpenProfileTemplate: () -> Unit,
