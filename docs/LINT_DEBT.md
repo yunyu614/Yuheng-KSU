@@ -1,26 +1,25 @@
 # Android Lint 技术债记录
 
-## 当前实测基线（2026-11-11，提交 `ed7400e2`）
+## 当前实测基线（2026-11-11，提交 `f05829f2`）
 
-使用 Android Lint 9.4.1 对 Debug 变体执行完整检查。提交 `ed7400e25319bd5deb9b58146c7753378285f473` 的原始 SARIF 包含 **389 条发现：334 errors / 55 warnings**；文本报告汇总与 SARIF 数量一致。
+使用 Android Lint 9.4.1 对 Debug 变体执行完整检查。提交 `f05829f2a4120eb8f7f104957225955f57ff6dd1` 的原始 SARIF 包含 **387 条发现：335 errors / 52 warnings**；统计来自 CI Artifact `yuheng-preview-lint-report`，按 SARIF 规则逐项计数。
 
 | 类别 | 数量 | 严重级别 |
 | --- | ---: | --- |
-| `MissingTranslation` | 334 | Error |
+| `MissingTranslation` | 335 | Error |
 | `NewerVersionAvailable` | 16 | Warning |
 | `UseKtx` | 13 | Warning |
 | `UnusedResources` | 9 | Warning |
 | `MissingOnRenderProcessGone` | 4 | Warning |
 | `GradleDependency` | 3 | Warning |
-| `Untranslatable` | 3 | Warning |
 | `AndroidGradlePluginVersion` | 2 | Warning |
 | `ModifierParameter` | 2 | Warning |
 | `PluralsCandidate` | 1 | Warning |
 | `ObsoleteSdkInt` | 1 | Warning |
 | `TypographyEllipsis` | 1 | Warning |
-| **合计** | **389** | **334 errors / 55 warnings** |
+| **合计** | **387** | **335 errors / 52 warnings** |
 
-本轮相较 `cf9896a2` 的 401 条发现减少 12 条：移除旧启动图标位图与重复图标资源，并修正部分资源目录和翻译标记。没有关闭 Lint 规则，也没有通过隐藏报告实现数字下降。
+相较此前 `ed7400e2` 基线减少 2 条发现：越南语、乌克兰语和土耳其语的 `profile` 翻译标记问题已不再触发 `Untranslatable`；本次 SARIF 中该规则为 0。土耳其语条目已确认使用可翻译资源定义。没有关闭 Lint 规则，也没有通过隐藏报告实现数字下降。
 
 ### 已确认的问题与处理方向
 
@@ -28,7 +27,7 @@
 - `UseKtx`：13 条，集中在壁纸管理相关代码中的 `SharedPreferences.edit` 与 `Uri.parse`。可使用 AndroidX Core KTX 扩展整理，但必须保持 URI 权限释放、偏好写入时序与失败处理行为不变。
 - `UnusedResources`：9 项，主要为旧首页/设置字符串和历史 About 文案。删除前仍需检查所有资源目录与动态引用，避免造成 `ExtraTranslation` 或运行时资源缺失。
 - `MissingOnRenderProcessGone`：两个 WebView 调用点各重复报告两次。代码已通过 AndroidX `WebViewClientCompat` 覆盖 renderer 退出回调并清理 WebView；Lint 仍未识别兼容类继承关系，不会全局关闭该规则。
-- `Untranslatable`：当前有 3 条 `profile` 资源告警，分别位于越南语、乌克兰语和土耳其语资源。土耳其语条目的错误属性已修正；其余两条仍需追查产生冲突的资源定义，不能直接删除有效翻译。
+- `Untranslatable`：本次 SARIF 已无此类告警（0 条）。越南语、乌克兰语和土耳其语的 `profile` 资源标记已不再触发该规则；后续需避免在翻译目录中误加 `translatable="false"`。
 - `ModifierParameter`：2 条，位于 `YuhengTheme.kt` 的 Composable 参数顺序；调整时需同步检查调用点，避免破坏现有调用。
 - `ObsoleteSdkInt`：1 条，指向 `values-v31` 目录。当前 minSdk 为 31，但合并前需检查其中资源与主题启动行为。
 - `PluralsCandidate`：1 条，提示默认字符串中的应用数量格式可能应改为复数资源；需检查调用处是否能正确传递数量。
@@ -53,5 +52,6 @@
 - 提交 `2aec48e6`：资源占位符修正；Android 单元测试、Debug APK 构建及 `android16-6.12` LKM 构建成功。
 - 提交 `cf9896a2`：修正部分资源翻译属性、清理越南语和印尼语的重复 ADB Root 术语，并补齐简体中文旧 About 字符串格式参数；Android 单元测试、Debug APK 构建及 LKM 构建成功；Lint 334 errors / 67 warnings。
 - 提交 `ed7400e2`：清理旧启动图标位图与重复资源；Android 单元测试、Debug APK 构建及 `android16-6.12` LKM 构建成功；Lint 334 errors / 55 warnings。
+- 提交 `f05829f2`：修正土耳其语 `profile` 翻译标记；Android 单元测试、Debug APK 构建及 `android16-6.12` LKM 构建成功；Lint 335 errors / 52 warnings。
 
 **注意：** Debug CI 成功不代表正式签名、设备 Root 授权、模块生命周期或真机回归已经验收。正式签名工作流还必须核对 APK v2 证书 SHA-256 与 LKM 信任配置一致。

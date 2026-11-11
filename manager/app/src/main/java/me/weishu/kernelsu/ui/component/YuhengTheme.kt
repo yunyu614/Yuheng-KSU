@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
+import androidx.core.net.toUri
 import java.io.File
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -277,12 +277,13 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
     LaunchedEffect(wallpaperFilePath, wallpaperUri) {
         wallpaper = withContext(Dispatchers.IO) {
             runCatching {
+                val wallpaperContentUri = wallpaperUri?.toUri()
                 val file = wallpaperFilePath?.let(::File)?.takeIf { it.isFile && it.length() > 0L }
                 val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
                 if (file != null) {
                     BitmapFactory.decodeFile(file.absolutePath, bounds)
-                } else if (wallpaperUri != null) {
-                    context.contentResolver.openInputStream(Uri.parse(wallpaperUri))?.use {
+                } else if (wallpaperContentUri != null) {
+                    context.contentResolver.openInputStream(wallpaperContentUri)?.use {
                         BitmapFactory.decodeStream(it, null, bounds)
                     }
                 }
@@ -298,8 +299,10 @@ fun YuhengAppBackground(content: @Composable () -> Unit) {
                 if (file != null) {
                     BitmapFactory.decodeFile(file.absolutePath, options)
                 } else {
-                    context.contentResolver.openInputStream(Uri.parse(wallpaperUri!!))?.use {
-                        BitmapFactory.decodeStream(it, null, options)
+                    wallpaperContentUri?.let { uri ->
+                        context.contentResolver.openInputStream(uri)?.use {
+                            BitmapFactory.decodeStream(it, null, options)
+                        }
                     }
                 }
             }.getOrNull()

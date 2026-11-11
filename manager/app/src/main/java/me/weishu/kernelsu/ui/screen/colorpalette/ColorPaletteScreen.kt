@@ -1,6 +1,8 @@
 package me.weishu.kernelsu.ui.screen.colorpalette
 
 import android.content.Context
+import androidx.core.content.edit
+import androidx.core.net.toUri
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.system.Os
@@ -83,15 +85,15 @@ fun ColorPaletteScreen() {
                     preferences.getString("yuheng_wallpaper_uri", null)?.let { previousUri ->
                         runCatching {
                             context.contentResolver.releasePersistableUriPermission(
-                                android.net.Uri.parse(previousUri),
+                                previousUri.toUri(),
                                 Intent.FLAG_GRANT_READ_URI_PERMISSION,
                             )
                         }
                     }
-                    preferences.edit()
-                        .putString("yuheng_wallpaper_file", copied.absolutePath)
-                        .remove("yuheng_wallpaper_uri")
-                        .apply()
+                    preferences.edit {
+                        putString("yuheng_wallpaper_file", copied.absolutePath)
+                        remove("yuheng_wallpaper_uri")
+                    }
                     activity?.recreate()
                 }.onFailure { error ->
                     temp.delete()
@@ -130,15 +132,15 @@ fun ColorPaletteScreen() {
             preferences.getString("yuheng_wallpaper_uri", null)?.let { previousUri ->
                 runCatching {
                     context.contentResolver.releasePersistableUriPermission(
-                        android.net.Uri.parse(previousUri),
+                        previousUri.toUri(),
                         Intent.FLAG_GRANT_READ_URI_PERMISSION,
                     )
                 }
             }
-            preferences.edit()
-                .remove("yuheng_wallpaper_uri")
-                .remove("yuheng_wallpaper_file")
-                .apply()
+            preferences.edit {
+                remove("yuheng_wallpaper_uri")
+                remove("yuheng_wallpaper_file")
+            }
             File(context.filesDir, "yuheng-wallpaper").delete()
             activity?.recreate()
         },

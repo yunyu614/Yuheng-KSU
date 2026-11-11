@@ -1,6 +1,8 @@
 package me.weishu.kernelsu.ui.screen.settings
 
 import android.content.Context
+import androidx.core.content.edit
+import androidx.core.net.toUri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -128,15 +130,15 @@ fun SettingPagerMiuix(
             if (previousUri != null && previousUri != uri.toString()) {
                 runCatching {
                     context.contentResolver.releasePersistableUriPermission(
-                        android.net.Uri.parse(previousUri),
+                        previousUri.toUri(),
                         android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
                     )
                 }
             }
-            wallpaperPreferences.edit()
-                .remove("yuheng_wallpaper_file")
-                .putString("yuheng_wallpaper_uri", uri.toString())
-                .apply()
+            wallpaperPreferences.edit {
+                remove("yuheng_wallpaper_file")
+                putString("yuheng_wallpaper_uri", uri.toString())
+            }
             hasCustomWallpaper.value = true
         }
     }
@@ -231,15 +233,15 @@ fun SettingPagerMiuix(
                                     wallpaperPreferences.getString("yuheng_wallpaper_uri", null)?.let { savedUri ->
                                         runCatching {
                                             context.contentResolver.releasePersistableUriPermission(
-                                                android.net.Uri.parse(savedUri),
+                                                savedUri.toUri(),
                                                 android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION,
                                             )
                                         }
                                     }
-                                    wallpaperPreferences.edit()
-                                        .remove("yuheng_wallpaper_uri")
-                                        .remove("yuheng_wallpaper_file")
-                                        .apply()
+                                    wallpaperPreferences.edit {
+                                        remove("yuheng_wallpaper_uri")
+                                        remove("yuheng_wallpaper_file")
+                                    }
                                     hasCustomWallpaper.value = false
                                 }
                             )
