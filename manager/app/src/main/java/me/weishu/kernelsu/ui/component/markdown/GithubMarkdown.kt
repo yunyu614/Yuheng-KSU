@@ -12,7 +12,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
-import android.webkit.WebViewClient
+import androidx.webkit.WebViewClientCompat
 import android.widget.FrameLayout
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -174,7 +174,7 @@ fun GithubMarkdown(
                     if (!restricted) {
                         addJavascriptInterface(scrollInterface, "AndroidScroll")
                     }
-                    webViewClient = object : WebViewClient() {
+                    webViewClient = object : WebViewClientCompat() {
                         override fun onRenderProcessGone(
                             view: WebView,
                             detail: android.webkit.RenderProcessGoneDetail,

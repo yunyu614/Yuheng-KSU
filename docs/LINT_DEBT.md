@@ -2,7 +2,7 @@
 
 ## 当前实测基线（2026-11-11，提交 `47ee288`）
 
-使用 Android Lint 9.4.1 对 Debug 变体执行完整检查，报告共 **445 条发现**：
+使用 Android Lint 9.4.1 对 Debug 变体执行完整检查，提交 `b4d1aa8` 的报告共 **445 条发现**。本轮针对报告中明确的 WebView renderer 回调告警与默认 Locale 隐患进行了修复，等待新 CI 报告确认实际变化：
 
 | 类别 | 数量 | 严重级别 |
 | --- | ---: | --- |
@@ -43,6 +43,7 @@
 - 提交 `51a6dbd`：Kotlin 编译、单元测试、Debug APK 打包成功；Lint 报告 394 errors / 148 warnings。
 - 提交 `c12402d`：增加 Markdown WebView 与模块 WebUI 的渲染进程退出清理；Kotlin 编译、单元测试、Debug APK 打包成功；Lint 报告 394 errors / 144 warnings。
 - 提交 `47ee288`：清理 30 个 DeepSeek / Token 遗留资源及 3 个无引用颜色；Kotlin 编译、单元测试、Debug APK 打包成功；Lint 报告 334 errors / 111 warnings。
+- 提交 `b4d1aa8`：统一 About 页面品牌名称；Kotlin 编译、单元测试、Debug APK 打包成功；Lint 报告仍为 334 errors / 111 warnings。
 - 同一轮的 `android16-6.12` LKM 构建成功，产物 SHA-256 与 Artifact 内校验清单一致。
 
 **注意：** Debug CI 成功不代表正式签名、设备 Root 授权、模块生命周期或真机回归已经验收。正式签名工作流还必须核对 APK v2 证书 SHA-256 与 LKM 信任配置一致。

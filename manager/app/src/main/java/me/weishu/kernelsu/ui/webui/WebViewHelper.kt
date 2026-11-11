@@ -16,7 +16,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
-import android.webkit.WebViewClient
+import androidx.webkit.WebViewClientCompat
 import androidx.webkit.WebViewAssetLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -104,7 +104,7 @@ internal suspend fun prepareWebView(
                 .build()
 
             // WebViewClient
-            webView.webViewClient = object : WebViewClient() {
+            webView.webViewClient = object : WebViewClientCompat() {
                 override fun onRenderProcessGone(
                     view: WebView,
                     detail: android.webkit.RenderProcessGoneDetail,
