@@ -123,7 +123,7 @@ fun SuperUserPagerMiuix(
 
     val backdrop = rememberBlurBackdrop(enableBlur)
     val blurActive = backdrop != null
-    val barColor = if (blurActive) Color.Transparent else colorScheme.surface
+    val barColor = Color.Transparent
     val topButtonBg = if (isInDarkTheme()) Color(0xFF2F5A8F) else Color(0xFFDCE9FF)
 
     Scaffold(
