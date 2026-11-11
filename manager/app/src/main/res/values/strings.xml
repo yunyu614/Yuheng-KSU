@@ -335,4 +335,13 @@
     <string name="nav_rail_collapse">Collapse navigation rail</string>
     <string name="settings_navigation_badge">Navigation badge</string>
     <string name="settings_navigation_badge_summary">Show granted app and enabled module counts on the navigation bar</string>
+    <string name="home">Overview</string>
+    <string name="home_lkm_update_available">A newer bundled LKM is available. Tap to update.</string>
+    <string name="home_lkm_custom">Custom</string>
+    <string name="home_device_model">Device model</string>
+    <string name="about_source_code"><![CDATA[View source code at %1$s<br/>Join our <b><a href="mqqapi://card/show_pslcard?src_type=internal&amp;version=1&amp;uin=1077255467&amp;card_type=group&amp;source=qrcode">QQ group</a></b>: 1077255467<br/>Join our channel at %2$s]]></string>
+    <string name="require_kernel_version_gki">Kernel update required</string>
+    <string name="settings_check_update">Check for updates</string>
+    <string name="settings_check_update_summary">Automatically check for updates when opening the app.</string>
+    <string name="settings_module_check_update">Check for module updates</string>
 </resources>
