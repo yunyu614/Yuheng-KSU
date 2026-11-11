@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="home">首頁</string>
+    <string name="home">首頁</string>
     <string name="home_not_installed">尚未安裝</string>
     <string name="home_click_to_install">點選開始安裝</string>
     <string name="home_working">已開始運作</string>
@@ -33,7 +33,7 @@
     <string name="reboot_bootloader">重新啟動至 Bootloader</string>
     <string name="reboot_download">重新啟動至 Download</string>
     <string name="reboot_edl">重新啟動至 EDL</string>
-    <string name="about">關於 大肥魚KSU</string>
+    <string name="about">關於玉衡</string>
     <string name="module_uninstall_confirm">你是否要解除安裝「%s」模組？</string>
     <string name="module_uninstall_success">「%s」已解除安裝</string>
     <string name="module_uninstall_failed">無法解除安裝：%s</string>
