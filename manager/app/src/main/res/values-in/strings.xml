@@ -319,7 +319,6 @@
     <string name="download">Unduh</string>
     <string name="download_cancel">Batal</string>
     <string name="download_install">Pasang</string>
-    <string name="settings_adb_root" translatable="false">ADB Root</string>
     <string name="settings_adb_root_summary">Jalankan daemon adbd dengan hak akses Root</string>
     <string name="menu_sort">Urutkan</string>
     <string name="sort_by_name">Nama aplikasi</string>

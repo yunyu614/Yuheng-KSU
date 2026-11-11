@@ -281,7 +281,6 @@
     <string name="settings_sulog">Nhật ký SU</string>
     <string name="settings_sulog_summary">Ghi lại các sự kiện liên quan đến quyền Root vào các file nhật ký SU của KernelSU.</string>
     <string name="sulog_filter_root_execve">Root execve</string>
-    <string name="settings_adb_root">ADB Root</string>
     <string name="settings_adb_root_summary">Chạy tiến trình nền adbd với quyền Root.</string>
     <string name="menu_sort">Sắp xếp</string>
     <string name="sort_by_name">Tên ứng dụng</string>
