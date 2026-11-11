@@ -152,6 +152,8 @@ fun ColorPaletteScreenMaterial(
                     isDark = isDark,
                     isAmoled = isAmoled,
                     monetEnabled = uiState.miuixMonet,
+                    enableFloatingBottomBar = uiState.enableFloatingBottomBar,
+                    enableFloatingBottomBarBlur = uiState.enableFloatingBottomBarBlur,
                     paletteStyle = colorStyle,
                     colorSpec = colorSpec,
                 )
@@ -590,6 +592,8 @@ private fun ThemePreviewCard(
     isDark: Boolean,
     isAmoled: Boolean = false,
     monetEnabled: Boolean = false,
+    enableFloatingBottomBar: Boolean = false,
+    enableFloatingBottomBarBlur: Boolean = false,
     paletteStyle: PaletteStyle = PaletteStyle.TonalSpot,
     colorSpec: ColorSpec.SpecVersion = ColorSpec.SpecVersion.SPEC_2025,
 ) {
@@ -597,7 +601,7 @@ private fun ThemePreviewCard(
     val screenWidth = configuration.screenWidthDp.toFloat()
     val screenHeight = configuration.screenHeightDp.toFloat()
     val screenRatio = screenWidth / screenHeight
-    val useRail = useNavigationRail(enableFloatingBottomBar = false)
+    val useRail = useNavigationRail(enableFloatingBottomBar)
 
     val colorScheme = rememberKernelSUColorScheme(
         seedColor = if (monetEnabled || keyColor == 0) Color.Unspecified else Color(keyColor),
@@ -687,11 +691,43 @@ private fun ThemePreviewCard(
                     }
                     Column(modifier = Modifier.weight(1f)) { content() }
                 }
+            } else if (enableFloatingBottomBar) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        content()
+                    }
+                    Surface(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 8.dp),
+                        color = colorScheme.surfaceContainer.copy(
+                            alpha = if (enableFloatingBottomBarBlur) 0.58f else 1f
+                        ),
+                        shape = RoundedCornerShape(50),
+                        border = BorderStroke(0.5.dp, colorScheme.outlineVariant),
+                        shadowElevation = 3.dp,
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .height(28.dp)
+                                .padding(horizontal = 12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            repeat(4) { index ->
+                                Icon(
+                                    Icons.Filled.Home,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(13.dp),
+                                    tint = if (index == 0) colorScheme.primary else colorScheme.onSurfaceVariant,
+                                )
+                            }
+                        }
+                    }
+                }
             } else {
                 Column {
                     content()
-
-                    // bottom bar
                     Surface(
                         color = colorScheme.surfaceContainer,
                         modifier = Modifier.fillMaxWidth()
