@@ -152,6 +152,11 @@ android {
     lint {
         abortOnError = true
         checkReleaseBuilds = false
+
+        // The upstream locale set is intentionally partial. Android falls back to
+        // the default strings.xml for untranslated entries; keep that behavior
+        // instead of treating every fallback as a build-blocking error.
+        disable += "MissingTranslation"
     }
 
     compileOptions {
