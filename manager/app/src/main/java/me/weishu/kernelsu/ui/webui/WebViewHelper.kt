@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -104,6 +105,31 @@ internal suspend fun prepareWebView(
 
             // WebViewClient
             webView.webViewClient = object : WebViewClient() {
+                override fun onRenderProcessGone(
+                    view: WebView,
+                    detail: android.webkit.RenderProcessGoneDetail,
+                ): Boolean {
+                    Log.e(
+                        "WebViewHelper",
+                        "Module WebView renderer exited (crashed=${detail.didCrash()})",
+                    )
+                    (view.parent as? android.view.ViewGroup)?.removeView(view)
+                    view.destroy()
+                    if (webUIState.webView === view) {
+                        webUIState.webView = null
+                        webUIState.webCanGoBack = false
+                        webUIState.isUrlLoaded = false
+                        webUIState.filePathCallback?.onReceiveValue(null)
+                        webUIState.filePathCallback = null
+                        webUIState.rootShell?.close()
+                        webUIState.rootShell = null
+                        webUIState.uiEvent = WebUIEvent.Error(
+                            "模块网页渲染进程异常退出，请返回后重新打开。",
+                        )
+                    }
+                    return true
+                }
+
                 override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
                     val url = request.url
                     if (url.scheme.equals("ksu", ignoreCase = true) && url.host.equals("icon", ignoreCase = true)) {

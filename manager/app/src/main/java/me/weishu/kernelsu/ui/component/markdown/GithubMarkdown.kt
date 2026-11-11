@@ -175,6 +175,34 @@ fun GithubMarkdown(
                         addJavascriptInterface(scrollInterface, "AndroidScroll")
                     }
                     webViewClient = object : WebViewClient() {
+                        override fun onRenderProcessGone(
+                            view: WebView,
+                            detail: android.webkit.RenderProcessGoneDetail,
+                        ): Boolean {
+                            Log.e(
+                                "GithubMarkdown",
+                                "WebView renderer exited (crashed=${detail.didCrash()})",
+                            )
+                            onLoadingChange(false)
+                            (view.parent as? android.view.ViewGroup)?.removeView(view)
+                            frameLayout.removeAllViews()
+                            frameLayout.addView(
+                                android.widget.TextView(context).apply {
+                                    text = "网页内容渲染异常，请返回后重新打开。"
+                                    gravity = android.view.Gravity.CENTER
+                                    setTextColor(Color.GRAY)
+                                    textSize = 13f
+                                    setPadding(24, 24, 24, 24)
+                                },
+                                FrameLayout.LayoutParams(
+                                    FrameLayout.LayoutParams.MATCH_PARENT,
+                                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                                ),
+                            )
+                            view.destroy()
+                            return true
+                        }
+
                         private val assetLoader = WebViewAssetLoader.Builder()
                             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(context))
                             .build()
