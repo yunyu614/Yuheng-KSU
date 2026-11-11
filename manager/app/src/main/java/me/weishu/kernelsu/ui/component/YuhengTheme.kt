@@ -236,7 +236,7 @@ fun YuhengHeroCard(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(8.dp))
             BasicText(
-                text = "五方神兽  ·  东方精工",
+                text = "青龙苍璧  ·  东方精工",
                 style = TextStyle(
                     color = accent,
                     fontSize = 10.sp,
