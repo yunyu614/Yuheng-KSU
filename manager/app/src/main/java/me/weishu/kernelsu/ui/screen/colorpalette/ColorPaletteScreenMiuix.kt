@@ -172,8 +172,8 @@ fun ColorPaletteScreenMiuix(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         ArrowPreference(
-                            title = "青龙 · 苍龙行云",
-                            summary = "苍青云纹与东方星宿，清雅而有生机",
+                            title = "青龙 · 苍璧",
+                            summary = "苍青玉色、青龙主体与星宿山海背景，构成首发完整主题",
                             startAction = {
                                 Image(
                                     painter = painterResource(R.drawable.ic_theme_qinglong),
@@ -182,54 +182,6 @@ fun ColorPaletteScreenMiuix(
                                 )
                             },
                             onClick = { actions.onApplyYuhengPreset(0) }
-                        )
-                        ArrowPreference(
-                            title = "白虎 · 白虎镇岳",
-                            summary = "霜银虎纹与山岳意象，冷冽而沉稳",
-                            startAction = {
-                                Image(
-                                    painter = painterResource(R.drawable.ic_theme_baihu),
-                                    contentDescription = null,
-                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
-                                )
-                            },
-                            onClick = { actions.onApplyYuhengPreset(1) }
-                        )
-                        ArrowPreference(
-                            title = "玄武 · 玄武负山",
-                            summary = "玄黄龟甲与北斗星象，厚重而守护",
-                            startAction = {
-                                Image(
-                                    painter = painterResource(R.drawable.ic_theme_xuanwu),
-                                    contentDescription = null,
-                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
-                                )
-                            },
-                            onClick = { actions.onApplyYuhengPreset(2) }
-                        )
-                        ArrowPreference(
-                            title = "朱雀 · 朱雀衔火",
-                            summary = "朱砂凤羽与赤焰日轮，热烈而华美",
-                            startAction = {
-                                Image(
-                                    painter = painterResource(R.drawable.ic_theme_zhuque),
-                                    contentDescription = null,
-                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
-                                )
-                            },
-                            onClick = { actions.onApplyYuhengPreset(3) }
-                        )
-                        ArrowPreference(
-                            title = "麒麟 · 麒麟呈瑞",
-                            summary = "紫金祥云与瑞兽鳞甲，华贵而祥瑞",
-                            startAction = {
-                                Image(
-                                    painter = painterResource(R.drawable.ic_theme_qilin),
-                                    contentDescription = null,
-                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
-                                )
-                            },
-                            onClick = { actions.onApplyYuhengPreset(4) }
                         )
                         ArrowPreference(
                             title = "自定义壁纸",
