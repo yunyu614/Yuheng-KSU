@@ -36,10 +36,23 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.LocalMainPagerState
+import me.weishu.kernelsu.ui.theme.LocalEnableFloatingBottomBar
+import me.weishu.kernelsu.ui.theme.LocalEnableFloatingBottomBarBlur
+import me.weishu.kernelsu.ui.component.liquid.vibrancy
+import top.yukonga.miuix.kmp.blur.Backdrop
+import top.yukonga.miuix.kmp.blur.blur
+import top.yukonga.miuix.kmp.blur.drawBackdrop
 
 @Composable
-fun BottomBarMaterial(navigationBadge: NavigationBadgeState) {
+fun BottomBarMaterial(
+    navigationBadge: NavigationBadgeState,
+    backdrop: Backdrop,
+) {
     val mainPagerState = LocalMainPagerState.current
+    val floating = LocalEnableFloatingBottomBar.current
+    val glassEnabled = floating && LocalEnableFloatingBottomBarBlur.current
+    val shape = RoundedCornerShape(if (floating) 28.dp else 0.dp)
+    val surfaceColor = MaterialTheme.colorScheme.surfaceContainer
     val items = listOf(
         Triple(R.string.nav_home, Icons.Filled.Home, Icons.Outlined.Home),
         Triple(R.string.nav_superuser, Icons.Filled.Shield, Icons.Outlined.Shield),
@@ -50,24 +63,45 @@ fun BottomBarMaterial(navigationBadge: NavigationBadgeState) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 18.dp, vertical = 7.dp)
+            .padding(horizontal = if (floating) 18.dp else 0.dp, vertical = if (floating) 7.dp else 0.dp)
             .navigationBarsPadding(),
         contentAlignment = Alignment.Center,
     ) {
         Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(28.dp),
-            color = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.82f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(
+                    if (glassEnabled) {
+                        Modifier.drawBackdrop(
+                            backdrop = backdrop,
+                            shape = { shape },
+                            effects = {
+                                blur(18.dp.toPx(), 18.dp.toPx())
+                                vibrancy()
+                            },
+                            onDrawSurface = {
+                                drawRect(surfaceColor.copy(alpha = 0.42f))
+                            },
+                        )
+                    } else {
+                        Modifier
+                    }
+                ),
+            shape = shape,
+            color = if (glassEnabled) Color.Transparent else surfaceColor.copy(alpha = if (floating) 0.96f else 1f),
             contentColor = MaterialTheme.colorScheme.onSurface,
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.48f)),
-            shadowElevation = 12.dp,
-            tonalElevation = 4.dp,
+            border = if (floating) BorderStroke(
+                1.dp,
+                MaterialTheme.colorScheme.outlineVariant.copy(alpha = if (glassEnabled) 0.58f else 0.38f),
+            ) else null,
+            shadowElevation = if (floating) 12.dp else 0.dp,
+            tonalElevation = if (floating) 3.dp else 0.dp,
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(76.dp)
-                    .padding(horizontal = 7.dp),
+                    .height(if (floating) 76.dp else 80.dp)
+                    .padding(horizontal = if (floating) 7.dp else 4.dp),
                 horizontalArrangement = Arrangement.spacedBy(2.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
