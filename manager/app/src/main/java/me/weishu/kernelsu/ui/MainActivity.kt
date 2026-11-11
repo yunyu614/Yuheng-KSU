@@ -142,8 +142,8 @@ class MainActivity : ComponentActivity() {
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             val selectedMainPage by viewModel.selectedMainPage.collectAsStateWithLifecycle()
             val appSettings = uiState.appSettings
-            // One unified Yuheng interface: keep a single visual implementation across every page.
-            val uiMode = UiMode.Material
+            // Respect the user's selected UI implementation; both Material and Miuix are maintained.
+            val uiMode = uiState.uiMode
             val darkMode = appSettings.colorMode.isDark || (appSettings.colorMode.isSystem && isSystemInDarkTheme())
 
             DisposableEffect(darkMode) {
