@@ -191,6 +191,25 @@ fun SettingPagerMaterial(
                         )
                     }
                     add {
+                        SegmentedSwitchItem(
+                            icon = Icons.Filled.DisplaySettings,
+                            title = "悬浮底栏",
+                            summary = "使用独立悬浮的四项导航栏",
+                            checked = uiState.enableFloatingBottomBar,
+                            onCheckedChange = actions.onSetFloatingBottomBar
+                        )
+                    }
+                    add {
+                        SegmentedSwitchItem(
+                            icon = Icons.Filled.Palette,
+                            title = "玻璃材质",
+                            summary = "为悬浮底栏启用背景模糊与通透质感",
+                            enabled = uiState.enableFloatingBottomBar,
+                            checked = uiState.enableFloatingBottomBarBlur,
+                            onCheckedChange = actions.onSetFloatingBottomBarBlur
+                        )
+                    }
+                    add {
                         SegmentedListItem(
                             onClick = { wallpaperPicker.launch(arrayOf("image/*")) },
                             headlineContent = { Text("自定义壁纸") },
