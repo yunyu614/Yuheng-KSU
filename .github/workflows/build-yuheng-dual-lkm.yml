@@ -48,7 +48,8 @@ jobs:
           test -s kernelsu.ko
           cp kernelsu.ko "$OUT"
           llvm-strip -d "$OUT" || true
-          sha256sum "$OUT" | tee "$GITHUB_WORKSPACE/SHA256SUMS.txt"
+          cd "$GITHUB_WORKSPACE"
+          sha256sum "$(basename "$OUT")" | tee SHA256SUMS.txt
           ls -lh "$OUT"
 
       - name: Upload LKM artifact
