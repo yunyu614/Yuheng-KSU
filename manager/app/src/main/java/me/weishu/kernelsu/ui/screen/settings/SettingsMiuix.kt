@@ -204,6 +204,35 @@ fun SettingPagerMiuix(
                             },
                             onClick = actions.onOpenTheme
                         )
+                        SwitchPreference(
+                            title = "悬浮底栏",
+                            summary = "使用独立悬浮的四项导航栏",
+                            startAction = {
+                                Icon(
+                                    Icons.Rounded.DisplaySettings,
+                                    modifier = Modifier.padding(end = 6.dp),
+                                    contentDescription = "悬浮底栏",
+                                    tint = colorScheme.onBackground
+                                )
+                            },
+                            checked = uiState.enableFloatingBottomBar,
+                            onCheckedChange = actions.onSetFloatingBottomBar
+                        )
+                        SwitchPreference(
+                            title = "玻璃材质",
+                            summary = "为悬浮底栏启用背景模糊与通透质感",
+                            startAction = {
+                                Icon(
+                                    Icons.Rounded.Palette,
+                                    modifier = Modifier.padding(end = 6.dp),
+                                    contentDescription = "玻璃材质",
+                                    tint = colorScheme.onBackground
+                                )
+                            },
+                            enabled = uiState.enableFloatingBottomBar,
+                            checked = uiState.enableFloatingBottomBarBlur,
+                            onCheckedChange = actions.onSetFloatingBottomBarBlur
+                        )
                         ArrowPreference(
                             title = "自定义壁纸",
                             summary = if (hasCustomWallpaper.value) "已设置个人壁纸 · 点击更换" else "从相册选择图片作为玉衡界面背景",
