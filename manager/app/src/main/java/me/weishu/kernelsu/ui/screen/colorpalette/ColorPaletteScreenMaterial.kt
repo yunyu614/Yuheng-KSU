@@ -161,12 +161,12 @@ fun ColorPaletteScreenMaterial(
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                         Text(
-                            text = "五方神兽 · 主题典藏",
+                            text = "首发主题 · 青龙苍璧",
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                         )
                         Text(
-                            text = "择一方神韵，让整座界面随之焕新",
+                            text = "以苍青玉色、青龙主体与星宿山海构成完整主题",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -175,7 +175,7 @@ fun ColorPaletteScreenMaterial(
                         contentPadding = PaddingValues(horizontal = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
-                        items(YuhengThemePreset.entries) { preset ->
+                        items(listOf(YuhengThemePreset.QINGLONG)) { preset ->
                             val selected = currentKeyColor == preset.seedColor ||
                                 (currentKeyColor == 0 && preset == YuhengThemePreset.QINGLONG)
                             Surface(
