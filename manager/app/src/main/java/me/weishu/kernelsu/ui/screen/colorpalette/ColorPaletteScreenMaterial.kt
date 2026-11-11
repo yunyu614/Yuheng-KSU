@@ -179,11 +179,13 @@ fun ColorPaletteScreenMaterial(
                         contentPadding = PaddingValues(horizontal = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
-                        items(listOf(YuhengThemePreset.QINGLONG)) { preset ->
-                            val selected = currentKeyColor == preset.seedColor ||
-                                (currentKeyColor == 0 && preset == YuhengThemePreset.QINGLONG)
+                        items(YuhengThemePreset.entries) { preset ->
+                            val isReleased = preset == YuhengThemePreset.QINGLONG
+                            val selected = isReleased && (currentKeyColor == preset.seedColor ||
+                                (currentKeyColor == 0 && preset == YuhengThemePreset.QINGLONG))
                             Surface(
-                                onClick = { actions.onApplyYuhengPreset(preset.ordinal) },
+                                onClick = { if (isReleased) actions.onApplyYuhengPreset(preset.ordinal) },
+                                enabled = isReleased,
                                 modifier = Modifier.width(162.dp),
                                 shape = RoundedCornerShape(24.dp),
                                 color = MaterialTheme.colorScheme.surfaceContainer.copy(
@@ -240,7 +242,7 @@ fun ColorPaletteScreenMaterial(
                                         color = preset.accentText(isDark),
                                     )
                                     Text(
-                                        text = preset.subtitle,
+                                        text = if (isReleased) preset.subtitle else "${preset.subtitle} · 待开发",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
