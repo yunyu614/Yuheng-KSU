@@ -47,6 +47,7 @@ import top.yukonga.miuix.kmp.blur.drawBackdrop
 fun BottomBarMaterial(
     navigationBadge: NavigationBadgeState,
     backdrop: Backdrop,
+    modifier: Modifier = Modifier,
 ) {
     val mainPagerState = LocalMainPagerState.current
     val floating = LocalEnableFloatingBottomBar.current
@@ -61,7 +62,7 @@ fun BottomBarMaterial(
     )
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = if (floating) 18.dp else 0.dp, vertical = if (floating) 7.dp else 0.dp)
             .navigationBarsPadding(),
