@@ -129,6 +129,7 @@ Root 管理器和内核模块具有高权限，错误的 APK、签名或 LKM 可
 - [贡献指南](CONTRIBUTING.md)
 - [安全策略](SECURITY.md)
 - [发布验收清单](docs/RELEASE_ACCEPTANCE.md)
+- [Android Lint 技术债与 CI 处理原则](docs/LINT_DEBT.md)
 - [变更记录](CHANGELOG.md)
 
 ## 上游项目与致谢
