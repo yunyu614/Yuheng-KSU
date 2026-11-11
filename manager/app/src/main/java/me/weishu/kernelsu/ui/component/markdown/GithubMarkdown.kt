@@ -298,7 +298,7 @@ fun GithubMarkdown(
                             return true
                         }
 
-                        override fun onPageCommitVisible(view: WebView?, url: String?) {
+                        override fun onPageCommitVisible(view: WebView, url: String) {
                             onLoadingChange(false)
                         }
 
