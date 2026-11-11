@@ -173,7 +173,7 @@ fun ColorPaletteScreenMiuix(
                     ) {
                         ArrowPreference(
                             title = "青龙 · 苍璧",
-                            summary = "苍青玉色、青龙主体与星宿山海背景，构成首发完整主题",
+                            summary = "首发正式主题 · 当前可用",
                             startAction = {
                                 Image(
                                     painter = painterResource(R.drawable.ic_theme_qinglong),
@@ -183,6 +183,30 @@ fun ColorPaletteScreenMiuix(
                             },
                             onClick = { actions.onApplyYuhengPreset(0) }
                         )
+                        listOf(
+                            Triple("白虎 · 霜华", R.drawable.ic_theme_baihu, "待开发 · 霜银 / 虎纹 / 山岳"),
+                            Triple("玄武 · 玄甲", R.drawable.ic_theme_xuanwu, "待开发 · 玄黄 / 龟甲 / 北斗"),
+                            Triple("朱雀 · 丹曜", R.drawable.ic_theme_zhuque, "待开发 · 朱砂 / 凤羽 / 日轮"),
+                            Triple("麒麟 · 紫宸", R.drawable.ic_theme_qilin, "待开发 · 紫金 / 祥云 / 瑞鳞"),
+                        ).forEach { (title, icon, summary) ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Image(
+                                    painter = painterResource(icon),
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(end = 12.dp).size(34.dp),
+                                )
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(title, color = colorScheme.onBackground)
+                                    Text(summary, color = colorScheme.onBackgroundVariant, fontSize = 12.sp)
+                                }
+                                Text("待开发", color = colorScheme.onBackgroundVariant, fontSize = 11.sp)
+                            }
+                        }
                         ArrowPreference(
                             title = "自定义壁纸",
                             summary = "从相册选择图片作为应用背景",
