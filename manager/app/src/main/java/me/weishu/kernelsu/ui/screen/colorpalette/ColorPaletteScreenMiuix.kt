@@ -202,9 +202,9 @@ fun ColorPaletteScreenMiuix(
                                 )
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(title, color = colorScheme.onBackground)
-                                    Text(summary, color = colorScheme.onBackgroundVariant, fontSize = 12.sp)
+                                    Text(summary, color = colorScheme.onBackground.copy(alpha = 0.65f), fontSize = 12.sp)
                                 }
-                                Text("待开发", color = colorScheme.onBackgroundVariant, fontSize = 11.sp)
+                                Text("待开发", color = colorScheme.onBackground.copy(alpha = 0.65f), fontSize = 11.sp)
                             }
                         }
                         ArrowPreference(
