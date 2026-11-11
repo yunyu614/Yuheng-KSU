@@ -32,17 +32,15 @@
 
 ## 设计与主题
 
-玉衡的视觉方向是**东方未来科技美学**：以中国五方神兽作为主题识别体系，采用现代材质、清晰的信息排布和克制的光影表达。不是古画、水墨、文物拼贴，也不是普通 Material 配色替换。
+玉衡的视觉方向是**东方未来科技美学**：以青龙为首发主题识别，采用现代材质、清晰的信息排布和克制的光影表达。不是古画、水墨、文物拼贴，也不是普通 Material 配色替换。
 
-| 主题 | 主色与识别方向 | 视觉关键词 |
+| 首发主题 | 主色与识别方向 | 视觉关键词 |
 | --- | --- | --- |
-| **青龙**（默认） | 苍青、翡翠绿 | 玉质、云海、星宿 |
-| **白虎** | 霜银、冷灰 | 银钛、冰晶、山岳 |
-| **玄武** | 玄黄、古铜 | 龟甲、深水、北斗 |
-| **朱雀** | 朱砂红 | 凤羽、日轮、赤焰 |
-| **麒麟** | 紫玉、鎏金 | 瑞鳞、紫晶、星轨 |
+| **青龙 · 苍璧** | 苍青、深翡翠绿 | 玉质、云海、星宿、青龙主体 |
 
-五套主题的色彩预设已进入代码。高品质神兽主体与专属背景素材仍在设计阶段，**当前不以低质量占位图冒充最终视觉资产**。素材完成后会统一进行构图、清晰度、授权和手机端可读性验收。
+白虎、玄武、朱雀、麒麟是后续主题规划，当前首发版本不开放其主题入口。代码中保留的色彩预设不代表这些主题已经完成。
+
+首发视觉仍在打磨：当前已接入青龙主题色、氛围纹样和程序化主体插画；**独立高精度青龙主体图与最终专属背景素材尚未集成**。完成后还需进行构图、清晰度、授权和手机端可读性验收。
 
 ## 功能范围
 
@@ -51,7 +49,9 @@
 | Root / KernelSU 状态 | 基于上游管理器能力，需在匹配的设备与内核环境中验证 |
 | 超级用户管理 | 保留上游授权管理链路；需真机回归 |
 | 模块管理 | 保留上游模块列表、安装、启停和卸载能力；需真机回归 |
-| 主题与昼夜模式 | 玉衡主题预设及浅色/深色配色已集成 |
+| 主题与昼夜模式 | 首发仅开放青龙·苍璧；浅色/深色配色已集成 |
+| UI 实现 | Material / Miuix 两种 UI 模式均保留原有管理功能，并接入青龙主题；仍需真机回归 |
+| 悬浮底栏与玻璃材质 | 两种 UI 模式均提供独立开关；玻璃透射效果和系统安全区仍需真机验收 |
 | 自定义壁纸 | Material / Miuix 设置页与主题页均可选择或恢复壁纸；持久 URI 权限与状态同步已纳入代码检查，仍需真机回归 |
 | 三方签名 LKM | 仓库提供 `android16-6.12` 目标的构建工作流，具体设备兼容性取决于 KMI 和内核环境 |
 
@@ -143,7 +143,7 @@ Root 管理器和内核模块具有高权限，错误的 APK、签名或 LKM 可
 
 ## English
 
-**Yuheng** is an independent Android KernelSU manager derivative focused on a refined, modern Chinese-inspired interface. It preserves upstream root-management workflows while developing a distinct Five Beasts theme system: Azure Dragon, White Tiger, Black Tortoise, Vermilion Bird, and Qilin.
+**Yuheng** is an independent Android KernelSU manager derivative focused on a refined, modern Chinese-inspired interface. It preserves upstream root-management workflows and ships the Azure Dragon · Cangbi theme first. White Tiger, Black Tortoise, Vermilion Bird, and Qilin are future theme plans, not features exposed in the current release.
 
 The project is under active development. CI preview builds are not production releases. Device compatibility, signing, and LKM pairing must be verified for each target environment before installation. See the Chinese documentation above for build instructions, security notes, and contribution guidelines.
 
