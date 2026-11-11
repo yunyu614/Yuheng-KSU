@@ -110,11 +110,7 @@ fun AboutScreenMiuix(
     val enableBlur = LocalEnableBlur.current
     val barBlurBackdrop = rememberBlurBackdrop(enableBlur)
     val blurActive = barBlurBackdrop != null && scrollProgress == 1f
-    val barColor = if (blurActive) {
-        Color.Transparent
-    } else {
-        if (scrollProgress == 1f) colorScheme.surface else Color.Transparent
-    }
+    val barColor = Color.Transparent
 
     Scaffold(
         containerColor = Color.Transparent,
