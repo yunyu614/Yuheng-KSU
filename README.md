@@ -66,6 +66,7 @@
 - [项目完整说明](https://github.com/yunyu614/Yuheng-KSU/blob/develop/README.md)
 - [视觉方向规范](https://github.com/yunyu614/Yuheng-KSU/blob/develop/docs/YUHENG_VISUAL_DIRECTION.md)
 - [发布验收清单](https://github.com/yunyu614/Yuheng-KSU/blob/develop/docs/RELEASE_ACCEPTANCE.md)
+- [Android Lint 技术债与 CI 处理原则](https://github.com/yunyu614/Yuheng-KSU/blob/develop/docs/LINT_DEBT.md)
 - [贡献指南](https://github.com/yunyu614/Yuheng-KSU/blob/develop/CONTRIBUTING.md)
 - [安全策略](https://github.com/yunyu614/Yuheng-KSU/blob/develop/SECURITY.md)
 - [变更记录](https://github.com/yunyu614/Yuheng-KSU/blob/develop/CHANGELOG.md)
