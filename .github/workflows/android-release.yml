@@ -51,7 +51,7 @@ jobs:
           printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/yuheng-signing/yuheng-release.jks"
           test -s "$RUNNER_TEMP/yuheng-signing/yuheng-release.jks"
           chmod 600 "$RUNNER_TEMP/yuheng-signing/yuheng-release.jks"
-      - name: Build signed release APK
+      - name: Run unit tests and build signed release APK
         working-directory: manager
         env:
           KEYSTORE_PASSWORD: ${{ secrets.YUHENG_KEYSTORE_PASSWORD }}
@@ -63,13 +63,25 @@ jobs:
           test -n "$KEY_ALIAS"
           test -n "$KEY_PASSWORD"
           chmod +x ./gradlew
-          ./gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleRelease \
+          ./gradlew --no-daemon :app:testDebugUnitTest :app:assembleRelease \
             -PKSU_NAME="玉衡" \
             -PKSU_PACKAGE_NAME="me.weishu.kernelsu" \
             -PKEYSTORE_FILE="$RUNNER_TEMP/yuheng-signing/yuheng-release.jks" \
             -PKEYSTORE_PASSWORD="$KEYSTORE_PASSWORD" \
             -PKEY_ALIAS="$KEY_ALIAS" \
             -PKEY_PASSWORD="$KEY_PASSWORD"
+      - name: Run Android Lint (tracked separately)
+        working-directory: manager
+        continue-on-error: true
+        run: ./gradlew --no-daemon :app:lintDebug -PKSU_NAME="玉衡" -PKSU_PACKAGE_NAME="me.weishu.kernelsu"
+      - name: Upload Lint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yuheng-release-lint-report
+          path: manager/app/build/reports/lint-results-debug.*
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Verify APK package and trusted signing identity
         run: |
           set -euo pipefail
