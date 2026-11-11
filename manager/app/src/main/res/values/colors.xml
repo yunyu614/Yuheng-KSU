@@ -3,7 +3,4 @@
     <color name="ic_launcher_background">#FF17372E</color>
     <color name="ic_launcher_foreground">#FFD9C18C</color>
     <color name="ic_splash_background">#FFEAF1EB</color>
-    <color name="deepseek_blue">#FF347B68</color>
-    <color name="deepseek_bg_light">#FFEAF1EB</color>
-    <color name="deepseek_bg_dark">#FF111D19</color>
 </resources>

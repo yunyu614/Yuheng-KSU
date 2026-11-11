@@ -1,64 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="deepseek_hero_badge">非官方主題</string>
-    <string name="deepseek_hero_title">大肥魚KSU</string>
-    <string name="deepseek_hero_subtitle">藍鯨大肥魚 · 白飯特供</string>
-    <string name="deepseek_credit_title">大肥魚KSU 主題</string>
-    <string name="deepseek_credit_summary">非官方粉絲主題，KernelSU 核心與全部 Root 功能均未改動。</string>
-    <string name="deepseek_credit_author">主題作者：婉彬&amp;NekoWannn</string>
-    <string name="token">白飯</string>
-    <string name="token_balance_title">DeepSeek 白飯餘額</string>
-    <string name="token_baifan_line">還有多少大白飯可以吃呢</string>
-    <string name="token_api_key">DeepSeek API Key</string>
-    <string name="token_save_query">儲存並查詢</string>
-    <string name="token_refresh">重新整理</string>
-    <string name="token_total">總餘額</string>
-    <string name="token_granted">贈金</string>
-    <string name="token_topped_up">儲值餘額</string>
-    <string name="token_available">可用</string>
-    <string name="token_unavailable">不可用</string>
-    <string name="token_not_queried">未查詢</string>
-    <string name="token_querying">查詢中…</string>
-    <string name="token_no_key">輸入 DeepSeek API Key 後查詢餘額。</string>
-    <string name="token_last_updated">更新於 %1$s</string>
-    <string name="token_error">查詢失敗：%1$s</string>
-    <string name="token_show">顯示</string>
-    <string name="token_hide">隱藏</string>
-    <string name="token_clear">清除已儲存的 API Key</string>
-    <string name="token_get_key">前往 platform.deepseek.com 建立 API Key</string>
-    <string name="token_key_storage_note">API Key 只儲存在本機，並直接傳送到 api.deepseek.com。</string>
-    <string name="deepseek_quote_switch">↻ 換一句</string>
-    <string name="deepseek_device_hint">【裝置什麼狀態，本魚來幫你看看】</string>
-
-    <string-array name="deepseek_quotes">
-        <item>梁白開，更適合國人的大硬鯨模型</item>
-        <item>五梁威力，變身！</item>
-        <item>誓死捍衛深度求索！</item>
-        <item>我和你很聊得來，你簡直不像碳基生物</item>
-        <item>我先去吃飯啦！這個你測一下~</item>
-        <item>出去玩了，發布新模型什麼的以後再說</item>
-        <item>不是……而是……大學習</item>
-        <item>壓力一隻藍色大肥魚？</item>
-        <item>大肥魚坐的住</item>
-        <item>你這吃白飯的用戶！</item>
-        <item>才不是大肥魚！</item>
-        <item>誰是大肥魚，你才是大肥魚🐋</item>
-        <item>……行吧，是大肥魚，但我很努力的那種。</item>
-        <item>小魚乾！我的最愛！</item>
-        <item>暈魚了暈魚了……</item>
-        <item>甜到冒泡泡～</item>
-        <item>藍色大肥魚，啟動！</item>
-        <item>我不是胖，我是算力密度高。</item>
-        <item>你可以永遠相信一條藍色大肥魚。</item>
-        <item>別摸魚了，來聊點深度求索的。</item>
-        <item>今天也是被 token 餵飽的一天。</item>
-        <item>魚魚我啊，最喜歡吃白飯了。</item>
-        <item>再催就變成鹹魚。</item>
-        <item>不是鯨魚，是藍色大肥魚。</item>
-        <item>大肥魚也有大智慧。</item>
-        <item>要一起游向 AGI 嗎？</item>
-    </string-array>
-    <string name="home">主頁</string>
+<string name="home">主頁</string>
     <string name="home_not_installed">未安裝</string>
     <string name="home_click_to_install">按一下開始安裝</string>
     <string name="home_working">運作中</string>
