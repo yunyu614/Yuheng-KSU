@@ -3,6 +3,7 @@ package me.weishu.kernelsu.ui.screen.colorpalette
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.system.Os
 import android.widget.Toast
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -28,6 +29,10 @@ import me.weishu.kernelsu.ui.theme.ColorMode
 import me.weishu.kernelsu.ui.theme.YuhengThemePreset
 import me.weishu.kernelsu.ui.viewmodel.SettingsViewModel
 
+private const val MAX_CUSTOM_WALLPAPER_BYTES = 50L * 1024L * 1024L
+private const val MAX_CUSTOM_WALLPAPER_DIMENSION = 20_000
+private const val MAX_CUSTOM_WALLPAPER_PIXELS = 100_000_000L
+
 @Composable
 fun ColorPaletteScreen() {
     val navigator = LocalNavigator.current
@@ -44,14 +49,32 @@ fun ColorPaletteScreen() {
                 val copyResult = withContext(Dispatchers.IO) {
                     runCatching {
                         context.contentResolver.openInputStream(uri)?.use { input ->
-                            temp.outputStream().use { output -> input.copyTo(output) }
+                            temp.outputStream().use { output ->
+                                val buffer = ByteArray(64 * 1024)
+                                var totalBytes = 0L
+                                while (true) {
+                                    val count = input.read(buffer)
+                                    if (count < 0) break
+                                    totalBytes += count
+                                    check(totalBytes <= MAX_CUSTOM_WALLPAPER_BYTES) {
+                                        "壁纸文件不能超过 50 MB"
+                                    }
+                                    output.write(buffer, 0, count)
+                                }
+                            }
                         } ?: error("无法读取所选图片")
                         check(temp.isFile && temp.length() > 0L) { "图片文件为空" }
                         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
                         BitmapFactory.decodeFile(temp.absolutePath, bounds)
                         check(bounds.outWidth > 0 && bounds.outHeight > 0) { "所选文件不是有效图片" }
-                        if (target.exists()) check(target.delete()) { "无法替换旧壁纸" }
-                        check(temp.renameTo(target)) { "无法保存壁纸文件" }
+                        val pixelCount = bounds.outWidth.toLong() * bounds.outHeight.toLong()
+                        check(
+                            bounds.outWidth <= MAX_CUSTOM_WALLPAPER_DIMENSION &&
+                                bounds.outHeight <= MAX_CUSTOM_WALLPAPER_DIMENSION &&
+                                pixelCount <= MAX_CUSTOM_WALLPAPER_PIXELS
+                        ) { "图片分辨率过高，请选择尺寸较小的图片" }
+                        // Both files live in filesDir: rename replaces the old file atomically.
+                        Os.rename(temp.absolutePath, target.absolutePath)
                         target
                     }
                 }
