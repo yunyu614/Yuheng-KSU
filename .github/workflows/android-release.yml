@@ -70,16 +70,15 @@ jobs:
             -PKEYSTORE_PASSWORD="$KEYSTORE_PASSWORD" \
             -PKEY_ALIAS="$KEY_ALIAS" \
             -PKEY_PASSWORD="$KEY_PASSWORD"
-      - name: Run Android Lint (tracked separately)
+      - name: Run Android Lint for release variant
         working-directory: manager
-        continue-on-error: true
-        run: ./gradlew --no-daemon :app:lintDebug -PKSU_NAME="玉衡" -PKSU_PACKAGE_NAME="me.weishu.kernelsu"
+        run: ./gradlew --no-daemon :app:lintRelease -PKSU_NAME="玉衡" -PKSU_PACKAGE_NAME="me.weishu.kernelsu"
       - name: Upload Lint report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: yuheng-release-lint-report
-          path: manager/app/build/reports/lint-results-debug.*
+          path: manager/app/build/reports/lint-results-release.*
           if-no-files-found: ignore
           retention-days: 14
       - name: Verify APK package and trusted signing identity
