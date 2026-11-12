@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.only
@@ -486,7 +487,7 @@ fun SuperUserPagerMiuix(
                                             "请下拉页面重试，并确认 KernelSU 服务正常。"
                                         },
                                         fontSize = 13.sp,
-                                        color = colorScheme.onSurfaceVariant,
+                                        color = colorScheme.onBackground.copy(alpha = 0.65f),
                                     )
                                 }
                             }
@@ -506,7 +507,7 @@ fun SuperUserPagerMiuix(
                                     Text(
                                         text = "应用完成 Root 授权或创建自定义配置后，会显示在这里。",
                                         fontSize = 13.sp,
-                                        color = colorScheme.onSurfaceVariant,
+                                        color = colorScheme.onBackground.copy(alpha = 0.65f),
                                     )
                                 }
                             }
