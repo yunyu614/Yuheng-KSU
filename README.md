@@ -23,7 +23,7 @@
 ## 项目状态
 
 - 当前主要开发分支：`develop`
-- Android CI：构建 Debug 预览 APK。
+- Android CI：在推送到 `develop`、面向 `develop` 的 Pull Request 和手动触发时构建 Debug 预览 APK，并运行单元测试；Lint 报告独立留存。
 - LKM CI：当前工作流构建目标为 `android16-6.12`。
 - 正式版：尚未发布 GitHub Release。签名 Release 工作流需要配置仓库 Actions Secrets，并在发布前完成设备验证。
 - UI 截图：暂不提供占位图或设计稿；正式版完成后再补充真实设备截图。
