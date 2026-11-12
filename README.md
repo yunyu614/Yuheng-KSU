@@ -151,13 +151,13 @@ Root 管理器和内核模块具有高权限，错误的 APK、签名或 LKM 可
 - [KernelSU](https://github.com/tiann/KernelSU)
 - [白饭 KSU LKM](https://github.com/NekoWannn/baifan-ksu-lkm)
 
-上游源码、第三方依赖和资源继续遵循各自原有的版权声明与许可证。仓库根目录的 [LICENSE](LICENSE) 为 GNU GPL v3；具体文件如附有单独许可或版权声明，应以该文件及其上游许可为准。
+上游源码、第三方依赖和资源继续遵循各自原有的版权声明与许可证。仓库根目录的 [LICENSE](LICENSE) 为 GNU GPL v3；`kernel/` 子目录保留 GNU GPL v2（见 `kernel/LICENSE`）。具体文件如附有单独许可或版权声明，应以该文件及其上游许可为准。
 
 ## English
 
 **Yuheng** is an independent Android KernelSU manager derivative focused on a refined, modern Chinese-inspired interface. It preserves upstream root-management workflows and ships the Azure Dragon · Cangbi theme first. White Tiger, Black Tortoise, Vermilion Bird, and Qilin are future theme plans, not features exposed in the current release.
 
-The project is under active development. CI preview builds are not production releases. Device compatibility, signing, and LKM pairing must be verified for each target environment before installation. See the Chinese documentation above for build instructions, security notes, and contribution guidelines.
+The project is under active development. CI preview builds are not production releases. The four planned themes remain visible as disabled palette previews and are not selectable. Device compatibility, signing, and LKM pairing must be verified for each target environment before installation. See the Chinese documentation above for build instructions, security notes, and contribution guidelines.
 
 ---
 
