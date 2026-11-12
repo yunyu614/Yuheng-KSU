@@ -5,7 +5,7 @@
 ## 1. 自动化验证
 
 - [ ] `:app:testDebugUnitTest` 全部通过。
-- [ ] `:app:lintDebug` 无新增 Error / Fatal。
+- [ ] `:app:lintDebug` 与 `:app:lintRelease` 无新增 Error / Fatal；历史技术债见 [LINT_DEBT.md](LINT_DEBT.md)。
 - [ ] Debug APK 成功构建，产物包名为 `me.weishu.kernelsu.preview`。
 - [ ] 正式 Release APK 成功构建，包名为 `me.weishu.kernelsu`。
 - [ ] 正式 APK 使用预期签名证书；核对 APK v2 SHA-256 与 LKM 侧预期摘要一致。
