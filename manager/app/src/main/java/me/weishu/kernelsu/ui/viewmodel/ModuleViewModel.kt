@@ -235,22 +235,27 @@ class ModuleViewModel(
     }
 
     suspend fun loadModuleList(resort: Boolean = true) {
-        val parsedModules = withContext(Dispatchers.IO) {
-            repo.getModules().getOrElse {
-                Log.e(TAG, "fetchModuleList: ", it)
-                emptyList()
-            }
+        val result = withContext(Dispatchers.IO) {
+            repo.getModules()
         }
 
         withContext(Dispatchers.Main) {
-            _uiState.update {
-                it.copy(
-                    modules = parsedModules,
-                )
+            result.onSuccess { parsedModules ->
+                _uiState.update {
+                    it.copy(
+                        modules = parsedModules,
+                        loadError = false,
+                    )
+                }
+                // Trigger recalculation of moduleList
+                updateModuleList(resort)
+                isNeedRefresh = false
+            }.onFailure { error ->
+                Log.e(TAG, "fetchModuleList: ", error)
+                // Keep the last successful list; a failed read is not an empty module list.
+                _uiState.update { it.copy(loadError = true) }
+                isNeedRefresh = true
             }
-            // Trigger recalculation of moduleList
-            updateModuleList(resort)
-            isNeedRefresh = false
         }
     }
 
@@ -263,7 +268,7 @@ class ModuleViewModel(
 
                 loadModuleList(resort)
 
-                if (checkUpdate) syncModuleUpdateInfo(_uiState.value.modules)
+                if (checkUpdate && !_uiState.value.loadError) syncModuleUpdateInfo(_uiState.value.modules)
 
                 Log.i(TAG, "load cost: ${SystemClock.elapsedRealtime() - start}, modules: ${_uiState.value.modules}")
             } finally {

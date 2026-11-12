@@ -1,5 +1,13 @@
 # 源码迁移审查记录
 
+## 签名与发布状态更新（2026-11-12）
+
+- 当前三重签名 LKM 同时信任 KernelSU 官方、大肥鱼与玉衡自有发布证书；玉衡证书 DER 长度为 892 bytes（`0x037c`），SHA-256 为 `35fd4e58e9401af81397dae9ae5c385f1ef54c72256e3a3014e631cfa6a918e9`。
+- 上游白饭原始证书的私钥不在本仓库中；这不妨碍玉衡使用**自己的**发布证书。正式签名工作流通过 GitHub Actions Secrets 注入玉衡 keystore 与密码，仓库不保存私钥。
+- Debug 预览包使用独立 Application ID `me.weishu.kernelsu.preview` 和 Debug 签名，不能替代正式管理器，也不能与配套 LKM 的玉衡发布证书校验等同。
+- 截至本次审查，签名 Release 工作流尚未运行；Secrets 是否齐全、正式 APK 是否成功签名以及 APK v2 证书摘要是否匹配，仍须以实际 Release 工作流记录为准。
+
+
 > 审查日期：2026-11-10  
 > 目标项目：玉衡（Yuheng）  
 > 上游 UI / Manager 参考：NekoWannn/baifan-ksu-lkm  
@@ -7,7 +15,7 @@
 
 ## 当前结论
 
-玉衡仓库已建立独立的 `develop` 开发分支，并已导入完整 Android Manager 工程。当前 GitHub Actions 成功产出的是独立包名的 Debug 界面预览版；正式 Root 管理版仍受原始 APK 签名私钥缺失限制，真机 Root、模块及 LKM 回归尚未完成。本文件记录迁移边界、已完成工作与后续检查项。
+玉衡仓库已建立独立的 `develop` 开发分支，并已导入完整 Android Manager 工程。当前 GitHub Actions 成功产出的是独立包名的 Debug 界面预览版；玉衡自有签名证书及配套 LKM 信任配置已经建立，但签名 Release 工作流尚未执行，真机 Root、模块及 LKM 回归尚未完成。上游白饭原始签名私钥未提供；玉衡正式发布使用独立证书。本文件记录迁移边界、已完成工作与后续检查项。
 
 对白饭项目的 `manager/` 目录进行递归清点，当前上游树包含 506 个条目。它不是单一 UI 工程：除 Kotlin / Compose 页面外，还包含 Android Manifest、Gradle 配置、AIDL、JNI / C++、预编译 native libraries、内置 LKM、WebView 资源和其他构建文件。
 
@@ -27,7 +35,7 @@
 
 1. **Root 核心逻辑**：授权、模块安装 / 卸载、安装镜像、LKM 加载和 UAPI 交互不应因品牌 UI 改造而被重写。
 2. **包名与身份**：正式管理器保留 `me.weishu.kernelsu`，避免影响已有 Manager 与系统端交互；CI 预览包使用 `me.weishu.kernelsu.preview`，避免误覆盖正式管理器。
-3. **签名与 LKM 信任**：配套 LKM 的 `kernel/manager/apk_sign.c` 校验 APK v2 证书 DER 长度 `0x0339` 与 SHA-256 摘要 `bad08be1f8e813067892adca0e70452cd645ba31e5ed15bec35e60fa430f2f48`。当前仓库未包含对应私钥；CI Debug 签名不匹配该摘要，预览 APK 不能作为 Root 管理版使用。不得擅自替换签名或 LKM。
+3. **签名与 LKM 信任**：配套三重签名 LKM 同时信任 KernelSU 官方、白饭与玉衡自有发布证书。白饭证书 DER 长度为 `0x0339`、SHA-256 为 `bad08be1f8e813067892adca0e70452cd645ba31e5ed15bec35e60fa430f2f48`；玉衡证书 DER 长度为 `0x037c`、SHA-256 为 `35fd4e58e9401af81397dae9ae5c385f1ef54c72256e3a3014e631cfa6a918e9`。仓库不包含私钥；正式 Release 需通过 Actions Secrets 注入玉衡自有 keystore，并由工作流校验 APK v2 摘要。Debug 预览包使用独立 Application ID 与 Debug 签名，不能作为正式 Root 管理版使用。不得擅自替换签名或 LKM。
 4. **预编译依赖**：`jniLibs`、`assets/lkm`、JNI / CMake、AIDL、Gradle Version Catalog 等都属于工程完整性的一部分，不能只迁移 UI 源码。
 5. **双 UI 实现**：Material 与 Miuix 页面应共用主题语义和色彩 token，分别适配组件实现，避免两套界面表现不一致。
 6. **第三方素材与许可证**：保留上游版权声明、GPL 文本、修改说明及第三方素材归属。逐项核验图片、图标、字体、预编译二进制与 LKM 的许可和再分发条件。

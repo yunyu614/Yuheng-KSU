@@ -519,9 +519,23 @@ fun ModulePagerMiuix(
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        // The refresh indicator doubles as the first-load hint;
-                        // only announce emptiness once loading has finished.
-                        if (uiState.hasLoaded) {
+                        // Do not report an empty module list when the underlying read failed.
+                        if (uiState.loadError) {
+                            Column(
+                                modifier = Modifier.padding(horizontal = 24.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                            ) {
+                                Text("模块列表加载失败", color = colorScheme.onBackground, fontSize = 16.sp)
+                                Text(
+                                    "请确认 KernelSU 服务正常后下拉重试。",
+                                    textAlign = TextAlign.Center,
+                                    color = colorScheme.onBackground.copy(alpha = 0.65f),
+                                    fontSize = 13.sp,
+                                )
+                                TextButton(text = "重试", onClick = actions.onRefresh)
+                            }
+                        } else if (uiState.hasLoaded) {
                             Text(
                                 stringResource(R.string.module_empty),
                                 textAlign = TextAlign.Center,
@@ -547,6 +561,7 @@ fun ModulePagerMiuix(
                                 .overScrollVertical()
                                 .nestedScroll(scrollBehavior.nestedScrollConnection),
                             modules = modules,
+                            loadError = uiState.loadError,
                             updateInfoMap = uiState.updateInfo,
                             actions = actions,
                             onModuleAddShortcut = { module, type ->
@@ -702,6 +717,7 @@ private fun ModuleShortcutDialog(
 private fun ModuleList(
     modifier: Modifier = Modifier,
     modules: List<Module>,
+    loadError: Boolean = false,
     updateInfoMap: Map<String, ModuleUpdateInfo>,
     actions: ModuleActions,
     onModuleAddShortcut: (Module, ShortcutType) -> Unit,
@@ -716,6 +732,22 @@ private fun ModuleList(
         contentPadding = contentPadding,
         overscrollEffect = null,
     ) {
+        if (loadError) {
+            item(key = "yuheng_module_load_error", contentType = "state_message") {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Text("模块列表更新失败", color = colorScheme.onBackground, fontSize = 15.sp)
+                    Text(
+                        "仍显示上次成功读取的数据。下拉页面重试。",
+                        color = colorScheme.onBackground.copy(alpha = 0.65f),
+                        fontSize = 12.sp,
+                    )
+                    TextButton(text = "重试", onClick = actions.onRefresh)
+                }
+            }
+        }
         items(
             items = modules,
             key = { it.id },

@@ -457,7 +457,8 @@ fun ModulePagerMaterial(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 listState = listState,
                 displayModules = uiState.moduleList,
-                showEmptyState = uiState.hasLoaded && uiState.moduleList.isEmpty(),
+                showEmptyState = uiState.hasLoaded && uiState.moduleList.isEmpty() && !uiState.loadError,
+                loadError = uiState.loadError,
                 updateInfoMap = uiState.updateInfo,
                 actions = actions,
                 onModuleAddShortcut = { module, type -> onModuleAddShortcut(module, type) },
@@ -488,6 +489,7 @@ private fun ModuleList(
     listState: LazyListState = rememberLazyListState(),
     displayModules: List<Module>,
     showEmptyState: Boolean = false,
+    loadError: Boolean = false,
     updateInfoMap: Map<String, ModuleUpdateInfo>,
     actions: ModuleActions,
     onModuleAddShortcut: (Module, ShortcutType) -> Unit,
@@ -550,6 +552,30 @@ private fun ModuleList(
                     preset = LocalYuhengThemePreset.current,
                     modifier = Modifier.size(42.dp),
                 )
+            }
+        }
+        if (loadError) {
+            item(key = "yuheng_module_load_error", contentType = "state_message") {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Text(
+                        text = if (displayModules.isEmpty()) "模块列表加载失败" else "模块列表更新失败",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                    Text(
+                        text = if (displayModules.isEmpty()) {
+                            "请确认 KernelSU 服务正常后重试。"
+                        } else {
+                            "仍显示上次成功读取的模块。下拉页面重试。"
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    TextButton(onClick = actions.onRefresh) { Text("重试") }
+                }
             }
         }
         if (showEmptyState) {
