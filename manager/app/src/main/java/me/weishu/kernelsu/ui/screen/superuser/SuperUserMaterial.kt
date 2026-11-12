@@ -416,6 +416,50 @@ fun SuperUserPagerMaterial(
                         )
                     }
                 }
+                if (uiState.error != null) {
+                    item(key = "yuheng_superuser_error", contentType = "state_message") {
+                        val hasPreviousData = uiState.groupedApps.isNotEmpty()
+                        Column(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(6.dp),
+                        ) {
+                            Text(
+                                text = if (hasPreviousData) "授权列表更新失败" else "授权列表加载失败",
+                                style = androidx.compose.material3.MaterialTheme.typography.titleMedium,
+                                color = colorScheme.onSurface,
+                            )
+                            Text(
+                                text = if (hasPreviousData) {
+                                    "当前仍显示上次读取的记录。下拉页面重试。"
+                                } else {
+                                    "请下拉页面重试，并确认 KernelSU 服务正常。"
+                                },
+                                style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
+                                color = colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                } else if (uiState.hasLoaded && uiState.groupedApps.isEmpty()) {
+                    item(key = "yuheng_superuser_empty", contentType = "state_message") {
+                        Column(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(6.dp),
+                        ) {
+                            Text(
+                                text = "暂无 Root 授权记录",
+                                style = androidx.compose.material3.MaterialTheme.typography.titleMedium,
+                                color = colorScheme.onSurface,
+                            )
+                            Text(
+                                text = "应用完成 Root 授权或创建自定义配置后，会显示在这里。",
+                                style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
+                                color = colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                }
                 itemsIndexed(uiState.groupedApps, key = { _, item -> item.uid }) { index, group ->
                     val expanded = expandedSearchUids.value.contains(group.uid)
                     val onToggleExpand = {

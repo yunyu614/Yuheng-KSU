@@ -5,7 +5,7 @@
 ## 1. 自动化验证
 
 - [ ] `:app:testDebugUnitTest` 全部通过。
-- [ ] `:app:lintDebug` 无新增 Error / Fatal。
+- [ ] `:app:lintDebug` 与 `:app:lintRelease` 无新增 Error / Fatal；历史技术债见 [LINT_DEBT.md](LINT_DEBT.md)。
 - [ ] Debug APK 成功构建，产物包名为 `me.weishu.kernelsu.preview`。
 - [ ] 正式 Release APK 成功构建，包名为 `me.weishu.kernelsu`。
 - [ ] 正式 APK 使用预期签名证书；核对 APK v2 SHA-256 与 LKM 侧预期摘要一致。
@@ -25,6 +25,7 @@
 > 仅在已备份、可恢复且确认匹配的测试设备上执行。
 
 - [ ] 正确显示当前 Root / KernelSU 状态和版本信息。
+- [ ] 授权列表首次加载、空列表和读取失败状态均清晰，并可下拉重试。
 - [ ] 新应用发起 Root 请求时，授权弹窗与请求方信息正确。
 - [ ] 允许、拒绝、撤销授权后列表状态正确刷新。
 - [ ] 授权记录在重启后符合预期。

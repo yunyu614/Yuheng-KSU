@@ -12,7 +12,7 @@
   <a href="https://github.com/yunyu614/Yuheng-KSU/actions/workflows/build-yuheng-dual-lkm.yml"><img src="https://github.com/yunyu614/Yuheng-KSU/actions/workflows/build-yuheng-dual-lkm.yml/badge.svg?branch=develop" alt="LKM Build" /></a>
   <a href="https://github.com/yunyu614/Yuheng-KSU/commits/develop"><img src="https://img.shields.io/github/last-commit/yunyu614/Yuheng-KSU/develop" alt="Last commit" /></a>
   <img src="https://img.shields.io/badge/Platform-Android-3F806F" alt="Android" />
-  <img src="https://img.shields.io/badge/Architecture-ARM64-7894A3" alt="ARM64" />
+  <img src="https://img.shields.io/badge/Minimum_Android-12%2B-7894A3" alt="Minimum Android 12+" />
   <img src="https://img.shields.io/badge/License-GPL--3.0-blue" alt="GPL-3.0" />
 </p>
 
@@ -23,7 +23,7 @@
 ## 项目状态
 
 - 当前主要开发分支：`develop`
-- Android CI：构建 Debug 预览 APK。
+- Android CI：在推送到 `develop`、面向 `develop` 的 Pull Request 和手动触发时构建 Debug 预览 APK，并运行单元测试；Lint 报告独立留存。
 - LKM CI：当前工作流构建目标为 `android16-6.12`。
 - 正式版：尚未发布 GitHub Release。签名 Release 工作流需要配置仓库 Actions Secrets，并在发布前完成设备验证。
 - UI 截图：暂不提供占位图或设计稿；正式版完成后再补充真实设备截图。
@@ -54,6 +54,14 @@
 | 悬浮底栏与玻璃材质 | 两种 UI 模式均提供独立开关；玻璃透射效果和系统安全区仍需真机验收 |
 | 自定义壁纸 | Material / Miuix 设置页通过 OpenDocument 持久化只读 URI；主题页会校验文件大小与图像尺寸后复制到应用私有目录；两条路径共用 settings 偏好键并支持恢复默认，仍需真机回归 |
 | 三方签名 LKM | 仓库提供 `android16-6.12` 目标的构建工作流，具体设备兼容性取决于 KMI 和内核环境 |
+
+## 支持范围与前置条件
+
+- **最低 Android 版本：** Android 12（API 31），以 `manager/build.gradle.kts` 的 `minSdk` 配置为准。
+- **APK 内置 Native ABI：** `arm64-v8a`、`x86_64`、`riscv64`。这仅表示应用构建时打包的 ABI，不代表这些架构上的 Root、KernelSU 或 LKM 均已验证可用。
+- **Root 前置条件：** 设备必须运行与其内核环境匹配的 KernelSU 内核集成或经确认兼容的 LKM；仅安装 APK 不会获得 Root。
+- **当前 LKM 构建范围：** 仅 `android16-6.12`。Android 版本相同不等于 KMI、架构或内核配置相同，不应将该产物视为通用模块。
+- **设备兼容性：** 目前没有发布经过真机验收的设备清单；具体机型、内核、KMI、签名配对与安装结果均应视为待验证，直至完成设备验收。
 
 ## 获取构建产物
 
