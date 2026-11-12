@@ -142,6 +142,7 @@ fun ColorPaletteScreen() {
                 remove("yuheng_wallpaper_file")
             }
             File(context.filesDir, "yuheng-wallpaper").delete()
+            File(context.filesDir, "yuheng-wallpaper.tmp").delete()
             activity?.recreate()
         },
         onSetThemeMode = viewModel::setThemeMode,
