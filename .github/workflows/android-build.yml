@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - develop
+  pull_request:
+    branches:
+      - develop
   workflow_dispatch:
 
 permissions:
@@ -23,7 +26,8 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
         with:
-          ref: develop
+          # On pull_request, github.sha is the merge ref so CI validates the proposed change.
+          ref: ${{ github.sha }}
           fetch-depth: 0
       - name: Set up Java
         uses: actions/setup-java@v5
