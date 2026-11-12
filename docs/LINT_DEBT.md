@@ -39,7 +39,7 @@
 ### CI 处理原则
 
 - 单元测试和 APK 编译/打包是阻断门槛，失败即阻止产物上传。
-- Lint 仍然执行，报告作为独立 Artifact 留存；当前历史问题不阻断 APK 构建。
+- Lint 仍然执行，报告作为独立 Artifact 留存；当前历史问题不阻断 APK 构建。`android-release.yml` 的 `lintRelease` 同样采用非阻断策略并保留报告，避免与 Debug CI 的处理口径不一致。
 - 不设置全局 `abortOnError = false`，不禁用 `MissingTranslation`，不把已有问题伪装成通过。
 - 后续按报告逐项分类：优先处理运行时风险、资源引用错误、占位符不一致、可访问性和安全问题；翻译缺失按实际支持的语言逐步补齐。
 - 当历史问题被清理后，将 Lint 恢复为阻断门槛。
