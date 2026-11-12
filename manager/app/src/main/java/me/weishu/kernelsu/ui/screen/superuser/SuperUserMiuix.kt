@@ -465,6 +465,52 @@ fun SuperUserPagerMiuix(
                         ),
                         overscrollEffect = null,
                     ) {
+                        if (uiState.error != null) {
+                            item(key = "yuheng_superuser_error", contentType = "state_message") {
+                                val hasPreviousData = uiState.groupedApps.isNotEmpty()
+                                Column(
+                                    modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                                ) {
+                                    Text(
+                                        text = if (hasPreviousData) "授权列表更新失败" else "授权列表加载失败",
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = colorScheme.onBackground,
+                                    )
+                                    Text(
+                                        text = if (hasPreviousData) {
+                                            "当前仍显示上次读取的记录。下拉页面重试。"
+                                        } else {
+                                            "请下拉页面重试，并确认 KernelSU 服务正常。"
+                                        },
+                                        fontSize = 13.sp,
+                                        color = colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            }
+                        } else if (uiState.hasLoaded && uiState.groupedApps.isEmpty()) {
+                            item(key = "yuheng_superuser_empty", contentType = "state_message") {
+                                Column(
+                                    modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                                ) {
+                                    Text(
+                                        text = "暂无 Root 授权记录",
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = colorScheme.onBackground,
+                                    )
+                                    Text(
+                                        text = "应用完成 Root 授权或创建自定义配置后，会显示在这里。",
+                                        fontSize = 13.sp,
+                                        color = colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            }
+                        }
                         items(uiState.groupedApps, key = { it.uid }, contentType = { "group" }) { group ->
                             val expanded = expandedUids.value.contains(group.uid)
                             Column {
