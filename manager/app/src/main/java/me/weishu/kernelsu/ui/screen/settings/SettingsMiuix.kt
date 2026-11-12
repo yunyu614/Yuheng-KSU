@@ -1,6 +1,7 @@
 package me.weishu.kernelsu.ui.screen.settings
 
 import android.content.Context
+import java.io.File
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import android.widget.Toast
@@ -139,6 +140,8 @@ fun SettingPagerMiuix(
                 remove("yuheng_wallpaper_file")
                 putString("yuheng_wallpaper_uri", uri.toString())
             }
+            File(context.filesDir, "yuheng-wallpaper").delete()
+            File(context.filesDir, "yuheng-wallpaper.tmp").delete()
             hasCustomWallpaper.value = true
         }
     }
@@ -271,6 +274,8 @@ fun SettingPagerMiuix(
                                         remove("yuheng_wallpaper_uri")
                                         remove("yuheng_wallpaper_file")
                                     }
+                                    File(context.filesDir, "yuheng-wallpaper").delete()
+                                    File(context.filesDir, "yuheng-wallpaper.tmp").delete()
                                     hasCustomWallpaper.value = false
                                 }
                             )

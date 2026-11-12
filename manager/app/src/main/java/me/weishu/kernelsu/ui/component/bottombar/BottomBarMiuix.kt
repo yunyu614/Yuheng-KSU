@@ -99,7 +99,7 @@ fun BottomBarMiuix(
                     onClick = {
                         activateTab(index)
                     },
-                    modifier = Modifier.defaultMinSize(minWidth = 70.dp)
+                    modifier = Modifier.defaultMinSize(minWidth = 64.dp)
                 ) {
                     // Icon and label take LocalContentColor so the FloatingBottomBar backdrop copy
                     // can recolor them to the accent tone inside the indicator pill.

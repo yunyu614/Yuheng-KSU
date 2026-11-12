@@ -457,6 +457,7 @@ fun ModulePagerMaterial(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 listState = listState,
                 displayModules = uiState.moduleList,
+                showEmptyState = uiState.hasLoaded && uiState.moduleList.isEmpty(),
                 updateInfoMap = uiState.updateInfo,
                 actions = actions,
                 onModuleAddShortcut = { module, type -> onModuleAddShortcut(module, type) },
@@ -486,6 +487,7 @@ private fun ModuleList(
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
     displayModules: List<Module>,
+    showEmptyState: Boolean = false,
     updateInfoMap: Map<String, ModuleUpdateInfo>,
     actions: ModuleActions,
     onModuleAddShortcut: (Module, ShortcutType) -> Unit,
@@ -548,6 +550,29 @@ private fun ModuleList(
                     preset = LocalYuhengThemePreset.current,
                     modifier = Modifier.size(42.dp),
                 )
+            }
+        }
+        if (showEmptyState) {
+            item(key = "yuheng_module_empty", contentType = "empty_state") {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 48.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Code,
+                        contentDescription = null,
+                        modifier = Modifier.size(32.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.65f),
+                    )
+                    Text(
+                        text = stringResource(R.string.module_empty),
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
         }
         items(displayModules, key = { it.id }, contentType = { "module" }) { module ->
