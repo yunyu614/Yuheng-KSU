@@ -24,6 +24,7 @@
 ### Changed
 - 正式签名 Release 工作流在打包前执行单元测试与 Lint。
 - 更正 LKM 构建触发条件说明，明确自动构建与手动触发范围。
+- Android Debug CI 增加面向 `develop` 的 Pull Request 验证，并使用 PR merge ref 构建，避免只检查目标分支旧代码。
 - 持续调整首页、主题、设置与导航的视觉层级和交互体验。
 - README 与项目文档逐步统一为当前五神兽品牌体系。
 
