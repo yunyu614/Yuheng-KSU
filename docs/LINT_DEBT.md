@@ -1,8 +1,8 @@
 # Android Lint 技术债记录
 
-## 当前实测基线（2026-11-11，提交 `730060336a649a4415efff524bb33b1baa4a86c6`）
+## 当前实测基线（2026-11-12，提交 `56afbbd306bc02a7cc5c5392af65e0ea9c61233c`）
 
-使用 Android Lint 9.4.1 对 Debug 变体执行完整检查。CI run `42953800498` 上传的 `yuheng-preview-lint-report` 原始 SARIF 共 **375 条发现：335 errors / 40 warnings**。按 SARIF 规则默认严重级别统计（SARIF result 未逐条重复写 level）。
+使用 Android Lint 9.4.1 对 Debug 变体执行完整检查。CI run `43138824054`（源码提交 `56afbbd306bc02a7cc5c5392af65e0ea9c61233c`）上传的 `yuheng-preview-lint-report` 原始 SARIF 共 **375 条发现：335 errors / 40 warnings**。按 SARIF 规则默认严重级别统计（SARIF result 未逐条重复写 level）。
 
 | 类别 | 数量 | 严重级别 |
 | --- | ---: | --- |
@@ -56,5 +56,7 @@
 - 提交 `ed7400e2`：清理旧启动图标位图与重复资源；Android 单元测试、Debug APK 构建及 `android16-6.12` LKM 构建成功；Lint 334 errors / 55 warnings。
 - 提交 `f05829f2`：修正土耳其语 `profile` 翻译标记；Android 单元测试、Debug APK 构建及 `android16-6.12` LKM 构建成功；Lint 335 errors / 52 warnings。
 - 提交 `7300603`：壁纸偏好读写与 URI 解析改用 AndroidX Core KTX；Android 单元测试、Debug APK、Lint 与 `android16-6.12` 三重签名 LKM 构建均成功；Lint 335 errors / 40 warnings，`UseKtx` 从 13 条降为 0。
+
+- 提交 `56afbbd`：模块列表读取失败时保留上次成功数据并明确展示错误/重试状态；CI run `43138824054` 的单元测试与 Debug APK 构建成功，Lint 仍为 335 errors / 40 warnings（非阻断报告）。
 
 **注意：** Debug CI 成功不代表正式签名、设备 Root 授权、模块生命周期或真机回归已经验收。正式签名工作流还必须核对 APK v2 证书 SHA-256 与 LKM 信任配置一致。

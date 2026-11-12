@@ -3,7 +3,6 @@ package me.weishu.kernelsu.ui.screen.colorpalette
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -65,7 +64,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -76,6 +74,7 @@ import me.weishu.kernelsu.R
 import me.weishu.kernelsu.ui.component.bottombar.useNavigationRail
 import me.weishu.kernelsu.ui.component.miuix.ScaleDialog
 import me.weishu.kernelsu.ui.theme.LocalEnableBlur
+import me.weishu.kernelsu.ui.theme.YuhengThemePreset
 import me.weishu.kernelsu.ui.theme.keyColorOptions
 import me.weishu.kernelsu.ui.util.BlurredBar
 import me.weishu.kernelsu.ui.util.rememberBlurBackdrop
@@ -172,41 +171,46 @@ fun ColorPaletteScreenMiuix(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         ArrowPreference(
-                            title = "青龙 · 苍璧",
+                            title = YuhengThemePreset.QINGLONG.title,
                             summary = "首发正式主题 · 当前可用",
                             startAction = {
-                                Image(
-                                    painter = painterResource(R.drawable.ic_theme_qinglong),
-                                    contentDescription = null,
-                                    modifier = Modifier.padding(end = 6.dp).size(34.dp)
+                                Box(
+                                    Modifier
+                                        .padding(end = 6.dp)
+                                        .size(34.dp)
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(Color(YuhengThemePreset.QINGLONG.seedColor))
                                 )
                             },
-                            onClick = { actions.onApplyYuhengPreset(0) }
+                            onClick = { actions.onApplyYuhengPreset(YuhengThemePreset.QINGLONG.ordinal) }
                         )
-                        listOf(
-                            Triple("白虎 · 霜华", R.drawable.ic_theme_baihu, "待开发 · 霜银 / 虎纹 / 山岳"),
-                            Triple("玄武 · 玄甲", R.drawable.ic_theme_xuanwu, "待开发 · 玄黄 / 龟甲 / 北斗"),
-                            Triple("朱雀 · 丹曜", R.drawable.ic_theme_zhuque, "待开发 · 朱砂 / 凤羽 / 日轮"),
-                            Triple("麒麟 · 紫宸", R.drawable.ic_theme_qilin, "待开发 · 紫金 / 祥云 / 瑞鳞"),
-                        ).forEach { (title, icon, summary) ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Image(
-                                    painter = painterResource(icon),
-                                    contentDescription = null,
-                                    modifier = Modifier.padding(end = 12.dp).size(34.dp),
-                                )
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(title, color = colorScheme.onBackground)
-                                    Text(summary, color = colorScheme.onBackground.copy(alpha = 0.65f), fontSize = 12.sp)
+                        YuhengThemePreset.entries
+                            .filter { it != YuhengThemePreset.QINGLONG }
+                            .forEach { preset ->
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    Box(
+                                        Modifier
+                                            .padding(end = 12.dp)
+                                            .size(34.dp)
+                                            .clip(RoundedCornerShape(10.dp))
+                                            .background(Color(preset.seedColor))
+                                    )
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Text(preset.title, color = colorScheme.onBackground)
+                                        Text(
+                                            "待开发 · ${preset.subtitle}",
+                                            color = colorScheme.onBackground.copy(alpha = 0.65f),
+                                            fontSize = 12.sp,
+                                        )
+                                    }
+                                    Text("待开发", color = colorScheme.onBackground.copy(alpha = 0.65f), fontSize = 11.sp)
                                 }
-                                Text("待开发", color = colorScheme.onBackground.copy(alpha = 0.65f), fontSize = 11.sp)
                             }
-                        }
                         ArrowPreference(
                             title = "自定义壁纸",
                             summary = "从相册选择图片作为应用背景",

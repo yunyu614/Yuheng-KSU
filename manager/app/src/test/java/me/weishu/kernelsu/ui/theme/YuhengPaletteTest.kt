@@ -19,6 +19,15 @@ class YuhengPaletteTest {
     }
 
     @Test
+    fun presetAccentsMatchTheFiveBeastPalette() {
+        assertEquals(0xFF347B68.toInt(), YuhengThemePreset.QINGLONG.seedColor)
+        assertEquals(0xFF9AA8B2.toInt(), YuhengThemePreset.BAIHU.seedColor)
+        assertEquals(0xFFD6A82E.toInt(), YuhengThemePreset.XUANWU.seedColor)
+        assertEquals(0xFFB9423A.toInt(), YuhengThemePreset.ZHUQUE.seedColor)
+        assertEquals(0xFF9570B5.toInt(), YuhengThemePreset.QILIN.seedColor)
+    }
+
+    @Test
     fun seedColorLookupReturnsTheMatchingPreset() {
         YuhengThemePreset.entries.forEach { preset ->
             assertEquals(preset, YuhengThemePreset.fromSeedColor(preset.seedColor))

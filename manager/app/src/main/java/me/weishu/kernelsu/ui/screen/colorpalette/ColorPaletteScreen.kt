@@ -94,7 +94,7 @@ fun ColorPaletteScreen() {
                         putString("yuheng_wallpaper_file", copied.absolutePath)
                         remove("yuheng_wallpaper_uri")
                     }
-                    activity?.recreate()
+                    // YuhengAppBackground observes this preference and refreshes the wallpaper in place.
                 }.onFailure { error ->
                     temp.delete()
                     Toast.makeText(
@@ -143,7 +143,6 @@ fun ColorPaletteScreen() {
             }
             File(context.filesDir, "yuheng-wallpaper").delete()
             File(context.filesDir, "yuheng-wallpaper.tmp").delete()
-            activity?.recreate()
         },
         onSetThemeMode = viewModel::setThemeMode,
         onApplyYuhengPreset = { preset ->
